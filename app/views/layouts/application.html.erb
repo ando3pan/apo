@@ -6,10 +6,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<%= render 'layouts/header' %>
 
-<%= yield %>
+	<%= yield %>
 
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<script>
+		$(document).ready(function() {$(".button-collapse").sideNav();});
+	</script>
 </body>
 </html>
