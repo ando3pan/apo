@@ -12,7 +12,10 @@
 
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<script>
-		$(document).ready(function() {$(".button-collapse").sideNav();});
+		$(document).ready(function() {
+			$(".button-collapse").sideNav();
+			$('select').material_select();
+		});
 	</script>
 </body>
 </html>
