@@ -1,0 +1,144 @@
+// Place all the styles related to the Page controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image: url("/assets/handmadepaper.png");
+}
+
+.container {
+	margin-top: 40px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.separate {
+	margin: 20px 0;
+}
+
+.gap {
+	margin-bottom: 20px;
+}
+
+.hamburger-icon:before { content:'\2630'; }
+.hamburger-icon {
+	font-size: 2.5em;
+	margin-left: 20px;
+}
+
+.splash-back {
+	background-image: url("/assets/geisel.png");
+	background-size: cover;
+	height: 92vh;
+	padding-top: 20px;
+}
+
+.banner img {
+	box-shadow: 0px 4px 8px #999;
+	width: 100%;
+}
+
+.hero-text {
+	color: #FFE033;
+	font-size: 4em;
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin-top: 120px;
+	text-transform: uppercase;
+
+	p {
+		color: #2855A3;
+		margin: 0;
+		margin-bottom: -30px;
+	}
+
+	span {
+		color: #FFF;
+		font-size: 0.35em;
+		font-weight: 400;
+		letter-spacing: 2px;
+	}
+}
+
+.cd-words-wrapper {
+	display: inline-block;
+	position: relative;
+	text-align: left;
+
+	b {
+		display: inline-block;
+		position: absolute;
+		white-space: nowrap;
+		left: 0;
+		top: 0;
+
+		&.is-visible {
+			position: relative;
+		}
+	}
+
+	.no-js & b {
+		opacity: 0;
+		
+		&.is-visible {
+			opacity: 1;
+		}
+
+	}
+}
+
+.cd-headline {
+	color: #FFF;
+	font-size: 1.43em;
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+
+	span {
+		display: inline-block;
+		padding: .2em 0;
+	}
+
+	.cd-words-wrapper {
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		overflow: hidden;
+		vertical-align: top;
+
+		&::after {
+			/* line */
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 2px;
+			height: 100%;
+			background-color: #FFF;
+		}
+	}
+
+	b {
+		opacity: 0;
+		top: .2em;
+
+		&.is-visible {
+			top: 0;
+			opacity: 1;
+		}
+	}
+}
+
+.welcome {
+	color: #FFF;
+	font-size: 2.5em;
+	font-weight: 400;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}

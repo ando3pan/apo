@@ -1,0 +1,62 @@
+<div class="splash-back">
+	<div class="container">
+		<div class="row">
+			<% if !user_signed_in? %>
+			<div class="col s12 l8">
+				<div class="hero-text">
+					Alpha Phi Omega
+					<p>Rho Pi</p>
+					<span>University of California San Diego</span>
+				</div>
+				<!-- http://codyhouse.co/gem/css-animated-headlines/ -->
+				<section class="cd-intro">
+					<div class="cd-headline clip is-full-width">
+						<span>Alpha Phi Omega stands for </span>
+						<span class="cd-words-wrapper">
+							<b class="is-visible">leadership</b>
+							<b>friendship</b>
+							<b>service</b>
+						</span>
+					</div>
+				</section>
+			</div>
+			<div class="col s12 l4">
+          <div class="card">
+            <div class="card-content">
+            	<div class="text-center">
+            		<%= image_tag "crest.png", width: 140 %>
+            	</div>
+            	<span class="card-title">Member Login</span>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+							  <div class="input-field">
+							    <%= f.label :username %>
+							    <%= f.text_field :login %>
+							  </div>
+							  <div class="input-field">
+							    <%= f.label :password %>
+							    <%= f.password_field :password, autocomplete: "off" %>
+							  </div>
+							  <% if devise_mapping.rememberable? -%>
+							    <div class="input-field gap">
+							      <%= f.check_box :remember_me %>
+							      <%= f.label :remember_me %>
+							    </div>
+							  <% end -%>
+							  <div class="text-center">
+							    <%= f.submit "Submit", class: "btn yellow darken-2 separate" %>
+							  </div>
+							<% end %>
+            </div>
+          </div>
+        </div>
+        <% else %>
+        <div class="col s12">
+        	<div class="welcome">
+        		Welcome, <%= "#{current_user.nickname} #{current_user.lastname}" %>.
+        	</div>
+        </div>
+        <%= link_to "Cancel my account", user_registration_path(current_user), :confirm => "Are you sure?", :method => :delete %>.
+        <% end %>
+		</div>
+	</div>
+</div>

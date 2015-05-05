@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'page#home'
 
   get '/user/:id',        to: 'user#show',     as: 'user'
-  patch '/user/:id/update', to: 'user#update',   as: 'update'
+  match '/user/:id/update', to: 'user#update', via: [:get, :patch], as: 'update_user'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

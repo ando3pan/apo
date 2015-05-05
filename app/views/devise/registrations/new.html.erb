@@ -1,0 +1,54 @@
+<div class="container row">
+  <div class="col s12 m6 offset-m3 card-panel">
+    <div class="text-center separate">
+      <%= image_tag "pin.png" %>
+    </div>
+    <div class="form-title">
+      Register
+    </div>
+    <div class="form-descrip gap">
+      Create your profile for the website.<br />
+      All fields are required unless otherwise stated.
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="input-field">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "validate", autofocus: true %>
+    </div>
+    <div class="input-field">
+      <%= f.label :firstname, "First Name" %>
+      <%= f.text_field :firstname, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :lastname, "Last Name" %>
+      <%= f.text_field :lastname, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :nickname, "Nickname (optional)" %>
+      <%= f.text_field :nickname %>
+    </div>
+    <div class="input-field">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :phone, "Phone Number" %>
+      <%= f.text_field :phone %>
+    </div>
+    <div class="input-field">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "off", class: "validate" %>
+    </div>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <div class="input-field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "validate" %>
+    </div>
+    <div class="text-center gap">
+      <%= f.submit "Submit", class: "btn yellow darken-2 center" %>
+    <% end %>
+  </div> 
+</div>
