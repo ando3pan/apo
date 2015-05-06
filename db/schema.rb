@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503082619) do
+ActiveRecord::Schema.define(version: 20150505212708) do
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "location"
+    t.string   "title",          default: "New Event", null: false
+    t.string   "type"
+    t.decimal  "hours",          default: 0.0
+    t.decimal  "driver_hours",   default: 0.0
+    t.boolean  "flake_penalty",  default: true
+    t.text     "info",           default: ""
+    t.decimal  "distance",       default: 0.0
+    t.string   "contact",        default: ""
+    t.integer  "attendance_cap"
+    t.integer  "chair_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                             null: false

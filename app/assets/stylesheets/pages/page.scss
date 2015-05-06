@@ -142,3 +142,28 @@ body {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
+
+/* Admin panel */
+.action-link {
+	font-size: 0.9rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.admin-card {
+	img {
+		height: 120px;
+		margin-bottom: 20px;
+	}
+	min-height: 220px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+.centered-title {
+	color: #FFF;
+	font-size: 2.85em;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+}

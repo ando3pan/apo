@@ -1,6 +1,6 @@
 <div class="container row">
 	<% if @edit %> 
-  <div class="col s12 m6 offset-m3 card-panel">
+  <div class="col m12 l8 offset-l2 card-panel">
     <div class="text-center separate">
       <%= image_tag "pin.png" %>
     </div>
@@ -10,89 +10,90 @@
     <div class="form-descrip gap">
       Update your public profile information.
       <% if @success %>
-				<div class="indigo separate" id="update_success">Your profile was successfully updated.</div>
-			<% end %> 
+      <div class="indigo separate" id="update_success">Your profile was successfully updated.</div>
+      <% end %> 
     </div>
     <% if @user.errors.any? %>
     <div id="error_explanation" class="gap">
     	<ul>
-				<li><%= @user.errors.full_messages.first %></li>
-			</ul>
-		</div>
-		<% end %>
-    <%= form_for(@user, url: update_user_path(@user)) do |f| %>
-    <div class="input-field">
-    	<label for="disabled">Username</label>
-      <input disabled value=<%= @user.username %> id="disabled" type="text" class="validate">
+        <li><%= @user.errors.full_messages.first %></li>
+      </ul>
     </div>
-    <div class="input-field">
-      <%= f.label :firstname, "First Name" %>
-      <%= f.text_field :firstname, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :lastname, "Last Name" %>
-      <%= f.text_field :lastname, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :nickname, "Nickname (optional)" %>
-      <%= f.text_field :nickname %>
-    </div>
-    <div class="input-field">
-      <% options = [["#{@user.firstname} #{@user.lastname}"]] %>
-      <% if @user.nickname != @user.firstname %>
-      	<% options << ["#{@user.nickname} #{@user.lastname}"] %>
-      <% end %>
-      <%= f.select(:displayname, options_for_select(options))%>
-      <%= f.label :displayname, "Display Name" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :email %>
-      <%= f.email_field :email, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :phone, "Phone Number" %>
-      <%= f.text_field :phone, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <% options = ['None', 'Alpha', 'Phi', 'Omega', 'Rho', 'Pi'] %>
-      <%= f.select(:family, options_for_select(options)) %>
-      <%= f.label :family, "Family" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :line, "Line" %>
-      <%= f.text_field :line, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :pledge_class, "Pledge Class" %>
-      <%= f.text_field :pledge_class, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <% options = ['Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'] %>
-      <%= f.select(:membership_status, options_for_select(options)) %>
-      <%= f.label :membership_status, "Membership Status" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :major, "Major" %>
-      <%= f.text_field :major, class: "validate" %>
-    </div>
-    <div class="input-field">
-      <%= select_year Date.today, :start_year => Time.now.year + 6, :end_year => Time.now.year - 25, :field_name => :graduation_year, :prefix => :user %>
-      <%= f.label :graduation_year, "Graduation Year" %>
-    </div>
-    <div class="input-field">
-      <%= f.label :shirt_size, "Shirt Size" %>
-      <%= f.text_field :shirt_size, class: "validate" %>
-    </div>
-    <div class="input-field">
-    	<%= f.check_box(:car) %>
-      <%= f.label :car, "Have a car?" %>
-    </div>
-    <br />
-    <div class="text-center gap">
-      <%= f.submit "Update", class: "btn yellow darken-2 center" %>
     <% end %>
-  </div> 
-  <% else %>
-  shit
+    <div class="form-card">
+      <%= form_for(@user, url: update_user_path(@user)) do |f| %>
+      <div class="input-field">
+       <label for="disabled">Username</label>
+       <input disabled value=<%= @user.username %> id="disabled" type="text" class="validate">
+      </div>
+      <div class="input-field">
+        <%= f.label :firstname, "First Name" %>
+        <%= f.text_field :firstname, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :lastname, "Last Name" %>
+        <%= f.text_field :lastname, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :nickname, "Nickname (optional)" %>
+        <%= f.text_field :nickname %>
+      </div>
+      <div class="input-field">
+        <% options = [["#{@user.firstname} #{@user.lastname}"]] %>
+        <% if @user.nickname != @user.firstname %>
+        <% options << ["#{@user.nickname} #{@user.lastname}"] %>
+        <% end %>
+        <%= f.select(:displayname, options_for_select(options))%>
+        <%= f.label :displayname, "Display Name" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :phone, "Phone Number" %>
+        <%= f.text_field :phone, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <% options = ['None', 'Alpha', 'Phi', 'Omega', 'Rho', 'Pi'] %>
+        <%= f.select(:family, options_for_select(options)) %>
+        <%= f.label :family, "Family" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :line, "Line" %>
+        <%= f.text_field :line, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :pledge_class, "Pledge Class" %>
+        <%= f.text_field :pledge_class, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <% options = ['Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'] %>
+        <%= f.select(:membership_status, options_for_select(options)) %>
+        <%= f.label :membership_status, "Membership Status" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :major, "Major" %>
+        <%= f.text_field :major, class: "validate" %>
+      </div>
+      <div class="input-field">
+        <%= select_year Date.today, :start_year => Time.now.year + 6, :end_year => Time.now.year - 25, :field_name => :graduation_year, :prefix => :user %>
+        <%= f.label :graduation_year, "Graduation Year" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :shirt_size, "Shirt Size" %>
+        <%= f.text_field :shirt_size, class: "validate" %>
+      </div>
+      <div class="input-field">
+      	<%= f.check_box(:car) %>
+        <%= f.label :car, "Have a car?" %>
+      </div>
+      <br />
+      <div class="text-center gap">
+        <%= f.submit "Update", class: "btn yellow darken-2 center" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
   <% end %>
-</div>
+</div> 
