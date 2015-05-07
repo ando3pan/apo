@@ -11,16 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505212708) do
+ActiveRecord::Schema.define(version: 20150506210931) do
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.boolean  "attended"
+    t.boolean  "flaked"
+    t.boolean  "chair"
+    t.boolean  "can_drive"
+    t.boolean  "drove"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "attendances", ["event_id"], name: "index_attendances_on_event_id"
+  add_index "attendances", ["user_id", "event_id"], name: "index_attendances_on_user_id_and_event_id", unique: true
+  add_index "attendances", ["user_id"], name: "index_attendances_on_user_id"
 
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.string   "type"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "location"
-    t.string   "title",          default: "New Event", null: false
-    t.string   "type"
+    t.string   "title"
+    t.string   "event_type"
     t.decimal  "hours",          default: 0.0
     t.decimal  "driver_hours",   default: 0.0
     t.boolean  "flake_penalty",  default: true
@@ -28,6 +46,8 @@ ActiveRecord::Schema.define(version: 20150505212708) do
     t.decimal  "distance",       default: 0.0
     t.string   "contact",        default: ""
     t.integer  "attendance_cap"
+    t.integer  "user_id"
+    t.boolean  "public",         default: true
     t.integer  "chair_id"
   end
 

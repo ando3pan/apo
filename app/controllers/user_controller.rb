@@ -6,7 +6,7 @@ class UserController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		if @user == current_user
+		if @user == current_user || current_user.admin
 			@edit = true
 			if request.patch?
 				if @user.update_attributes(user_params)
@@ -14,7 +14,6 @@ class UserController < ApplicationController
 					@success = true
 					render 'update'
 				else
-					puts @user.errors.full_messages
 					render 'update'
 				end
 			end

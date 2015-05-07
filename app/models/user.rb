@@ -6,20 +6,20 @@ class User < ActiveRecord::Base
 
  	attr_accessor :login
 
-	validates :username, presence: true, uniqueness: true, length: { minimum: 3 }, format: { with: /\A[a-zA-Z]+\z/,
-    message: "only allows letters" }, :case_sensitive => false
+  has_many :attendances
+  has_many :attending_events, through: :attendances, source: :event #for the participants
+  has_many :events #for the event organiser
+
+	validates :username, presence: true, uniqueness: true, length: { minimum: 3 }, format: { with: /\A[a-zA-Z0-9]+\z/,
+    message: "only allows letters and numbers" }, :case_sensitive => false
   validates :firstname, presence: true, length: { minimum: 1 }
   validates :lastname, presence: true, length: { minimum: 1 }
-  validates :phone, presence: true, uniqueness: true, length: { minimum: 10 }
+  validates :phone, presence: true, length: { minimum: 10 }
 
 
   before_save do
   	self.a_username = self.username.downcase
-  	self.nickname ||= self.firstname
-    self.family = "None"
-    self.membership_status = "Unknown"
-    self.standing = "Unknown"
-    self.displayname = "#{self.nickname} #{self.lastname}"
+  	self.nickname = (self.nickname == "" ? self.firstname : self.nickname)
 	end
 
 	def self.find_for_database_authentication(warden_conditions)

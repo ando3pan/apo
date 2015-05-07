@@ -39,11 +39,11 @@
         <%= f.text_field :nickname %>
       </div>
       <div class="input-field">
-        <% options = [["#{@user.firstname} #{@user.lastname}"]] %>
+        <% options = [@user.displayname, "#{@user.firstname} #{@user.lastname}"] %>
         <% if @user.nickname != @user.firstname %>
-        <% options << ["#{@user.nickname} #{@user.lastname}"] %>
+        <% options << "#{@user.nickname} #{@user.lastname}" %>
         <% end %>
-        <%= f.select(:displayname, options_for_select(options))%>
+        <%= f.select(:displayname, options_for_select(options.uniq))%>
         <%= f.label :displayname, "Display Name" %>
       </div>
       <div class="input-field">
@@ -55,7 +55,7 @@
         <%= f.text_field :phone, class: "validate" %>
       </div>
       <div class="input-field">
-        <% options = ['None', 'Alpha', 'Phi', 'Omega', 'Rho', 'Pi'] %>
+        <% options = [@user.family, 'None', 'Alpha', 'Phi', 'Omega', 'Rho', 'Pi'].uniq %>
         <%= f.select(:family, options_for_select(options)) %>
         <%= f.label :family, "Family" %>
       </div>
@@ -68,7 +68,7 @@
         <%= f.text_field :pledge_class, class: "validate" %>
       </div>
       <div class="input-field">
-        <% options = ['Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'] %>
+        <% options = [@user.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'].uniq %>
         <%= f.select(:membership_status, options_for_select(options)) %>
         <%= f.label :membership_status, "Membership Status" %>
       </div>
