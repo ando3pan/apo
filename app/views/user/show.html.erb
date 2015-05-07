@@ -1,4 +1,7 @@
 <div class="container row">
 	<%= current_user.displayname %>
+	<% current_user.attending_events.each do |e| %>
+		<%= link_to e.title, event_path(e) %><br />
+	<% end %>
 	<%= link_to "Edit Profile", update_user_path(current_user) %>
 </div>

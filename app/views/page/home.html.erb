@@ -54,6 +54,12 @@
         	<div class="welcome">
         		Welcome, <%= "#{current_user.nickname} #{current_user.lastname}" %>.
         	</div>
+        	<div class="card-panel">
+        		<h5>Your Events</h5>
+        		<% current_user.attending_events.each do |e| %>
+							<%= link_to e.title, event_path(e) %><br />
+						<% end %>
+        	</div>
         </div>
         <%= link_to "Cancel my account", user_registration_path(current_user), :confirm => "Are you sure?", :method => :delete %>.
         <% end %>
