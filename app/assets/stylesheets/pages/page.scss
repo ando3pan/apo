@@ -143,6 +143,23 @@ body {
 	text-transform: uppercase;
 }
 
+.calendar-link {
+	font-size: 2.5rem;
+	font-weight: 300;
+	height: 70px;
+	padding: 8px;
+	width: 100%;
+
+	a {
+		color: #FFF;
+	}
+
+	img {
+		position: relative;
+		top: 6px;
+	}
+}
+
 /* Admin panel */
 .action-link {
 	font-size: 0.9rem;
@@ -173,4 +190,13 @@ body {
    white-space: normal !important;
    overflow: visible !important;
    padding: 5px;
+}
+
+.fc-left h2 {
+	font-size: 2.6rem;
+	max-width: 200px;
+}
+
+.fc-view-container {
+	overflow: visible !important;
 }
