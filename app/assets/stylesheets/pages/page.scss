@@ -31,6 +31,21 @@ body {
 	margin-top: 20px;
 }
 
+.faded {
+	color: #999;
+}
+
+/* Flash */
+.flash-wrapper {
+	font-size: 1.15em;
+	padding: 12px 0;
+	text-align: center;
+}
+
+#flash_alert {
+	background-color: #ef9a9a;
+}
+
 .hamburger-icon:before { content:'\2630'; }
 .hamburger-icon {
 	font-size: 2.5em;
@@ -214,4 +229,22 @@ body {
 
 .fc-view-container {
 	overflow: visible !important;
+}
+
+/* Approve page */
+.unapproved-users {
+	padding: 12px;
+}
+
+.unapproved-user {
+	margin: 8px 0;
+	padding: 8px 4px;
+
+	label {
+		font-size: 0.9rem;
+	}
+
+	&:nth-child(even) {
+		background-color: #F7F7F7;
+	}
 }
