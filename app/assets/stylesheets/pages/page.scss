@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	background-image: url("/assets/handmadepaper.png");
+	background-image: url("/assets/back.png");
 }
 
 .container {
@@ -46,6 +46,10 @@ body {
 	background-color: #ef9a9a;
 }
 
+#flash_success {
+	background-color: #c8e6c9;
+}
+
 .hamburger-icon:before { content:'\2630'; }
 .hamburger-icon {
 	font-size: 2.5em;
@@ -59,12 +63,36 @@ body {
 	padding-top: 20px;
 }
 
-.splash-back.palms {
-	background-image: url("/assets/palms.png");
+.splash-back.stardust {
+	background-image: url("/assets/stardust.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
 }
 
 .splash-back.giftly {
 	background-image: url("/assets/giftly.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.sativa {
+	background-image: url("/assets/sativa.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.swirls {
+	background-image: url("/assets/swirls.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.paper {
+	background-image: url("/assets/handmadepaper.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;

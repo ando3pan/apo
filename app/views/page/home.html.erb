@@ -1,7 +1,7 @@
 <div class="splash-back">
 	<div class="container">
 		<div class="row">
-			<% if !user_signed_in? %>
+			<% unless user_signed_in? %>
 			<div class="col s12 l8">
 				<div class="hero-text">
 					Alpha Phi Omega
@@ -54,14 +54,27 @@
         	<div class="welcome">
         		Welcome, <%= "#{current_user.nickname} #{current_user.lastname}" %>.
         	</div>
-        	<div class="card-panel">
-        		<h5>Your Events</h5>
-        		<% current_user.attending_events.each do |e| %>
-							<%= link_to e.title, event_path(e) %><br />
-						<% end %>
-        	</div>
+        	<div class="row">
+        		<div class="col s12 l8">
+        			<div class="card-panel">
+	        			<h5>Announcements</h5>
+	        		</div>
+        		</div>
+	        	<div class="col s12 l4">
+	        		<div class="card-panel">
+		        		<h5>My Upcoming Events</h5>
+		        		<% current_user.attending_events.each do |e| %>
+		        			<% if e.end_time > Time.now %>
+										<%= link_to e.title, event_path(e) %><br />
+									<% end %>
+								<% end %>
+							</div>
+							<div class="card-panel">
+								<h5>Links</h5>
+							</div>
+	        	</div>
+	        </div>
         </div>
-        <%= link_to "Cancel my account", user_registration_path(current_user), :confirm => "Are you sure?", :method => :delete %>.
         <% end %>
 		</div>
 	</div>

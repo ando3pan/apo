@@ -1,3 +1,4 @@
+<div class="splash-back stardust">
 <div class="container row">
 	<% if @edit %> 
   <div class="col m12 l8 offset-l2 card-panel">
@@ -9,9 +10,6 @@
     </div>
     <div class="form-descrip gap">
       Update your public profile information.
-      <% if @success %>
-      <div class="indigo separate" id="update_success">Your profile was successfully updated.</div>
-      <% end %> 
     </div>
     <% if @user.errors.any? %>
     <div id="error_explanation" class="gap">
@@ -94,6 +92,10 @@
       </div>
       <% end %>
     </div>
+    <div class="text-center separate">
+      <%= link_to "Back to profile", user_path(@user.a_username) %>
+    </div>
   </div>
   <% end %>
 </div> 
+</div>

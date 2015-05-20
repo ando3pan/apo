@@ -7,10 +7,13 @@
 </head>
 <body>
 	<%= render 'layouts/header' %>
-	<% flash.each do |name, msg| %>
-		<!-- render messages except the ones that have problems -->
-    <%= content_tag :div, msg, class: "flash-wrapper", :id => "flash_#{name}" if msg.is_a?(String) && !msg.start_with?('translation') %>
-  <% end %> 
+	<% if flash.any? %>
+		<% flash.each do |name, msg| %>
+			<!-- render messages except the ones that have problems -->
+	    <%= content_tag :div, msg, class: "flash-wrapper", :id => "flash_#{name}" if msg.is_a?(String) && !msg.start_with?('translation') %>
+	  <% end %>
+	  <% flash.clear %> 
+	<% end %>
 
 	<%= yield %>
 
