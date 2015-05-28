@@ -14,7 +14,7 @@
 }
 
 .service-splash {
-	background-image: url("/assets/blue.png");
+	background-image: image-url("blue.png");
 	background-size: cover;
 	background-position: 50%;
 	//background-attachment: fixed;
@@ -28,7 +28,7 @@
 }
 
 .fellowship-splash {
-	background-image: url("/assets/purple.png");
+	background-image: image-url("purple.png");
 	background-attachment: fixed;
 	background-position: 0 -120%;
 	p {

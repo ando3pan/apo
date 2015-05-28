@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	background-image: url("/assets/back.png");
+	background-image: image-url("back.png");
 }
 
 .container {
@@ -57,42 +57,42 @@ body {
 }
 
 .splash-back {
-	background-image: url("/assets/geisel.png");
+	background-image: image-url("geisel.png");
 	background-size: cover;
 	height: 92vh;
 	padding-top: 20px;
 }
 
 .splash-back.stardust {
-	background-image: url("/assets/stardust.png");
+	background-image: image-url("stardust.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;
 }
 
 .splash-back.giftly {
-	background-image: url("/assets/giftly.png");
+	background-image: image-url("giftly.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;
 }
 
 .splash-back.sativa {
-	background-image: url("/assets/sativa.png");
+	background-image: image-url("sativa.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;
 }
 
 .splash-back.swirls {
-	background-image: url("/assets/swirls.png");
+	background-image: image-url("swirls.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;
 }
 
 .splash-back.paper {
-	background-image: url("/assets/handmadepaper.png");
+	background-image: image-url("handmadepaper.png");
 	background-repeat: repeat;
 	background-size: auto;
 	height: 100%;
