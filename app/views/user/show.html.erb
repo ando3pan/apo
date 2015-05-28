@@ -1,20 +1,26 @@
 <div class="container">
-	<div class="row">
-		<div class="cover">
-			<div class="pf-pic">
-				<%= image_tag "astro-pf.png" %> <div><%= @user.displayname %></div> <span><%= @user.pledge_class %></span>
-			</div>
-		</div>
-		<div class="card-panel undercover">
-			<span>Joined <%= @user.created_at.strftime("%b %d, %Y") %>.</span>
-			<%= link_to update_user_path(@user) do %>
-				<div class="btn yellow darken-2">
-					Edit Profile
-				</div>
-			<% end %>
+	<div class="cover">
+		<div class="profile">
+			<div class="pf-pic"><%= image_tag "astro-pf.png" %></div>
+			<div><%= @user.displayname %></div> <span><%= @user.pledge_class %></span>
 		</div>
 	</div>
-	<% @user.attending_events.each do |e| %>
+	<div class="card-panel undercover">
+		<span>Joined <%= @user.created_at.strftime("%b %d, %Y") %>.</span>
+		<%= link_to update_user_path(@user) do %>
+			<div class="btn yellow darken-2">
+				Edit Profile
+			</div>
+		<% end %>
+	</div>
+	<div class="row">
+		<div class="col l4">
+			<div class="card-panel">
+				<%= @hours %> service hours completed.
+			</div>
+		</div>
+	</div>
+	<% @events.each do |e| %>
 		<%= link_to e.title, event_path(e) %><br />
 	<% end %>
 	<% 100.times do %><br/><% end %>

@@ -2,6 +2,19 @@ class UserController < ApplicationController
 	before_action :ensure_user
 
 	def show
+		@events = @user.attending_events
+		# how can I make this prettier
+		@hours = 0
+		@user.attendances.each do |a|
+			event = Event.find(a.event_id)
+			if event.event_type == "Service"
+				if a.attended?
+					@hours += a.drove ? event.driver_hours : event.hours
+				elsif event.flake_penalty? && a.flaked?
+					@hours -= event.service_hours
+				end
+			end
+		end
 	end
 
 	def update
