@@ -16,7 +16,29 @@
 	<div class="row">
 		<div class="col l4">
 			<div class="card-panel">
+				<h5>Requirements</h5>
 				<%= @hours %> service hours completed.
+			</div>
+		</div>
+		<div class="col l4">
+			<div class="card-panel">
+    		<h5>My Upcoming Events</h5>
+    		<% current_user.attending_events.each do |e| %>
+    			<% if e.end_time > Time.now %>
+						<%= link_to e.title, event_path(e) %><br />
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col l4">
+			<div class="card-panel">
+    		<h5>Attended Events</h5>
+    		<% current_user.attendances.each do |a| %>
+    			<% if a.attended %>
+    				<% e = Event.find(a.event_id) %>
+						<%= link_to e.title, event_path(e) %><br />
+					<% end %>
+				<% end %>
 			</div>
 		</div>
 	</div>

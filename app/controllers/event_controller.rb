@@ -105,7 +105,7 @@ class EventController < ApplicationController
 									color: get_event_color(e.event_type),
 									textColor: e.participants.size >= e.attendance_cap && e.attendance_cap > 0 ? "#FF7575" : "white",
 									url: "/event/#{e.id}",
-									description: e.participants.include?(current_user) ? "You're going'." : ""
+									description: e.participants.include?(current_user) ? "You're going." : ""
 								 })
 		end
 		render json: events
