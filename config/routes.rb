@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   match '/event/cancel',    to: 'event#cancel',       via: [:post]
   match '/event/:id',       to: 'event#show',         via: [:get],          as: 'event'
   match '/event/:id/chair', to: 'event#chair',        via: [:get],          as: 'event_chair'
+  match '/event/:id/delete',to: 'event#destroy',      via: [:delete],       as: 'destroy_event'
   match '/user/:id',        to: 'user#show',          via: [:get],          as: 'user'
   match '/user/:id/update', to: 'user#update',        via: [:get, :patch],  as: 'update_user'
 

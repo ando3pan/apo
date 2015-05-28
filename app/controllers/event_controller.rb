@@ -34,9 +34,25 @@ class EventController < ApplicationController
 	end
 
 	def new
-		if request.get? 
+		if request.get?
 			@event = current_user.events.create
 			@event.flake_penalty = false # oops this should default to false
+			if params[:dup]
+				@copy = Event.find(params[:dup])
+				@event = current_user.events.create(
+					title: @copy.title,
+					location: @copy.location,
+					event_type: @copy.event_type,
+					info: @copy.info,
+					contact: @copy.contact,
+					attendance_cap: @copy.attendance_cap,
+					flake_penalty: @copy.flake_penalty,
+					public: @copy.public,
+					hours: @copy.hours,
+					driver_hours: @copy.driver_hours,
+					distance: @copy.distance
+					)
+			end
 		elsif request.post?
 			@event = current_user.events.create(event_params)
 			if @event.driver_hours == 0
@@ -44,13 +60,22 @@ class EventController < ApplicationController
 			end
 			if @event.save
 				redirect_to event_path(@event)
+				flash[:success] = "Event successfully created."
 			else
-				puts "Errors: #{@event.errors.full_messages}"
+				flash[:alert] = "Errors: #{@event.errors.full_messages.join(", ")}"
 				render 'new'
 			end
 		else
 			redirect_to root_path
 		end
+	end
+
+	def destroy
+		if current_user.admin?
+			Event.find(params[:id]).destroy
+			flash[:success] = "Event was successfully deleted."
+		end
+		redirect_to events_path
 	end
 
 	def chair

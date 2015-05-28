@@ -28,11 +28,15 @@
       <%= f.text_field :location, class: "validate" %>
     </div>
     <div class="input-field event-selector">
-      <% options = ["Fellowship", "Service", "Fundraising", "Interchapter", "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush"] %>
+      <% if @copy %>
+        <% options = [@copy.event_type] %>
+      <% else %>
+        <% options = ["Fellowship", "Service", "Fundraising", "Interchapter", "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush"] %>
+      <% end %>
       <%= f.select(:event_type, options_for_select(options))%>
       <%= f.label :event_type, "Event Type" %>
     </div>
-    <div id="for-service" style="display: none;">
+    <div id="for-service" <% if @copy == nil %>style="display: none;"<% end %>>
       <div class="input-field">
         <%= f.label :hours, "Service Hours" %>
         <%= f.number_field :hours, class: "validate", step: 'any', min: '0'  %>

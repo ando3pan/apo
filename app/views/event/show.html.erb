@@ -147,11 +147,20 @@
 							<div class="btn-large disabled event-signup separate">You Are Attending</div>
 						<% end %>
 					<% end %>
+					<% if current_user.admin? %>
+						<%= link_to "Create Duplicate Event", new_event_path(dup: @event.id) %><br />
+					<% end %>
 	  		</div>
 	  	</div>
 	  </div>
 	</div>
 </div>
+<% if current_user.admin? %>
+	<div class="text-center gap">
+		<%= link_to "Delete This Event", destroy_event_path(@event), data: {confirm: "Are you sure? The event will be deleted forever."}, 
+			method: :delete %>
+	</div>
+<% end %>
 </div>
 
 <% content_for :javascript do %>
