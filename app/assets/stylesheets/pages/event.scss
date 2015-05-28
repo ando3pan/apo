@@ -1,0 +1,142 @@
+// Place all the styles related to the Event controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.event-title {
+	color: #FFF;
+	text-align: center;
+
+	p {
+		font-size: 0.9rem;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+}
+
+.service-splash {
+	background-image: url("/assets/blue.png");
+	background-size: cover;
+	background-position: 50%;
+	//background-attachment: fixed;
+	p {
+		color: #D0D5F2;
+	}
+}
+
+.service {
+	background-color: #3949AB;
+}
+
+.fellowship-splash {
+	background-image: url("/assets/purple.png");
+	background-attachment: fixed;
+	background-position: 0 -120%;
+	p {
+		color: #D0C0F0;
+	}
+}
+
+.fellowship {
+	background-color: #5E35B1;
+}
+
+.fundraising {
+	background-color: #388E3C;
+	p {
+		color: #C5E8C7;
+	}
+}
+
+#map-canvas {
+	height: 220px;
+}
+
+.card-action {
+	text-transform: uppercase;
+
+	span {
+		color: #777;
+	}
+}
+
+.border-bottom {
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.event-descrip {
+	color: #777;
+	text-transform: uppercase;
+
+	span {
+		color: #333;
+		font-weight: 600;
+	}
+}
+
+.e-time-offset {
+	margin-left: 17px;
+}
+
+.event-signup {
+	font-size: 1.1em;
+	width: 100%;
+}
+
+.signup-title {
+	color: #FFF;
+	padding: 4px;
+	text-align: center;
+}
+
+.border-top {
+	padding-top: 20px;
+	border-top: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.signup-sheet {
+	padding: 15px;
+
+	h4 {
+		color: #FFF;
+	}
+}
+
+.no-participants {
+	color: #AAA;
+	font-size: 1.5em;
+}
+
+/* Chairsheet stuff */
+.aside-counter {
+	color: #888;
+	display: inline-block;
+	font-size: 0.9em;
+	position: relative;
+	top: 28px;
+}
+
+.attendance-options {
+	label {
+		font-size: 0.9em !important;
+	}
+	position: relative;
+	top: -45px;
+	margin-bottom: -35px;
+}
+
+.attendee:nth-child(even) {
+	background-color: #F7F7F7;
+	padding: 12px 0;
+}
+
+.extra-descrip {
+	color: #888;
+	font-style: italic;
+}
+
+.chairsheet-updated {
+	color: #888;
+	font-size: 0.8em;
+	font-style: italic;
+}

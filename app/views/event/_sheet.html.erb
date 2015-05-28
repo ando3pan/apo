@@ -1,0 +1,30 @@
+<% if event.participants.any? %>
+	<div class="signup-title <%= event.event_type.downcase %>">
+		<h5>Signup Sheet</h5>
+	</div>
+	<ul class="collection">
+		<li class="collection-item row light-blue lighten-5">
+			<div class="col s1">#</div>
+	    <div class="col s4">Name</div>
+	    <div class="col s3">Phone Number</div>
+	    <div class="col s2">Family</div>
+	    <div class="col s2">Driving</div>
+	  </li>
+	  <% event.attendances.each_with_index do |a, index| %>
+	  	<% p = User.find(a.user_id) %>
+	  	<% waitlist = event.attendance_cap > 0 && index+1 > event.attendance_cap %>
+		  <li class="collection-item row <%= event.chair_id == p.id ? "yellow lighten-2" : "" %>
+		  	<%= waitlist  ? "blue-grey lighten-4" : "" %>">
+		  	<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
+		    <div class="col s4"><%= p.displayname %></div>
+		    <div class="col s3"><%= p.phone %></div>
+		    <div class="col s2"><%= p.family %></div>
+		    <div class="col s2"><% if a.can_drive %>Yes<% elsif p.car %>No<% end %></div>
+		  </li>
+		<% end %>
+	</ul>
+<% else %>
+	<div class="card-panel no-participants">
+		Be the first to sign up!
+	</div>
+<% end %>

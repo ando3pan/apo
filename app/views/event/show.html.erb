@@ -1,0 +1,212 @@
+<div class="splash-back paper">
+<div class="container">
+	<div class="<%= "card-panel event-title #{@event.event_type.downcase}-splash" %>">
+		<h3><%= @event.title %></h3>
+		<div class="event-time">
+			<%= @event.start_time.strftime("%b %d, %Y (%A)") %><br />
+			<%= @event.start_time.strftime("%I:%M %p") %> - <%= @event.end_time.strftime("%I:%M %p") %>
+		</div>
+		<p><%= @event.event_type %></p>
+	</div>
+	<div class="row">
+		<div class="col m12 l7">
+			<div class="card">
+		    <div class="card-image">
+		      <div id="map-canvas"></div>
+		    </div>
+		    <div class="card-content">
+		      <p><%= @event.info %></p>
+		    </div>
+		    <div class="card-action">
+		    	<% if @event.location.length > 0 %>
+		      	<span>Address:</span> <%= link_to @event.location, "https://maps.google.com?daddr=#{@event.location}", target: "_blank", id: "mapsaddress" %>
+		      	<br />
+		      <% end %>
+		      <% if @event.distance > 0 %>
+		      	<span>Distance:</span> <%= @event.distance %> miles
+		      	<br />
+		      <% end %>
+		      <% if @event.contact.length > 0 %>
+		      	<span>Contact:</span> <%= @event.contact %>
+		      	<br />
+		      <% end %>
+		    </div>
+		  </div>
+		  <div id="signup-sheet">
+				<%= render 'sheet', event: @event %>
+			</div>
+	  </div>
+	  <div class="col s12 l5">
+	  	<div class="card" id="event-panel">
+	  		<div class="card-content">
+	  			<% if @event.event_type == "Service" %>
+	  				<h5>Service Hours</h5>
+	  				<div class="border-bottom event-descrip">
+		  				Hours: <span><%= @event.hours %></span><br />
+		  				Driver Hours: <span><%= @event.driver_hours %></span><br />
+		  				Flake Penalty: <span><%= @event.flake_penalty ? "Yes" : "No" %></span>
+		  			</div>
+	  			<% end %>
+	  			<h5>Information</h5>
+	  			<div class="event-descrip">
+	  				Title: <span><%= @event.title %></span><br />
+	  				Start Time: <span><%= @event.start_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
+	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
+	  				<% a_cap = @event.attendance_cap == -1 ? "" : "/#{@event.attendance_cap}" %>
+	  				Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
+	  				<% if @event.chair_id %>
+	  					Chair: <span><%= User.find(@event.chair_id).displayname %></span>
+	  				<% end %>
+	  			</div>
+	  			<% unless @event.participants.include?(current_user) %>
+	  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
+	  					<!-- Event is happening -->
+				  		<div class="btn-large disabled event-signup separate">Signups Are Closed</div>
+				  	<% elsif @event.end_time < Time.now %>
+				  		<!-- Event ended -->
+				  		<% if current_user.admin %>
+								<%= link_to event_chair_path(@event) do %>
+									<button class="waves-effect waves-light btn-large green separate event-signup">
+								  		View Chairsheet
+								  </button>
+								<% end %>
+							<% else %>
+								<div class="btn-large disabled event-signup separate">Event Has Ended</div>
+							<% end %>
+				  	<% else %>
+				  		<!-- Initialize form -->
+			  			<form action="/event/signup" method="POST" id="signup-form">
+			  				<!-- Pass through variables -->
+			  				<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
+			  				<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
+				  			<% if @event.chair_id == nil %>
+				  				<!-- If a chair is needed -->
+					  			<div class="input-field border-top">
+							      <input type="checkbox" id="will-chair" name="attendance[chair]" />
+				    				<label for="will-chair">Will you chair this event?</label>
+							    </div><br />
+							  <% end %>
+				  			<% if current_user.car %>
+				  				<!-- If willing to drive -->
+				  				<div class="input-field border-top">
+							      <input type="checkbox" id="can-drive" checked="checked" name="attendance[will_drive]" />
+			      				<label for="can-drive">Can you drive for this event?</label>
+							    </div><br />
+				  			<% end %>
+				  			<div class="separate">
+					  			<% if @event.participants.count >= @event.attendance_cap && @event.attendance_cap > 0 %>
+					  				<!-- Already reached cap -->
+										<button type="submit" class="waves-effect waves-light btn-large orange event-signup">
+								  		Join Waitlist
+								  	</button>
+								  <% elsif @event.participants.count > 2 && @event.chair_id == nil %>
+								  	<!-- No chair after 3 signups -->
+								  	<div id="chair-required" class="btn-large disabled event-signup">
+								  		Chair Required
+								  	</div>
+								  	<!-- Button appears when chair is selected -->
+								  	<button id="hide-unless-chair" style="display:none;" 
+								  		type="submit" class="waves-effect waves-light btn-large green event-signup">
+								  		Sign Up
+								  	</button>
+							  	<% else %>
+							  		<!-- Regular signup -->
+								  	<button type="submit" class="waves-effect waves-light btn-large green event-signup">
+								  		Sign Up
+								  	</button>
+								  <% end %>
+								</div>
+							</form>
+						<% end %>
+					<% else %>
+						<!-- If event is over -->
+						<% if @event.end_time < Time.now %>
+							<!-- Chairsheet if chair -->
+							<% if @event.chair_id == current_user.id || current_user.admin %>
+								<%= link_to event_chair_path(@event) do %>
+									<button class="waves-effect waves-light btn-large green separate event-signup">
+								  		View Chairsheet
+								  </button>
+								<% end %>
+							<% else %>
+								<div class="btn-large disabled event-signup separate">Event Has Ended</div>
+							<% end %>
+						<% elsif Time.now < @event.start_time - 1.week  ||
+								@event.attendances.find_by_user_id(current_user.id).created_at > Time.now - 15.minutes %>
+							<!-- Cancel signup within 15 minutes or 1 week in advance -->
+							<form action="/event/cancel" method="POST">
+								<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
+		  					<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
+								<button id="signup-button" type="submit" 
+									class="waves-effect waves-light btn-large red lighten-1 event-signup separate">
+								  Cancel Signup
+								</button>
+							</form>
+						<% else %>
+							<!-- User is attending -->
+							<div class="btn-large disabled event-signup separate">You Are Attending</div>
+						<% end %>
+					<% end %>
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
+</div>
+</div>
+
+<% content_for :javascript do %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize" %>
+<script type="text/javascript">
+var geocoder;
+var map;
+
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var mapOptions = {
+    zoom: 16,
+  }
+  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  codeAddress();
+}
+
+function codeAddress() {
+  var address = $("#mapsaddress").html();
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      console.log("Geocode was not successful for the following reason: " + status);
+      $("#map-canvas").remove();
+    }
+  });
+}
+
+$(".event-signup").click(function() {
+	if (!$(this).hasClass("disabled") && 
+		($("#chair-required").length == 0 || $("#will-chair:checked").length == 1)) {
+		$(this).val("Loading");
+		$(this).removeClass("orange green red");
+		$(this).addClass("disabled");
+	}
+});
+
+$("#will-chair").click(function() {
+	if ($("#will-chair:checked").length == 1) {
+		$("#chair-required").hide();
+		$("#hide-unless-chair").attr('style', '');
+	} else {
+		$("#chair-required").show();
+		$("#hide-unless-chair").attr('style', 'display: none;');
+	}
+});
+
+$("#signup-form").submit(function (e) {
+	if ($("#chair-required").length > 0 && $("#will-chair:checked").length == 0)
+ 		e.preventDefault(); //prevent default form submit
+});
+</script>
+<% end %>

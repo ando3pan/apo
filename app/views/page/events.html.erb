@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="row">
+		<div class="col s12 l6 m7">
+			<div class="card">
+				<div class="card-image">
+					<img src="https://scontent-lax.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/10358132_10153308236518631_6244511577354155689_n.jpg?oh=74c3b3d10cb20f2731b192dd94732441&oe=56084541">
+					<span class="card-title" style="color: white;">Spotlight: Wipeout Run</span>
+				</div>
+				<div class="card-content">
+					<p>
+						Volunteer crew members will perform a variety of tasks including, but not limited to: coordinating day-of registrations, staffing game show-inspired obstacles, manning water stations throughout the course, assisting with bag check, and helping motivate racers across the finish line.
+					</p>
+				</div>
+				<div class="card-action">
+					<a href="#">See More</a>
+				</div>
+			</div>
+		</div>
+		<div class="col s12 l6 m5">
+			<%= link_to calendar_path do %>
+			<div class="btn blue-grey waves-effect waves-light calendar-link">
+	      <%= image_tag "calendar.png", height: 40 %> Calendar
+			</div>
+			<% end %>
+			<div class="card-panel">
+				<h5 class="card-title">Upcoming Services</h5>
+				<% if @services.any? %>
+					<% @services.each do |e| %>
+						<div class="event-thumb">
+							<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%m/%d/%y (%A)") %>
+						</div>
+					<% end %>
+				<% else %>
+					<div class="no-participants">
+						No services posted yet.
+					</div>
+				<% end %>
+			</div>
+			<div class="card-panel">
+				<h5 class="card-title">Events This Week</h5>
+				<% if @events.any? %>
+					<% @events.each do |e| %>
+						<div class="event-thumb">
+							<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%m/%d/%y (%A)") %>
+						</div>
+					<% end %>
+				<% else %>
+					<div class="no-participants">
+						No events posted yet.
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

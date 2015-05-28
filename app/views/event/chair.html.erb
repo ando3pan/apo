@@ -1,0 +1,136 @@
+<div class="splash-back giftly">
+<div class="container row">
+  <div class="col s12 l10 offset-l1 card-panel">
+    <div class="form-title gap-top">
+      Chairsheet
+    </div>
+    <div class="form-descrip gap">
+      <%= @event.title %> (<%= @event.start_time.strftime("%m/%d/%Y") %>)
+      <p>
+      	For replacements, replace the name and select "replacement".<br />
+      	Add extra attendees at the bottom of the form.
+      </p>
+    </div>
+
+    <div class="form-card">
+    	<form action="/event/chairsheet" method="POST" id="chair-form">
+    		<% @attendances.each_with_index do |a, i| %>
+    			<% user = User.find(a.user_id) %>
+    			<div class="<%= "row attendee" %>">
+    				<div class="aside-counter col s1"><%= i+1 %></div>
+	    			<div class="input-field col s4">
+		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %> value=<%= user.firstname %>>
+		          <label for=<%= "fn-#{i}" %>>First Name</label>
+		          <% if a.updated_at > a.created_at %>
+		          	<div class="chairsheet-updated">
+		          		Last updated <%= time_ago_in_words a.updated_at %> ago.
+		          	</div>
+		          <% end %>
+		        </div>
+		        <div class="input-field col s4">
+		          <input id=<%= "ln-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]lastname" %> value=<%= user.lastname %>>
+		          <label for=<%= "ln-#{i}" %>>Last Name</label>
+		        </div>
+		        <div class="input-field col s3 attendance-options">
+		        	<p>
+			          <input type="radio" class=<%= "with-gap" if a.attended %> id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
+			          	checked />
+	      				<label for=<%= "att-#{i}" %>>Attended</label>
+							</p>
+							<p>
+			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> 
+			            <%= a.flaked ? "checked" : "" %> />
+	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
+							</p>
+							<p>
+			          <input type="radio" class="with-gap" id=<%= "rep-#{i}" %> value="replaced" name=<%= "[u][#{i}]attendance" %> />
+	      				<label for=<%= "rep-#{i}" %>>Replacement</label>
+							</p>
+							<div class="input-field">
+			          <input type="checkbox" id=<%= "dro-#{i}" %> <%= a.drove || a.can_drive ? "checked" : "" %> name=<%= "[u][#{i}]drove" %> />
+	      				<label for=<%= "dro-#{i}" %>>Drove</label>
+			        </div>
+			        <div class="input-field">
+			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> <%= a.chair ? "checked" : "" %> name=<%= "[u][#{i}]chair" %> />
+	      				<label for=<%= "cha-#{i}" %>>Chair</label>
+			        </div>
+		        </div>
+		      </div>
+    		<% end %>
+    		<div id="attendances-size" style="display:none;"><%= @attendances.size %></div>
+    		<div id="extra-attendees">
+    			<div class="extra-descrip">
+    				Optional: Add more attendees (Blank names are ignored)
+    			</div>
+    			<div class="<%= "row attendee" %>">
+    				<div class="aside-counter col s1"><%= @attendances.size+1 %></div>
+    				<% i = @attendances.size %>
+	    			<div class="input-field col s4 newest-form">
+		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %>>
+		          <label for=<%= "fn-#{i}" %>>First Name</label>
+		        </div>
+		        <div class="input-field col s4">
+		          <input id=<%= "ln-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]lastname" %>>
+		          <label for=<%= "ln-#{i}" %>>Last Name</label>
+		        </div>
+		        <div class="input-field col s3 attendance-options">
+		        	<p>
+			          <input type="radio" class="" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %> checked />
+	      				<label for=<%= "att-#{i}" %>>Attended</label>
+							</p>
+							<div class="input-field">
+			          <input type="checkbox" id=<%= "dro-#{i}" %> name=<%= "[u][#{i}]drove" %> />
+	      				<label for=<%= "dro-#{i}" %>>Drove</label>
+			        </div>
+			        <div class="input-field">
+			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> name=<%= "[u][#{i}]chair" %> />
+	      				<label for=<%= "cha-#{i}" %>>Chair</label>
+			        </div>
+		        </div>
+		      </div>
+    		</div>
+    		<input type="number" style="display:none;" value=<%= @event.id %> name="id" />
+    		<div class="text-center separate">
+	    		<button type="submit" class="waves-effect waves-light btn-large green" id="submit">
+			  		Submit
+			  	</button>
+			  </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+	// prevent double submission if clicked fast
+	$("#submit").click(function() {
+		$(this).html("Processing");
+		$(this).removeClass("green");
+		$(this).addClass("disabled");
+	});
+
+	// prevent double submission if clicked fast
+	var submitted = false;
+	$("#chair-form").submit(function (e) {
+		if (submitted)
+ 			e.preventDefault(); //prevent default form submit
+ 		else submitted = true;
+	});
+
+	// handle adding extra attendees
+	var index = parseInt($("#attendances-size").html());
+	$(document).delegate(".newest-form", "click", function() {
+		$(this).removeClass("newest-form");
+		index++;
+		// so ghetto hehe
+		var nextInput = '<div class="row attendee" ><div class="aside-counter col s1">'+(index+1)+'</div>	    			<div class="input-field col s4 newest-form">		          <input id="fn-'+index+'" type="text" class="validate" name="[u]['+index+']firstname">		          <label for="fn-'+index+'">First Name</label>		        </div>		        <div class="input-field col s4">		          <input id="ln-'+index+'" type="text" class="validate" name="[u]['+index+']lastname">		          <label for="ln-'+index+'">Last Name</label>		        </div>		        <div class="input-field col s3 attendance-options">		        	<p>			          <input type="radio" class="" id="att-'+index+' value="attended" name="[u]['+index+']attendance" checked />	      				<label for="att-'+index+'">Attended</label>							</p>							<div class="input-field">			          <input type="checkbox" id="dro-'+index+'" name="[u]['+index+']drove" />	      				<label for="dro-'+index+'">Drove</label>			        </div>			        <div class="input-field">			          <input type="checkbox" class="chair-c" id="cha-'+index+'" name="[u]['+index+']chair" />	      				<label for="cha-'+index+'">Chair</label>			        </div>		        </div>		      </div>';		
+		$("#extra-attendees").append(nextInput);
+	})
+
+	// prevent selecting multiple chairs
+	$('input.chair-c').on('change', function() {
+	    $('input.chair-c').not(this).prop('checked', false);  
+	});
+</script>
+<% end %>
