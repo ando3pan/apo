@@ -42,6 +42,7 @@ class EventController < ApplicationController
 				@event = current_user.events.create(
 					title: @copy.title,
 					location: @copy.location,
+					address: @copy.address,
 					event_type: @copy.event_type,
 					info: @copy.info,
 					contact: @copy.contact,
@@ -144,7 +145,7 @@ class EventController < ApplicationController
   end
 
 	def event_params
-    params.require(:event).permit(:title, :start_time, :end_time, :location, :event_type,
+    params.require(:event).permit(:title, :start_time, :end_time, :location, :address, :event_type,
     	:hours, :driver_hours, :distance, :flake_penalty, :info, :contact, :attendance_cap, :public, :user_id)
 	end
 

@@ -7,4 +7,9 @@ class Event < ActiveRecord::Base
 	validates :start_time, presence: true
 	validates :end_time, presence: true
 	validates :attendance_cap, presence: true
+
+  before_save do
+  	self.start_time = self.start_time.in_time_zone("Pacific Time (US & Canada)")
+    self.end_time = self.end_time.in_time_zone("Pacific Time (US & Canada)")
+	end
 end

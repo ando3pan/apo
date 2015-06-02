@@ -23,8 +23,13 @@
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>My Upcoming Events</h5>
-    		<% current_user.attending_events.each do |e| %>
-    			<% if e.end_time > Time.now %>
+    		<% events = current_user.attending_events.where('end_time >= ?', Time.now) %>
+    		<% if events.empty? %>
+					<div class="no-participants">
+						No events.
+					</div>
+    		<% else %>
+    			<% events.each do |e| %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
 				<% end %>

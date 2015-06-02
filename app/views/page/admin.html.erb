@@ -28,6 +28,18 @@
 	      </div>
 	    </div>
 	  </div>
+	  <div class="col s12 m6 l3">
+	    <div class="card-panel admin-card">
+	      <div class="card-image">
+	      	<%= link_to users_path(id: current_user.id) do %>
+	        	<%= image_tag "list.png" %>
+	        <% end %>
+	      </div>
+	      <div class="card-content">
+	        <%= link_to "Member List", users_path(id: current_user.id), class: "action-link" %>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 </div>
 </div>

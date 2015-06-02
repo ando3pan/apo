@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506210931) do
+ActiveRecord::Schema.define(version: 20150602220213) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,27 +29,8 @@ ActiveRecord::Schema.define(version: 20150506210931) do
   add_index "attendances", ["user_id", "event_id"], name: "index_attendances_on_user_id_and_event_id", unique: true
   add_index "attendances", ["user_id"], name: "index_attendances_on_user_id"
 
-  create_table "events", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "creator_id"
-    t.string   "type"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string   "location"
-    t.string   "title"
-    t.string   "event_type"
-    t.decimal  "hours",          default: 0.0
-    t.decimal  "driver_hours",   default: 0.0
-    t.boolean  "flake_penalty",  default: true
-    t.text     "info",           default: ""
-    t.decimal  "distance",       default: 0.0
-    t.string   "contact",        default: ""
-    t.integer  "attendance_cap"
-    t.integer  "user_id"
-    t.boolean  "public",         default: true
-    t.integer  "chair_id"
-  end
+# Could not dump table "events" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                             null: false

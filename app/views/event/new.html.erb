@@ -24,8 +24,12 @@
       <%= f.datetime_local_field :end_time, class: "validate" %>
     </div>
     <div class="input-field">
-      <%= f.label :location, "Address (optional)" %>
+      <%= f.label :location, "Location" %>
       <%= f.text_field :location, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :address, "Address (for Google Maps, optional)" %>
+      <%= f.text_field :address, class: "validate" %>
     </div>
     <div class="input-field event-selector">
       <% if @copy %>

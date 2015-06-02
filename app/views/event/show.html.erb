@@ -19,7 +19,12 @@
 		    </div>
 		    <div class="card-action">
 		    	<% if @event.location.length > 0 %>
-		      	<span>Address:</span> <%= link_to @event.location, "https://maps.google.com?daddr=#{@event.location}", target: "_blank", id: "mapsaddress" %>
+		      	<span>Address:</span> 
+							<% if @event.address %>
+		      		<%= link_to @event.location, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
+		      		<% else %>
+		      		<%= @event.location %>
+		      		<% end %>
 		      	<br />
 		      <% end %>
 		      <% if @event.distance > 0 %>
@@ -51,7 +56,7 @@
 	  			<div class="event-descrip">
 	  				Title: <span><%= @event.title %></span><br />
 	  				Start Time: <span><%= @event.start_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
-	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
+	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%I:%M %p %m/%d/%Y %Z") %></span><br />
 	  				<% a_cap = @event.attendance_cap == -1 ? "" : "/#{@event.attendance_cap}" %>
 	  				Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
 	  				<% if @event.chair_id %>
@@ -144,7 +149,7 @@
 							</form>
 						<% else %>
 							<!-- User is attending -->
-							<div class="btn-large disabled event-signup separate">You Are Attending</div>
+							<div class="btn-large disabled event-signup separate">Attending</div>
 						<% end %>
 					<% end %>
 					<% if current_user.admin? %>
@@ -182,10 +187,10 @@ function codeAddress() {
   var address = $("#mapsaddress").html();
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
+      map.setCenter(results[0].geometry.address);
       var marker = new google.maps.Marker({
           map: map,
-          position: results[0].geometry.location
+          position: results[0].geometry.address
       });
     } else {
       console.log("Geocode was not successful for the following reason: " + status);
