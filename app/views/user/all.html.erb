@@ -1,0 +1,27 @@
+<div class="container">
+<% if @users.any? %>
+	<h5>Member List</h5>
+	<ul class="collection">
+		<li class="collection-item row light-blue lighten-5">
+			<div class="col s1">#</div>
+	    <div class="col s3">Name</div>
+	    <div class="col s2">Standing</div>
+	    <div class="col s1">Family</div>
+	    <div class="col s2">Class</div>
+	    <div class="col s2">Phone Number</div>
+	    <div class="col s1">Car</div>
+	  </li>
+	  <% @users.each_with_index do |u, index| %>
+		  <li class="collection-item row" %>
+		  	<div class="col s1"><%= index+1 %></div>
+		    <div class="col s3"><%= link_to u.displayname, user_path(u.id) %></div>
+		    <div class="col s2"><%= u.membership_status %></div>
+		    <div class="col s1"><%= u.family %></div>
+		    <div class="col s2"><%= u.pledge_class.length > 0 ? u.pledge_class : "Not listed" %></div>
+		    <div class="col s2"><%= number_to_phone(u.phone, area_code: true) %></div>
+		    <div class="col s1"><% if u.car %>Yes<% else %>No<% end %></div>
+		  </li>
+		<% end %>
+	</ul>
+<% end %>
+</div>
