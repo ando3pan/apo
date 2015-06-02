@@ -2,7 +2,7 @@
 	<div class="cover">
 		<div class="profile">
 			<div class="pf-pic"><%= image_tag "astro-pf.png" %></div>
-			<div><%= @user.displayname %></div> <span><%= @user.pledge_class %></span>
+			<div><%= @user.displayname %></div> <span><%= @user.pledge_class %> <%= "(Eboard)" if @user.admin? %></span>
 		</div>
 	</div>
 	<div class="card-panel undercover">

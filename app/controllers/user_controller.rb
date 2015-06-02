@@ -32,11 +32,11 @@ class UserController < ApplicationController
 	end
 
 	def all
-		unless @user.admin?
+		unless current_user.admin?
 			flash[:alert] = "You do not have permission to access that page."
 			redirect_to root_path
 		end
-		@users = User.all
+		@users = User.where(approved: true)
 	end
 
 	private
