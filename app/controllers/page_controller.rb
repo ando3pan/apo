@@ -3,6 +3,16 @@ class PageController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def home
+    # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
+    if user_signed_in?
+      client = Tumblr::Client.new({
+        :consumer_key => 'RisNrdCaXVBh2WcQcfgqFC7HiJUgzu8hwVyT0sB5M7e7tDScRM',
+        :consumer_secret => 'xAvy3FvPj9dJXkFwv1l2Q2GH6Ibcdf8wvAGVH9NrkBPmUVcRkP',
+        :oauth_token => 'F2RWp0e32YjlYJH21cmW5Ncb5TggWKcb0PzB2wdgfyiTo4LaXu',
+        :oauth_token_secret => 'CjzN4wbFENzZpojSEsKj5AZH9yYXwWvlEJsFdQTP5bsERn5kZo'
+      })
+      @posts = client.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"]
+    end
   end
 
   def events

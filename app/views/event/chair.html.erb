@@ -21,6 +21,11 @@
 	    			<div class="input-field col s4">
 		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %> value=<%= user.firstname %>>
 		          <label for=<%= "fn-#{i}" %>>First Name</label>
+		          <% if a.attended == nil %>
+		          	<div class="chairsheet-updated">
+		          		Not submitted.
+		          	</div>
+		          <% end %>
 		          <% if a.updated_at > a.created_at %>
 		          	<div class="chairsheet-updated">
 		          		Last updated <%= time_ago_in_words a.updated_at %> ago.
@@ -33,7 +38,7 @@
 		        </div>
 		        <div class="input-field col s3 attendance-options">
 		        	<p>
-			          <input type="radio" class=<%= "with-gap" if a.attended %> id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
+			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
 			          	checked />
 	      				<label for=<%= "att-#{i}" %>>Attended</label>
 							</p>

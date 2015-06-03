@@ -1,4 +1,4 @@
-<div class="splash-back">
+<div class="splash-back <%= "paper" if user_signed_in? %>">
 	<div class="container">
 		<div class="row">
 			<% unless user_signed_in? %>
@@ -60,12 +60,18 @@
 	        			<h5>Announcements</h5>
 	        			Don't forget to <%= link_to "edit your profile", update_user_path(current_user) %>!
 	        		</div>
+	        		<%= render 'tumblr', posts: @posts %>
         		</div>
 	        	<div class="col s12 l4">
 	        		<div class="card-panel">
-		        		<h5>My Upcoming Events</h5>
-		        		<% current_user.attending_events.each do |e| %>
-		        			<% if e.end_time > Time.now %>
+				    		<h5>My Upcoming Events</h5>
+				    		<% events = current_user.attending_events.where('end_time >= ?', Time.now) %>
+				    		<% if events.empty? %>
+									<div class="no-participants">
+										No events.
+									</div>
+				    		<% else %>
+				    			<% events.each do |e| %>
 										<%= link_to e.title, event_path(e) %><br />
 									<% end %>
 								<% end %>

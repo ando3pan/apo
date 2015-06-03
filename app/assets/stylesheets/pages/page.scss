@@ -194,7 +194,7 @@ body {
 }
 
 .welcome {
-	color: #FFF;
+	color: #333;
 	font-size: 2.5em;
 	font-weight: 400;
 	letter-spacing: 1px;
@@ -275,4 +275,18 @@ body {
 	&:nth-child(even) {
 		background-color: #F7F7F7;
 	}
+}
+
+/* Tumblr */
+.announcement-time {
+	color: #AAA;
+	font-size: 0.8rem;
+	margin-right: 14px;
+	margin-bottom: 12px;
+	text-align: right;
+}
+
+.announcement-image {
+	max-height: 300px;
+	overflow: hidden;
 }

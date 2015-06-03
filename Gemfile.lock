@@ -64,6 +64,10 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.5.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     fullcalendar-rails (2.3.1.0)
       jquery-rails (>= 3.1.1, < 5.0.0)
       momentjs-rails (~> 2.8, >= 2.8.4)
@@ -88,8 +92,10 @@ GEM
     momentjs-rails (2.10.2)
       railties (>= 3.1)
     multi_json (1.11.0)
+    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
     orm_adapter (0.5.0)
     pg (0.17.1)
     rack (1.6.0)
@@ -139,6 +145,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_oauth (0.3.1)
     slop (3.6.0)
     spring (1.1.3)
     sprockets (3.0.3)
@@ -151,6 +158,13 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    tumblr_client (0.8.5)
+      faraday (~> 0.9.0)
+      faraday_middleware (~> 0.9.0)
+      json
+      mime-types
+      oauth
+      simple_oauth
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -183,6 +197,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring (= 1.1.3)
   sqlite3 (= 1.3.9)
+  tumblr_client
   turbolinks
   uglifier (>= 1.3.0)
   web-console (= 2.0.0.beta3)

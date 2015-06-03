@@ -12,11 +12,11 @@
 	    <div class="col s1">Car</div>
 	  </li>
 	  <% @users.each_with_index do |u, index| %>
-		  <li class="collection-item row" %>
+		  <li class="collection-item shades row" %>
 		  	<div class="col s1"><%= index+1 %></div>
 		    <div class="col s3"><%= link_to u.displayname, user_path(u.id) %></div>
 		    <div class="col s2"><%= u.membership_status.length > 0 ? u.membership_status : "Unknown" %></div>
-		    <div class="col s1"><%= u.family.length > 0 ? u.family : "Not listed" %></div>
+		    <div class="col s1"><%= u.family.length > 0 ? u.family : "N/A" %></div>
 		    <div class="col s2"><%= u.pledge_class.length > 0 ? u.pledge_class : "Not listed" %></div>
 		    <div class="col s2"><%= u.phone.length > 0 ? number_to_phone(u.phone, area_code: true) : "Not listed" %></div>
 		    <div class="col s1"><% if u.car %>Yes<% else %>No<% end %></div>

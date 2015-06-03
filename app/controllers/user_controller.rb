@@ -5,23 +5,29 @@ class UserController < ApplicationController
 		@events = @user.attending_events
 		# how can I make this prettier
 		@hours = 0
+		@fellowships = 0
 		@user.attendances.each do |a|
 			event = Event.find(a.event_id)
 			if event.event_type == "Service"
 				if a.attended?
 					@hours += a.drove ? event.driver_hours : event.hours
 				elsif event.flake_penalty? && a.flaked?
-					@hours -= event.service_hours
+					@hours -= event.hours
 				end
+			elsif event.event_type == "Fellowship" && a.attended?
+				@fellowships += 1
 			end
 		end
 	end
 
 	def update
 		@edit = true
+		updater = current_user.id
 		if request.patch?
 			if @user.update_attributes(user_params)
-				sign_in(@user, :bypass => true)
+				if updater == @user.id
+					sign_in(@user, :bypass => true)
+				end
 				flash[:success] = "Profile successfully updated."
 				render 'update'
 			else

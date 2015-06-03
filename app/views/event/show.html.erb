@@ -21,7 +21,7 @@
 		    	<% if @event.location.length > 0 %>
 		      	<span>Address:</span> 
 							<% if @event.address %>
-		      		<%= link_to @event.location, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
+		      		<%= link_to @event.address, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
 		      		<% else %>
 		      		<%= @event.location %>
 		      		<% end %>

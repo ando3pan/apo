@@ -17,13 +17,14 @@
 		<div class="col l4">
 			<div class="card-panel">
 				<h5>Requirements</h5>
-				<%= @hours %> service hours completed.
+				<%= @hours %> service hours completed.<br />
+				<%= pluralize @fellowships, "fellowship" %> attended.
 			</div>
 		</div>
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>My Upcoming Events</h5>
-    		<% events = current_user.attending_events.where('end_time >= ?', Time.now) %>
+    		<% events = @user.attending_events.where('end_time >= ?', Time.now) %>
     		<% if events.empty? %>
 					<div class="no-participants">
 						No events.
@@ -38,8 +39,13 @@
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>Attended Events</h5>
-    		<% current_user.attendances.each do |a| %>
-    			<% if a.attended %>
+    		<% events = @user.attendances.where(attended: true) %>
+    		<% if events.empty? %>
+					<div class="no-participants">
+						No events.
+					</div>
+    		<% else %>
+	    		<% events.each do |a| %>
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
