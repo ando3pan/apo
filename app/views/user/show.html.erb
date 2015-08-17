@@ -6,7 +6,10 @@
 		</div>
 	</div>
 	<div class="card-panel undercover">
-		<span>Joined <%= @user.created_at.strftime("%b %d, %Y") %>.</span>
+		<span>
+			Membership: <%= @user.membership_status %>.
+			Joined <%= @user.created_at.strftime("%b %d, %Y") %>.
+		</span>
 		<%= link_to update_user_path(@user) do %>
 			<div class="btn yellow darken-2">
 				Edit Profile

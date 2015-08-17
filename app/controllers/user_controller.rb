@@ -28,9 +28,11 @@ class UserController < ApplicationController
 				if updater == @user.id
 					sign_in(@user, :bypass => true)
 				end
-				flash[:success] = "Profile successfully updated."
-				render 'update'
-			else
+				if !request.xhr?
+					flash[:success] = "Profile successfully updated."
+					render 'update'
+				end
+			elsif !request.xhr?
 				flash[:alert] = "There may have been errors saving."
 				render 'update'
 			end

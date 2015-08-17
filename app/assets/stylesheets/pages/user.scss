@@ -32,8 +32,7 @@
 }
 
 .pf-pic {
-	border: 4px solid #F2F2F2;
-	border-radius: 3px;
+	border: 4px solid #FFF;
 	height: 150px;
 	width: 150px;
 	display: inline-block;
@@ -60,5 +59,16 @@
 		margin-top: -8px;
 		font-size: 0.9em;
 		float: right;
+	}
+}
+
+.no-overflow {
+	overflow: visible;
+}
+
+.with-select {
+	.select-wrapper {
+		margin-top: -10px;
+		margin-bottom: -10px;
 	}
 }
