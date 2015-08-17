@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817012655) do
+ActiveRecord::Schema.define(version: 20150817030440) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(version: 20150817012655) do
     t.boolean  "chair"
     t.boolean  "can_drive"
     t.boolean  "drove"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "past_quarter", default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "past_quarter",  default: false
+    t.datetime "quarter_ended"
   end
 
   add_index "attendances", ["event_id"], name: "index_attendances_on_event_id"
