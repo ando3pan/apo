@@ -98,7 +98,7 @@ body {
 	height: 100%;
 }
 
-.splash-back.blue {
+.splash-back.blue-tile {
 	background-image: image-url("blueb.png");
 	background-repeat: repeat;
 	background-size: auto;
@@ -119,7 +119,7 @@ body {
 	text-transform: uppercase;
 
 	p {
-		color: #2855A3;
+		//color: #2855A3;
 		margin: 0;
 		margin-bottom: -30px;
 	}
@@ -259,7 +259,7 @@ body {
 
 .fc-left h2 {
 	font-size: 2.6rem;
-	max-width: 200px;
+	max-width: 400px;
 }
 
 .fc-view-container {

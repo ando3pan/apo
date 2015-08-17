@@ -6,13 +6,13 @@ class UserController < ApplicationController
 		# how can I make this prettier
 		@hours = 0
 		@fellowships = 0
-		@user.attendances.each do |a|
+		@user.attendances.where(past_quarter: false).each do |a|
 			event = Event.find(a.event_id)
 			if event.event_type == "Service"
 				if a.attended?
 					@hours += a.drove ? event.driver_hours : event.hours
 				elsif event.flake_penalty? && a.flaked?
-					@hours -= event.hours
+					@hours -= event.ehours
 				end
 			elsif event.event_type == "Fellowship" && a.attended?
 				@fellowships += 1
@@ -42,7 +42,7 @@ class UserController < ApplicationController
 			flash[:alert] = "You do not have permission to access that page."
 			redirect_to root_path
 		end
-		@users = User.where(approved: true)
+		@users = User.order('created_at DESC').where(approved: true)
 	end
 
 	private

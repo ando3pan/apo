@@ -1,10 +1,10 @@
 /* Remove Focus Boxes */
 select:focus {
-  outline: 1px solid lighten($secondary-color, 47%);
+  //outline: 1px solid lighten($secondary-color, 47%);
 }
 button:focus {
   outline: none;
-  background-color: lighten($button-color, 4%);
+  //background-color: lighten($button-color, 4%);
 }
 
 label {

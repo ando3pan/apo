@@ -1,5 +1,5 @@
 class PageController < ApplicationController
-  before_action :ensure_admin, only: [:admin, :approve]
+  before_action :ensure_admin, only: [:admin, :approve, :settings]
   skip_before_action :verify_authenticity_token
 
   def home
@@ -46,6 +46,9 @@ class PageController < ApplicationController
       end
       redirect_to approve_path
     end
+  end
+
+  def settings
   end
 
   private
