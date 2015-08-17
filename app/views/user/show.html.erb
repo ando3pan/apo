@@ -7,7 +7,9 @@
 	</div>
 	<div class="card-panel undercover">
 		<span>
-			Membership: <%= @user.membership_status %>.
+			<% if @user.membership_status.length > 0 %>
+				Membership: <%= @user.membership_status %>.
+			<% end %>
 			Joined <%= @user.created_at.strftime("%b %d, %Y") %>.
 		</span>
 		<%= link_to update_user_path(@user) do %>

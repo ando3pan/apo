@@ -16,8 +16,8 @@
 		  	<div class="col s1"><%= index+1 %></div>
 		    <div class="col s3"><%= link_to u.displayname, user_path(u.id) %></div>
 		    <div class="col s2 with-select">
-		    	<% options = [@user.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'].uniq %>
-		    	<select class="status-selector" id=<%= "status-#{@user.a_username}" %>>
+		    	<% options = [u.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'].uniq %>
+		    	<select class="status-selector" id=<%= "status-#{u.a_username}" %>>
 		    		<% options.each do |o| %>
 		    			<option value=<%= o %>><%= o %></option>
 		    		<% end %>
