@@ -151,7 +151,7 @@ body {
 
 	.no-js & b {
 		opacity: 0;
-		
+
 		&.is-visible {
 			opacity: 1;
 		}
@@ -296,4 +296,13 @@ body {
 .announcement-image {
 	max-height: 300px;
 	overflow: hidden;
+}
+
+/* Media queries */
+
+@media only screen and (max-width: 601px) {
+	.brand-logo img {
+		height: 40px;
+		width: 40px;
+	}
 }

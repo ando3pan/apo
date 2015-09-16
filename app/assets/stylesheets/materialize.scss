@@ -40,3 +40,9 @@
 @import "pages/devise.scss";
 @import "pages/user.scss";
 @import "pages/event.scss";
+
+// overrides
+
+.card-content figure {
+  overflow: hidden;
+}

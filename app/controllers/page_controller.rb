@@ -1,23 +1,19 @@
 class PageController < ApplicationController
+  before_filter :ensure_signed_in, except: [:home]
   before_action :ensure_admin, only: [:admin, :approve, :settings]
   skip_before_action :verify_authenticity_token
 
   def home
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
-      client = Tumblr::Client.new({
-        :consumer_key => 'RisNrdCaXVBh2WcQcfgqFC7HiJUgzu8hwVyT0sB5M7e7tDScRM',
-        :consumer_secret => 'xAvy3FvPj9dJXkFwv1l2Q2GH6Ibcdf8wvAGVH9NrkBPmUVcRkP',
-        :oauth_token => 'F2RWp0e32YjlYJH21cmW5Ncb5TggWKcb0PzB2wdgfyiTo4LaXu',
-        :oauth_token_secret => 'CjzN4wbFENzZpojSEsKj5AZH9yYXwWvlEJsFdQTP5bsERn5kZo'
-      })
-      @posts = client.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"]
+      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"]
     end
   end
 
   def events
     @events = Event.where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
     @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+2.weeks)
+    @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"]
   end
 
   def calendar
@@ -40,7 +36,7 @@ class PageController < ApplicationController
           # approve
           user.update_attribute(:approved, true)
         elsif (args["rejected"])
-          # delete account
+          # delete accoun
           user.destroy
         end
       end
@@ -52,6 +48,21 @@ class PageController < ApplicationController
   end
 
   private
+  def tumblr
+    Tumblr::Client.new({
+      :consumer_key => 'RisNrdCaXVBh2WcQcfgqFC7HiJUgzu8hwVyT0sB5M7e7tDScRM',
+      :consumer_secret => 'xAvy3FvPj9dJXkFwv1l2Q2GH6Ibcdf8wvAGVH9NrkBPmUVcRkP',
+      :oauth_token => 'F2RWp0e32YjlYJH21cmW5Ncb5TggWKcb0PzB2wdgfyiTo4LaXu',
+      :oauth_token_secret => 'CjzN4wbFENzZpojSEsKj5AZH9yYXwWvlEJsFdQTP5bsERn5kZo'
+    })
+  end
+
+  def ensure_signed_in
+    unless user_signed_in?
+      redirect_to root_path, notice: "Please sign in."
+    end
+  end
+
   def ensure_admin
     unless user_signed_in? && current_user.admin
       redirect_to root_path, notice: "Only admins may access that page."
