@@ -11,8 +11,8 @@ class PageController < ApplicationController
   end
 
   def events
-    @events = Event.where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
-    @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+2.weeks)
+    @events = Event.where.not(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
+    @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
     @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"]
   end
 

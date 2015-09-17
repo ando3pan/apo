@@ -162,7 +162,7 @@
 </div>
 <% if current_user.admin? %>
 	<div class="text-center gap">
-		<%= link_to "Delete This Event", destroy_event_path(@event), data: {confirm: "Are you sure? The event will be deleted forever."}, 
+		<%= link_to "Delete This Event", destroy_event_path(@event), confirm: "Are you sure? The event will be deleted forever.",
 			method: :delete %>
 	</div>
 <% end %>
