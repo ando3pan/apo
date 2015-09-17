@@ -1,5 +1,6 @@
 class EventController < ApplicationController
 	before_action :ensure_signed_in
+	before_action :ensure_admin, only: [:new, :destroy]
 	skip_before_action :verify_authenticity_token
 
 	def show
@@ -35,33 +36,49 @@ class EventController < ApplicationController
 
 	def new
 		if request.get?
-			@event = current_user.events.create
-			@event.flake_penalty = false # oops this should default to false
-			if params[:dup]
-				@copy = Event.find(params[:dup])
-				@event = current_user.events.create(
-					title: @copy.title,
-					location: @copy.location,
-					address: @copy.address,
-					event_type: @copy.event_type,
-					info: @copy.info,
-					contact: @copy.contact,
-					attendance_cap: @copy.attendance_cap,
-					flake_penalty: @copy.flake_penalty,
-					public: @copy.public,
-					hours: @copy.hours,
-					driver_hours: @copy.driver_hours,
-					distance: @copy.distance
-					)
+			if params[:edit] # I'm lazy so we reuse this endpoint
+				@event = Event.find(params[:edit])
+				@copy = @event
+				@action = "Save Changes"
+			else
+				@event = current_user.events.create
+				@event.flake_penalty = false # oops this should default to false
+				@action = "Create"
+				if params[:dup]
+					@copy = Event.find(params[:dup])
+					@event = current_user.events.create(
+						title: @copy.title,
+						location: @copy.location,
+						address: @copy.address,
+						event_type: @copy.event_type,
+						info: @copy.info,
+						contact: @copy.contact,
+						attendance_cap: @copy.attendance_cap,
+						flake_penalty: @copy.flake_penalty,
+						public: @copy.public,
+						hours: @copy.hours,
+						driver_hours: @copy.driver_hours,
+						distance: @copy.distance
+						)
+				end
 			end
 		elsif request.post?
-			@event = current_user.events.create(event_params)
+			@event = Event.find(params[:event][:id])
+			if params[:event][:action] == "Create"
+				@event = current_user.events.create(event_params)
+			else
+				@event.update_attributes(event_params)
+			end
 			if @event.driver_hours == 0
 				@event.driver_hours = @event.hours
 			end
 			if @event.save
 				redirect_to event_path(@event)
-				flash[:success] = "Event successfully created."
+				if params[:event][:action] == "Create"
+					flash[:success] = "Event successfully created."
+				else
+					flash[:success] = "Event successfully updated."
+				end
 			else
 				flash[:alert] = "Errors: #{@event.errors.full_messages.join(", ")}"
 				render 'new'
@@ -141,6 +158,12 @@ class EventController < ApplicationController
 	def ensure_signed_in
     unless user_signed_in?
       redirect_to root_path, notice: "Please sign in."
+    end
+  end
+
+  def ensure_admin
+    unless user_signed_in? && current_user.admin
+      redirect_to root_path, notice: "Only admins may access that page."
     end
   end
 

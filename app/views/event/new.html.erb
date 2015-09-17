@@ -3,13 +3,21 @@
     <div class="text-center separate">
       <%= image_tag "calendar.png" %>
     </div>
-    <div class="form-title">
-      New Event
-    </div>
-    <div class="form-descrip gap">
-      Create a new event.
-    </div>
-
+    <% if @action == "Create" %>
+      <div class="form-title">
+        New Event
+      </div>
+      <div class="form-descrip gap">
+        Create a new event.
+      </div>
+    <% else %>
+      <div class="form-title">
+        Update Event
+      </div>
+      <div class="form-descrip gap">
+        Editing: <%= @event.title %>
+      </div>
+    <% end %>
     <%= form_for(@event, url: new_event_path, method: :post) do |f| %>
     <div class="input-field">
       <%= f.label :title %><br />
@@ -33,9 +41,11 @@
     </div>
     <div class="input-field event-selector">
       <% if @copy %>
-        <% options = [@copy.event_type] %>
+        <% options = [@copy.event_type, "Fellowship", "Service", "Fundraising", "Interchapter",
+          "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush", "Other"].uniq %>
       <% else %>
-        <% options = ["Fellowship", "Service", "Fundraising", "Interchapter", "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush"] %>
+        <% options = ["Fellowship", "Service", "Fundraising", "Interchapter",
+          "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush", "Other"] %>
       <% end %>
       <%= f.select(:event_type, options_for_select(options))%>
       <%= f.label :event_type, "Event Type" %>
@@ -80,10 +90,12 @@
     </div>
     <div style="display: none;">
       <%= f.number_field :user_id, value: current_user.id  %>
+      <%= f.text_field :action, value: @action %>
+      <%= f.number_field :id, value: @event.id %>
     </div>
-    
+
     <div class="text-center gap">
-      <%= f.submit "Create", class: "btn yellow darken-2 center" %>
+      <%= f.submit @action, class: "btn yellow darken-2 center" %>
     <% end %>
   </div>
 </div>

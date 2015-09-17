@@ -6,14 +6,14 @@ class PageController < ApplicationController
   def home
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
-      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"]
+      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
     end
   end
 
   def events
     @events = Event.where.not(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
     @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
-    @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"]
+    @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"] rescue nil
   end
 
   def calendar

@@ -1,26 +1,34 @@
-<% posts.each do |p| %>
-	<% if p["type"] == "text" %>
-		<div class="card">
-			<div class="card-content">
-        <h4><%= p["title"] %></h4>
-        <%= p["body"].html_safe %>
-      </div>
-      <div class="announcement-time">
-      	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
-      </div>
-		</div>
+<% if posts.any? %>
+  <% posts.each do |p| %>
+  	<% if p["type"] == "text" %>
+  		<div class="card">
+  			<div class="card-content">
+          <h4><%= p["title"] %></h4>
+          <%= p["body"].html_safe %>
+        </div>
+        <div class="announcement-time">
+        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
+        </div>
+  		</div>
 
-	<% elsif p["type"] == "photo" %>
-		<div class="card">
-      <div class="card-image announcement-image">
-        <%= image_tag p["photos"][0]["alt_sizes"][1]["url"] %>
+  	<% elsif p["type"] == "photo" %>
+  		<div class="card">
+        <div class="card-image announcement-image">
+          <%= image_tag p["photos"][0]["alt_sizes"][1]["url"] %>
+        </div>
+        <div class="card-content">
+          <%= p["caption"].html_safe %>
+        </div>
+        <div class="announcement-time">
+        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
+        </div>
       </div>
-      <div class="card-content">
-        <%= p["caption"].html_safe %>
-      </div>
-      <div class="announcement-time">
-      	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
-      </div>
+  	<% end %>
+  <% end %>
+<% else %>
+  <div class="card">
+    <div class="card-content">
+      <h4 class="faded">Unable to load announcements.</h4>
     </div>
-	<% end %>
+  </div>
 <% end %>

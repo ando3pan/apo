@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( page.js )
 Rails.application.config.assets.precompile += %w( moment.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
+Rails.application.config.assets.precompile += %w( showevent.js )

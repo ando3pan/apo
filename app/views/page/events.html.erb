@@ -12,6 +12,10 @@
 							<%= @spotlight[0]['caption'].html_safe %>
 						</p>
 					</div>
+				<% else %>
+					<div class="card-content">
+						<h5 class="faded">Error loading spotlight.</h4>
+					</div>
 				<% end %>
 			</div>
 		</div>
