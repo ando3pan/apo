@@ -13,37 +13,59 @@
 	}
 }
 
-.service-splash {
-	background-image: image-url("blue.png");
-	background-size: cover;
-	background-position: 50%;
-	//background-attachment: fixed;
-	p {
-		color: #D0D5F2;
-	}
+.splash {
+	background-color: #555;
 }
+
+/* Event Types */
 
 .service {
 	background-color: #3949AB;
-}
 
-.fellowship-splash {
-	background-image: image-url("purple.png");
-	background-attachment: fixed;
-	background-position: 0 -120%;
-	p {
-		color: #D0C0F0;
+	&.splash {
+		background-image: image-url("blue.png");
+		background-size: cover;
+		background-position: 50%;
+		//background-attachment: fixed;
+		p {
+			color: #D0D5F2;
+		}
 	}
 }
 
 .fellowship {
 	background-color: #5E35B1;
+
+	&.splash {
+		background-image: image-url("purple.png");
+		background-attachment: fixed;
+		background-position: 0 -120%;
+		p {
+			color: #D0C0F0;
+		}
+	}
 }
 
 .fundraising {
 	background-color: #388E3C;
 	p {
 		color: #C5E8C7;
+	}
+}
+
+.interchapter {
+	background-color: #65A8B8;
+
+	&.splash {
+		background-color: #65A8B8;
+	}
+}
+
+.rush {
+	background-color: #C78C42;
+
+	&.splash {
+		background-color: #C78C42;
 	}
 }
 

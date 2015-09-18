@@ -5,7 +5,7 @@
 			This event happens during <%= @holiday %>.
 		</div>
 	<% end %>
-	<div class="<%= "card-panel event-title #{@event.event_type.downcase}-splash" %>">
+	<div class="<%= "card-panel event-title #{@event.event_type.downcase} splash" %>">
 		<h3><%= @event.title %></h3>
 		<div class="event-time">
 			<%= @event.start_time.strftime("%b %d, %Y (%A)") %><br />

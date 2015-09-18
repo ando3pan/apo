@@ -174,13 +174,17 @@ class EventController < ApplicationController
 
 	def get_event_color(e)
 		type = e.event_type
-		opacity = e.participants.include?(current_user) ? 1 : 0.8
+		opacity = e.participants.include?(current_user) ? 1 : 0.9
 		if type == "Service"
-			"rgba(57, 73, 73, #{opacity})"
+			"rgba(57, 73, 171, #{opacity})"
 		elsif type == "Fellowship"
-			"rgba(94, 53, 177, #{opacity})"
+			"rgba(124, 101, 171, #{opacity})"
 		elsif type == "Fundraising"
-			"rgba(56, 142, 60, #{opacity})"
+			"rgba(96, 163, 99, #{opacity})"
+		elsif type == "Rush"
+			"rgba(199, 140, 66, #{opacity})"
+		elsif type == "Interchapter"
+			"rgba(33, 73, 184, #{opacity})"
 		else
 			"rgba(85, 85, 85, #{opacity})"
 		end
@@ -190,7 +194,7 @@ class EventController < ApplicationController
 		str = e.participants.include?(current_user) ? "You signed up." : ""
 		if e.attendance_cap > 0
 			if e.participants.size >= e.attendance_cap
-				str += "<div style='color: #FFC4C4'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
+				str += "<div style='color: #FFA3A3'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
 			else
 				str += "<div>#{e.participants.size}/#{e.attendance_cap} participants</div>"
 			end

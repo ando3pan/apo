@@ -42,10 +42,10 @@
     <div class="input-field event-selector">
       <% if @copy %>
         <% options = [@copy.event_type, "Fellowship", "Service", "Fundraising", "Interchapter",
-          "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush", "Other"].uniq %>
+          "Alumni", "Rush", "Alpha", "Phi", "Omega", "Rho", "Pi", "Other"].uniq %>
       <% else %>
         <% options = ["Fellowship", "Service", "Fundraising", "Interchapter",
-          "Alumni", "Alpha", "Phi", "Omega", "Rho", "Pi", "Rush", "Other"] %>
+          "Alumni", "Rush", "Alpha", "Phi", "Omega", "Rho", "Pi", "Other"] %>
       <% end %>
       <%= f.select(:event_type, options_for_select(options))%>
       <%= f.label :event_type, "Event Type" %>
