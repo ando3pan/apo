@@ -84,12 +84,16 @@
       <%= f.check_box :public %>
       <%= f.label :public %>
     </div><br /><br />
-    <div class="input-field">
-       <label for="disabled">Creator</label>
-       <input disabled value=<%= current_user.username %> id="disabled" type="text" class="validate">
-    </div>
+    <% if @copy == nil %>
+      <div class="input-field">
+         <label for="disabled">Creator</label>
+         <input disabled value=<%= current_user.username %> id="disabled" type="text" class="validate">
+      </div>
+    <% end %>
     <div style="display: none;">
-      <%= f.number_field :user_id, value: current_user.id  %>
+      <% if @copy == nil %>
+        <%= f.number_field :user_id, value: current_user.id  %>
+      <% end %>
       <%= f.text_field :action, value: @action %>
       <%= f.number_field :id, value: @event.id %>
     </div>

@@ -6,8 +6,12 @@
     </div>
     <div class="form-descrip gap">
       <%= @event.title %> (<%= @event.start_time.strftime("%m/%d/%Y") %>)
+      <div>
+        <p class="callout yellow lighten-2">
+        	For replacements, replace the name and select "replacement".
+        </p>
+      </div>
       <p>
-      	For replacements, replace the name and select "replacement".<br />
       	Add extra attendees at the bottom of the form.
       </p>
     </div>
@@ -57,7 +61,7 @@
 			        </div>
 			        <div class="input-field">
 			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> <%= a.chair ? "checked" : "" %> name=<%= "[u][#{i}]chair" %> />
-	      				<label for=<%= "cha-#{i}" %>>Chair</label>
+	      				<label for=<%= "cha-#{i}" %>>Chaired</label>
 			        </div>
 		        </div>
 		      </div>

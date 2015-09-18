@@ -1,5 +1,10 @@
 <div class="splash-back paper">
 <div class="container">
+	<% if @holiday.length > 0 %>
+		<div class="card-panel text-center yellow lighten-4">
+			This event happens during <%= @holiday %>.
+		</div>
+	<% end %>
 	<div class="<%= "card-panel event-title #{@event.event_type.downcase}-splash" %>">
 		<h3><%= @event.title %></h3>
 		<div class="event-time">
@@ -57,7 +62,7 @@
 	  				Title: <span><%= @event.title %></span><br />
 	  				Start Time: <span><%= @event.start_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
 	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%I:%M %p %m/%d/%Y %Z") %></span><br />
-	  				<% a_cap = @event.attendance_cap == -1 ? "" : "/#{@event.attendance_cap}" %>
+	  				<% a_cap = @event.attendance_cap == -1 ? " (Unlimited Signups)" : "/#{@event.attendance_cap}" %>
 	  				Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
 	  				<% if @event.chair_id %>
 	  					Chair: <span><%= User.find(@event.chair_id).displayname %></span>

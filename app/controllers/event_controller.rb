@@ -1,10 +1,11 @@
 class EventController < ApplicationController
-	before_action :ensure_signed_in
-	before_action :ensure_admin, only: [:new, :destroy]
+	before_action      :ensure_signed_in
+	before_action      :ensure_admin, only: [:new, :destroy]
 	skip_before_action :verify_authenticity_token
 
 	def show
-		@event = Event.find(params[:id])
+		@event   = Event.find(params[:id])
+		@holiday = matches_holiday(@event.start_time)
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
 		end
@@ -37,15 +38,15 @@ class EventController < ApplicationController
 	def new
 		if request.get?
 			if params[:edit] # I'm lazy so we reuse this endpoint
-				@event = Event.find(params[:edit])
-				@copy = @event
+				@event  = Event.find(params[:edit])
+				@copy   = @event
 				@action = "Save Changes"
 			else
 				@event = current_user.events.create
 				@event.flake_penalty = false # oops this should default to false
 				@action = "Create"
 				if params[:dup]
-					@copy = Event.find(params[:dup])
+					@copy  = Event.find(params[:dup])
 					@event = current_user.events.create(
 						title: @copy.title,
 						location: @copy.location,
@@ -63,10 +64,10 @@ class EventController < ApplicationController
 				end
 			end
 		elsif request.post?
-			@event = Event.find(params[:event][:id])
 			if params[:event][:action] == "Create"
 				@event = current_user.events.create(event_params)
 			else
+				@event = Event.find(params[:event][:id])
 				@event.update_attributes(event_params)
 			end
 			if @event.driver_hours == 0
@@ -142,14 +143,13 @@ class EventController < ApplicationController
 		Event.where(public: true).where(:start_time => start_time.beginning_of_day..end_time).each do |e|
 			# ya'll not ready for this sick syntax
 			events.push({
-									title: e.title,
-									start: e.start_time,
-									end: e.end_time,
-									color: get_event_color(e.event_type),
-									textColor: e.participants.size >= e.attendance_cap && e.attendance_cap > 0 ? "#FF7575" : "white",
-									url: "/event/#{e.id}",
-									description: e.participants.include?(current_user) ? "You're going." : ""
-								 })
+				title: "#{e.title}",
+				start: e.start_time,
+				end: e.end_time,
+				color: get_event_color(e),
+				url: "/event/#{e.id}",
+				description: get_event_description(e)
+			})
 		end
 		render json: events
 	end
@@ -172,16 +172,151 @@ class EventController < ApplicationController
     	:hours, :driver_hours, :distance, :flake_penalty, :info, :contact, :attendance_cap, :public, :user_id)
 	end
 
-	def get_event_color(type)
+	def get_event_color(e)
+		type = e.event_type
+		opacity = e.participants.include?(current_user) ? 1 : 0.8
 		if type == "Service"
-			"#3949AB"
+			"rgba(57, 73, 73, #{opacity})"
 		elsif type == "Fellowship"
-			"#5E35B1"
+			"rgba(94, 53, 177, #{opacity})"
 		elsif type == "Fundraising"
-			"#388E3C"
+			"rgba(56, 142, 60, #{opacity})"
 		else
-			"#555555"
+			"rgba(85, 85, 85, #{opacity})"
 		end
+	end
+
+	def get_event_description(e)
+		str = e.participants.include?(current_user) ? "You signed up." : ""
+		if e.attendance_cap > 0
+			if e.participants.size >= e.attendance_cap
+				str += "<div style='color: #FFC4C4'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
+			else
+				str += "<div>#{e.participants.size}/#{e.attendance_cap} participants</div>"
+			end
+		else 
+			str += "<div>#{e.participants.size} signed up</div>"
+		end
+		str
+	end
+
+	def matches_holiday(start_time)
+		holidays = get_holidays["holidays"]
+		holidays.each do |h|
+			if h["DTEND;VALUE=DATE"]
+				# check if within range
+				starts = Time.parse(h["DTSTART;VALUE=DATE"]).beginning_of_day
+				ends   = Time.parse(h["DTEND;VALUE=DATE"]).end_of_day
+				if (start_time > starts && start_time < ends)
+					return h["SUMMARY"]
+				end
+			elsif h["DTSTART;VALUE=DATE"]
+				# check if date matching
+				if Time.parse(h["DTSTART;VALUE=DATE"]).to_date === start_time.to_date
+					return h["SUMMARY"]
+				end
+			end
+		end
+		return ""
+	end
+
+	def get_holidays
+		holidays = %q({"holidays":
+			[
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-371048566@marudot.com",
+				  "DTSTART;VALUE=DATE": "20151111",
+				  "SUMMARY": "Veterans Day Holiday"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-973734813@marudot.com",
+				  "DTSTART;VALUE=DATE": "20151126",
+				  "DTEND;VALUE=DATE": "20151128",
+				  "SUMMARY": "Thanksgiving Holiday"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-757784175@marudot.com",
+				  "DTSTART;VALUE=DATE": "20151205",
+				  "DTEND;VALUE=DATE": "20151213",
+				  "SUMMARY": "Final Exams"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-583254548@marudot.com",
+				  "DTSTART;VALUE=DATE": "20151212",
+				  "DTEND;VALUE=DATE": "20160103",
+				  "SUMMARY": "Winter Break"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-1864151930@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160118",
+				  "SUMMARY": "Martin Luther King Jr. Holiday"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-1416006441@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160215",
+				  "SUMMARY": "Presidents' Day Holiday"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-1547653022@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160312",
+				  "DTEND;VALUE=DATE": "20160319",
+				  "SUMMARY": "Final Exams"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-2134040145@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160320",
+				  "DTEND;VALUE=DATE": "20160327",
+				  "SUMMARY": "Spring Break"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-1435734028@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160325",
+				  "SUMMARY": "César Chávez Holiday"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-753281281@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160530",
+				  "SUMMARY": "Memorial Day Observance"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-219421968@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160604",
+				  "DTEND;VALUE=DATE": "20160611",
+				  "SUMMARY": "Final Exams"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-381673714@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160611",
+				  "DTEND;VALUE=DATE": "20160613",
+				  "SUMMARY": "Commencement"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-16878912@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160704",
+				  "SUMMARY": "Independence Day"
+				},
+				{
+				  "DTSTAMP": "20140626T000702Z",
+				  "UID": "20140626T000702Z-1153658679@marudot.com",
+				  "DTSTART;VALUE=DATE": "20160905",
+				  "SUMMARY": "Labor Day"
+				}
+			]
+		})
+		JSON.parse(holidays)
 	end
 
 end

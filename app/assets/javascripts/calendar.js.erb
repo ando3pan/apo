@@ -3,11 +3,11 @@ $(document).ready(function() {
 
   $calendar.fullCalendar({
   	displayEventEnd: true,
-  	eventRender: 
-    	function(event, element) { 
+  	eventRender:
+    	function(event, element) {
         element.find('.fc-time').append("<br/>");
         if (event.description !== '')
-        	element.find('.fc-title').append("<br/>"+event.description);
+        	element.find('.fc-title').append("<div class='fc-event-descrip'>" + event.description + "</div>");
       },
     timeFormat: 'h:mmt',
 		events: '/events_feed',
