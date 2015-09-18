@@ -154,3 +154,18 @@
 	font-size: 0.9em;
 	opacity: 0.65;
 }
+
+.fc-day-grid-event > .fc-content {
+   white-space: normal !important;
+   overflow: visible !important;
+   padding: 5px;
+}
+
+.fc-left h2 {
+	font-size: 2.6rem;
+	max-width: 400px;
+}
+
+.fc-view-container {
+	overflow: visible !important;
+}
