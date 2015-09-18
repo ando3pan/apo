@@ -11,15 +11,13 @@ class PageController < ApplicationController
   end
 
   def events
-    @events = Event.where.not(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
-    @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks)
+    @events = Event.where.not(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks).order(start_time: :desc)
+    @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks).order(start_time: :desc)
     @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"] rescue nil
   end
 
   def calendar
-    unless user_signed_in?
-      redirect_to root_path
-    end
+    @month = params[:load] ? params[:load] : Time.now.to_date
   end
 
   def admin

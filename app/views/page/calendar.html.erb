@@ -2,6 +2,7 @@
 <div class="calendar-container">
 	<div class="card-panel">
 		<div id="calendar"></div>
+		<div id="month" style="display: none;"><%= @month %></div>
 		<div id="time-data" style="display: none;"></div>
 	</div>
 	<% if current_user.admin? %>

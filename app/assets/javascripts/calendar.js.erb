@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var $calendar = $('#calendar');
+  var month = $("#month").html();
 
   $calendar.fullCalendar({
   	displayEventEnd: true,
@@ -12,10 +13,41 @@ $(document).ready(function() {
     timeFormat: 'h:mmt',
 		events: '/events_feed',
 		defaultView: 'month',
+    defaultDate: new Date(month),
 		allDaySlot: false,
     header: {
       left: 'title',
       right: 'today prev,next'
     }
+  });
+
+  $("button").unbind();
+
+  $("button").on('click', function(event) {
+    var date = new Date(month);
+    if (event.target.className.indexOf('right') !== -1) {
+      // next month
+      if (date.getMonth() + 1 > 12) {
+        date.setDate(1);
+        date.setMonth(1);
+        date.setYear(date.getYear() + 1);
+      } else {
+        date.setDate(1);
+        date.setMonth(date.getMonth() + 1);
+      }
+      window.location.href = '/calendar?load=' + date.toISOString();
+    } else {
+      //prev month
+      if (date.getMonth() - 1 < 0) {
+        date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+      } else {
+        date.setDate(1);
+        date.setMonth(parseInt(date.getMonth()) - 1);
+      }
+      // prev month
+      window.location.href = '/calendar?load=' + date.toISOString();
+    }
+    event.preventDefault();
+    event.stopPropagation();
   });
 });

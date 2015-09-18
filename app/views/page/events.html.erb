@@ -18,13 +18,13 @@
 					</div>
 				<% end %>
 			</div>
+			<%= link_to calendar_path do %>
+				<div class="btn blue-grey waves-effect waves-light calendar-link">
+		      <%= image_tag "calendar.png", height: 40 %> Calendar
+				</div>
+			<% end %>
 		</div>
 		<div class="col s12 l6 m5">
-			<%= link_to calendar_path do %>
-			<div class="btn blue-grey waves-effect waves-light calendar-link">
-	      <%= image_tag "calendar.png", height: 40 %> Calendar
-			</div>
-			<% end %>
 			<div class="card-panel">
 				<h5 class="card-title">Services This Week</h5>
 				<% if @services.any? %>
