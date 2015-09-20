@@ -32,13 +32,13 @@
 						<div class="event-date"><%= date %></div>
 						<% events.each do |e| %>
 							<div class="event-thumb">
-								<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%-I:%M %p") %>
+								<%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
 							</div>
 						<% end %>
 					<% end %>
 				<% else %>
 					<div class="no-participants">
-						No services posted yet.
+						No services posted.
 					</div>
 				<% end %>
 			</div>
@@ -49,13 +49,13 @@
 						<div class="event-date"><%= date %></div>
 						<% events.each do |e| %>
 							<div class="event-thumb">
-								<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%-I:%M %p") %>
+								<%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
 							</div>
 						<% end %>
 					<% end %>
 				<% else %>
 					<div class="no-participants">
-						No events posted yet.
+						No events posted.
 					</div>
 				<% end %>
 			</div>
