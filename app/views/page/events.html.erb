@@ -28,10 +28,13 @@
 			<div class="card-panel">
 				<h5 class="card-title">Services This Week</h5>
 				<% if @services.any? %>
-					<% @services.each do |e| %>
-						<div class="event-thumb">
-							<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%m/%d/%y (%A)") %>
-						</div>
+					<% @services.each_pair do |date, events| %>
+						<div class="event-date"><%= date %></div>
+						<% events.each do |e| %>
+							<div class="event-thumb">
+								<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%-I:%M %p") %>
+							</div>
+						<% end %>
 					<% end %>
 				<% else %>
 					<div class="no-participants">
@@ -42,10 +45,13 @@
 			<div class="card-panel">
 				<h5 class="card-title">Events This Week</h5>
 				<% if @events.any? %>
-					<% @events.each do |e| %>
-						<div class="event-thumb">
-							<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%m/%d/%y (%A)") %>
-						</div>
+					<% @events.each_pair do |date, events| %>
+						<div class="event-date"><%= date %></div>
+						<% events.each do |e| %>
+							<div class="event-thumb">
+								<%= link_to e.title, event_path(e) %>: <%= e.start_time.strftime("%-I:%M %p") %>
+							</div>
+						<% end %>
 					<% end %>
 				<% else %>
 					<div class="no-participants">

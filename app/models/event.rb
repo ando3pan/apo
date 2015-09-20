@@ -12,4 +12,8 @@ class Event < ActiveRecord::Base
   	self.start_time = self.start_time.in_time_zone("Pacific Time (US & Canada)")
     self.end_time = self.end_time.in_time_zone("Pacific Time (US & Canada)")
 	end
+
+  def group_by_criteria
+    start_time.to_date.to_s(:db)
+  end
 end

@@ -7,7 +7,7 @@
           <%= p["body"].html_safe %>
         </div>
         <div class="announcement-time">
-        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
+        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%-I:%M %p %b %d, %Y") %>
         </div>
   		</div>
 
@@ -20,7 +20,7 @@
           <%= p["caption"].html_safe %>
         </div>
         <div class="announcement-time">
-        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%I:%M %p %b %d, %Y") %>
+        	<%= Time.parse(p["date"]).in_time_zone("Pacific Time (US & Canada)").strftime("%-I:%M %p %b %d, %Y") %>
         </div>
       </div>
   	<% end %>

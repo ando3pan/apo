@@ -11,8 +11,12 @@ class PageController < ApplicationController
   end
 
   def events
-    @events = Event.where.not(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks).order(:start_time)
-    @services = Event.where(event_type: "Service").where(public: true).where(:start_time => Time.now..Time.now+1.weeks).order(:start_time)
+    events = Event.where.not(event_type: "Service").where(public: true)
+      .where(:start_time => Time.now..Time.now+1.weeks).order(:start_time)
+    @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
+    services = Event.where(event_type: "Service").where(public: true)
+      .where(:start_time => Time.now..Time.now+1.weeks).order(:start_time)
+    @services = services.any? ? services.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
     @spotlight = tumblr.posts('aporhopi.tumblr.com', :tag => 'spotlight', :limit => 1)["posts"] rescue nil
   end
 
@@ -66,5 +70,5 @@ class PageController < ApplicationController
       redirect_to root_path, notice: "Only admins may access that page."
     end
   end
-  
+
 end

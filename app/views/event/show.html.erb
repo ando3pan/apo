@@ -9,7 +9,7 @@
 		<h3><%= @event.title %></h3>
 		<div class="event-time">
 			<%= @event.start_time.strftime("%b %d, %Y (%A)") %><br />
-			<%= @event.start_time.strftime("%I:%M %p") %> - <%= @event.end_time.strftime("%I:%M %p") %>
+			<%= @event.start_time.strftime("%-I:%M %p") %> - <%= @event.end_time.strftime("%-I:%M %p") %>
 		</div>
 		<p><%= @event.event_type %></p>
 	</div>
@@ -24,7 +24,7 @@
 		    </div>
 		    <div class="card-action">
 		    	<% if @event.location.length > 0 %>
-		      	<span>Address:</span> 
+		      	<span>Address:</span>
 							<% if @event.address %>
 		      		<%= link_to @event.address, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
 		      		<% else %>
@@ -60,8 +60,8 @@
 	  			<h5>Information</h5>
 	  			<div class="event-descrip">
 	  				Title: <span><%= @event.title %></span><br />
-	  				Start Time: <span><%= @event.start_time.strftime("%I:%M %p %m/%d/%Y") %></span><br />
-	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%I:%M %p %m/%d/%Y %Z") %></span><br />
+	  				Start Time: <span><%= @event.start_time.strftime("%-I:%M %p %-m/%d/%Y") %></span><br />
+	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%-I:%M %p %-m/%d/%Y %Z") %></span><br />
 	  				<% a_cap = @event.attendance_cap == -1 ? " (Unlimited Signups)" : "/#{@event.attendance_cap}" %>
 	  				Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
 	  				<% if @event.chair_id %>
