@@ -27,7 +27,7 @@
 		<div class="col s12 l6 m5">
 			<div class="card-panel">
 				<h5 class="card-title">Services This Week</h5>
-				<% if @services.any? %>
+				<% if @services != nil && @services.any? %>
 					<% @services.each_pair do |date, events| %>
 						<div class="event-date"><%= date %></div>
 						<% events.each do |e| %>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="card-panel">
 				<h5 class="card-title">Events This Week</h5>
-				<% if @events.any? %>
+				<% if @events != nil && @events.any? %>
 					<% @events.each_pair do |date, events| %>
 						<div class="event-date"><%= date %></div>
 						<% events.each do |e| %>
