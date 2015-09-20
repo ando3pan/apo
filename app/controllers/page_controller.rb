@@ -7,6 +7,8 @@ class PageController < ApplicationController
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
       @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
+      events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
+      @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
     end
   end
 
