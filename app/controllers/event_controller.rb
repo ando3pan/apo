@@ -148,7 +148,8 @@ class EventController < ApplicationController
 				end: e.end_time,
 				color: get_event_color(e),
 				url: "/event/#{e.id}",
-				description: get_event_description(e)
+				description: get_event_description(e),
+				event_type: e.event_type
 			})
 		end
 		render json: events

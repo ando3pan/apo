@@ -7,8 +7,14 @@ $(document).ready(function() {
   	eventRender:
     	function(event, element) {
         element.find('.fc-time').append("<br/>");
-        if (event.description !== '')
-        	element.find('.fc-title').append("<div class='fc-event-descrip'>" + event.description + "</div>");
+
+        var title = element.find('.fc-title');
+        if (event.event_type !== '') {
+          title.append("<div class='fc-event-type'>" + event.event_type + "</div>");
+        }
+        if (event.description !== '') {
+          title.append("<div class='fc-event-descrip'>" + event.description + "</div>");
+        }
       },
     timeFormat: 'h:mmt',
 		events: '/events_feed',
@@ -25,7 +31,9 @@ $(document).ready(function() {
 
   $("button").on('click', function(event) {
     var date = new Date(month);
-    if (event.target.className.indexOf('right') !== -1) {
+    if (event.target.className.indexOf('today') !== -1) {
+      date = new Date();
+    } else if (event.target.className.indexOf('right') !== -1) {
       // next month
       if (date.getMonth() + 1 > 12) {
         date.setDate(1);
@@ -35,8 +43,7 @@ $(document).ready(function() {
         date.setDate(1);
         date.setMonth(date.getMonth() + 1);
       }
-      window.location.href = '/calendar?load=' + date.toISOString();
-    } else {
+    } else if (event.target.className.indexOf('left') !== -1) {
       //prev month
       if (date.getMonth() - 1 < 0) {
         date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -45,9 +52,9 @@ $(document).ready(function() {
         date.setMonth(parseInt(date.getMonth()) - 1);
       }
       // prev month
-      window.location.href = '/calendar?load=' + date.toISOString();
     }
     event.preventDefault();
     event.stopPropagation();
+    window.location.href = '/calendar?load=' + date.toISOString();
   });
 });

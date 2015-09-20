@@ -172,9 +172,24 @@
 }
 
 /* Calendar */
+.fc-time {
+	font-weight: 400 !important;
+}
+
+.fc-title {
+	font-weight: bold;
+}
+
 .fc-event-descrip {
 	font-size: 0.9em;
+	font-weight: 400;
 	opacity: 0.65;
+}
+
+.fc-event-type {
+	font-size: 0.8em;
+	opacity: 0.65;
+	text-transform: uppercase;
 }
 
 .fc-day-grid-event > .fc-content {
