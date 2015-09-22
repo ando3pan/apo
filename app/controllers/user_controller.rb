@@ -2,7 +2,8 @@ class UserController < ApplicationController
 	before_action :ensure_user
 
 	def show
-		@events = @user.attending_events
+		events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
+    @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 		# how can I make this prettier
 		@hours = 0
 		@fellowships = 0
@@ -51,7 +52,7 @@ class UserController < ApplicationController
 
 	def user_params
     params.require(:user).permit(:name, :email, :password, :firstname, :lastname, :nickname, :displayname,
-      :phone, :family, :line, :pledge_class, :membership_status, :major, :graduation_year, :shirt_size, :car, 
+      :phone, :family, :line, :pledge_class, :membership_status, :major, :graduation_year, :shirt_size, :car,
       :password, :password_confirmation)
 	end
 

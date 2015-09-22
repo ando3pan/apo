@@ -28,14 +28,7 @@
 			<div class="card-panel">
 				<h5 class="card-title">Services This Week</h5>
 				<% if @services != nil && @services.any? %>
-					<% @services.each_pair do |date, events| %>
-						<div class="event-date"><%= date %></div>
-						<% events.each do |e| %>
-							<div class="event-thumb">
-								<%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
-							</div>
-						<% end %>
-					<% end %>
+					<%= render 'event/events_by_time', events: @services %>
 				<% else %>
 					<div class="no-participants">
 						No services posted.
@@ -45,14 +38,7 @@
 			<div class="card-panel">
 				<h5 class="card-title">Events This Week</h5>
 				<% if @events != nil && @events.any? %>
-					<% @events.each_pair do |date, events| %>
-						<div class="event-date"><%= date %></div>
-						<% events.each do |e| %>
-							<div class="event-thumb">
-								<%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
-							</div>
-						<% end %>
-					<% end %>
+					<%= render 'event/events_by_time', events: @events %>
 				<% else %>
 					<div class="no-participants">
 						No events posted.

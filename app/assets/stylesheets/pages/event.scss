@@ -172,6 +172,11 @@
 }
 
 /* Calendar */
+.calendar-filters {
+	display: inline-block;
+	text-transform: uppercase;
+}
+
 .fc-time {
 	font-weight: 400 !important;
 }

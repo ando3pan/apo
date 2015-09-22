@@ -1,9 +1,22 @@
 <div class="splash-back swirls">
 <div class="calendar-container">
-	<div class="card-panel">
-		<div id="calendar"></div>
-		<div id="month" style="display: none;"><%= @month %></div>
-		<div id="time-data" style="display: none;"></div>
+	<div class="text-center">
+		<div class="card-panel">
+			<div id="calendar"></div>
+			<div id="month" style="display: none;"><%= @month %></div>
+			<div id="filter" style="display: none;"><%= @filter %></div>
+			<div id="time-data" style="display: none;"></div>
+			<div class="separate calendar-filters">
+				<span class="faded">Filter by event type:</span>
+				<%= link_to "Fellowship", @filterpath + "fellowship" %> /
+				<%= link_to "Service", @filterpath + "service" %> /
+				<%= link_to "Fundraising", @filterpath + "fundraising" %> /
+				<%= link_to "Interchapter", @filterpath + "interchapter" %> /
+				<%= link_to "Alumni", @filterpath + "alumni" %> /
+				<%= link_to "Rush", @filterpath + "rush" %> /
+				<%= link_to "None", @filterpath + "none" %>
+			</div>
+		</div>
 	</div>
 	<% if current_user.admin? %>
 		<div class="text-center separate">

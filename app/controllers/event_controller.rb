@@ -92,6 +92,7 @@ class EventController < ApplicationController
 				end
 			else
 				flash[:alert] = "Errors: #{@event.errors.full_messages.join(", ")}"
+				@action = params[:event][:action]
 				render 'new'
 			end
 		else
@@ -145,12 +146,15 @@ class EventController < ApplicationController
 		render 'chair'
 	end
 
-	# TODO: filter by event type
 	def events_feed
 		events = []
 		start_time = Time.parse(params[:start])
 		end_time = Time.parse(params[:end]).end_of_day
-		Event.where(public: true).where(:start_time => start_time.beginning_of_day..end_time).each do |e|
+		allevents = Event.where(public: true)
+		if params[:filter].downcase != "none"
+			allevents = allevents.where(event_type: params[:filter].capitalize)
+		end
+		allevents.where(:start_time => start_time.beginning_of_day..end_time).each do |e|
 			# ya'll not ready for this sick syntax
 			events.push({
 				title: "#{e.title}",
@@ -185,7 +189,7 @@ class EventController < ApplicationController
 
 	def get_event_color(e)
 		type = e.event_type
-		opacity = e.participants.include?(current_user) ? 1 : 0.9
+		opacity = e.participants.include?(current_user) ? 1: 0.9
 		if type == "Service"
 			"rgba(57, 73, 171, #{opacity})"
 		elsif type == "Fellowship"

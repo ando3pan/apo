@@ -43,9 +43,11 @@
 		      <% end %>
 		    </div>
 		  </div>
-		  <div id="signup-sheet">
-				<%= render 'sheet', event: @event %>
-			</div>
+		  <% unless @event.event_type == "Meeting" %>
+			  <div id="signup-sheet">
+					<%= render 'sheet', event: @event %>
+				</div>
+			<% end %>
 	  </div>
 	  <div class="col s12 l5">
 	  	<div class="card" id="event-panel">
@@ -64,11 +66,14 @@
 	  				Start Time: <span><%= @event.start_time.strftime("%-I:%M %p %-m/%d/%Y") %></span><br />
 	  				End Time:   <span class="e-time-offset"><%= @event.end_time.strftime("%-I:%M %p %-m/%d/%Y %Z") %></span><br />
 	  				<% a_cap = @event.attendance_cap == -1 ? " (Unlimited Signups)" : "/#{@event.attendance_cap}" %>
-	  				Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
+	  				<% if @event.event_type != "Meeting" %>
+	  					Attendance: <span><%= @event.participants.count %><%= a_cap %></span><br />
+	  				<% end %>
 	  				<% if @event.chair_id %>
 	  					Chair: <span><%= User.find(@event.chair_id).displayname %></span>
 	  				<% end %>
 	  			</div>
+	  			<% unless @event.event_type == "Meeting" %>
 	  			<% unless @event.participants.include?(current_user) %>
 	  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
 	  					<!-- Event is happening -->
@@ -132,7 +137,7 @@
 								  	<!-- Button appears when chair is selected -->
 								  	<button id="hide-unless-chair" style="display:none;"
 								  		type="submit" class="waves-effect waves-light btn-large green event-signup">
-								  		Sign Up
+								  		Sign Up To Chair
 								  	</button>
 							  	<% else %>
 							  		<!-- Regular signup -->
@@ -171,6 +176,7 @@
 							<!-- User is attending -->
 							<div class="btn-large disabled event-signup separate">Attending</div>
 						<% end %>
+					<% end %>
 					<% end %>
 					<% if current_user.admin? %>
 						<%= link_to "Edit This Event", new_event_path(edit: @event.id) %><br />

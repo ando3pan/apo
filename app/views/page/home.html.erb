@@ -59,21 +59,14 @@
 	        	<div class="col s12 l4">
 	        		<div class="card-panel">
 				    		<h5>My Upcoming Events</h5>
-				    		<% if @events == nil || @events.empty? %>
-									<div class="faded">
-										Not signed up for any events.
-									</div>
-				    		<% else %>
-                  <% @events.each_pair do |date, events| %>
-                    <div class="event-date"><%= date %></div>
-                    <% events.each do |e| %>
-                      <div class="event-thumb">
-                        <%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
-                      </div>
-                    <% end %>
-                  <% end %>
-								<% end %>
-							</div>
+				    	<% if @events == nil || @events.empty? %>
+                <div class="faded">
+                  Not signed up for any events.
+                </div>
+              <% else %>
+                <%= render 'event/events_by_time', events: @events %>
+              <% end %>
+ 							</div>
               <div class="card-panel">
                 Don't forget to <%= link_to "edit your profile", update_user_path(current_user) %>!
               </div>

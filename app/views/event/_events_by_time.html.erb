@@ -1,0 +1,8 @@
+<% events.each_pair do |date, evts| %>
+  <div class="event-date"><%= date %></div>
+  <% evts.each do |e| %>
+    <div class="event-thumb">
+      <%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
+    </div>
+  <% end %>
+<% end %>

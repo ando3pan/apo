@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	var $calendar = $('#calendar');
   var month = $("#month").html();
+  var filter = $("#filter").html();
 
   $calendar.fullCalendar({
   	displayEventEnd: true,
@@ -17,7 +18,7 @@ $(document).ready(function() {
         }
       },
     timeFormat: 'h:mmt',
-		events: '/events_feed',
+		events: '/events_feed?filter=' + filter,
 		defaultView: 'month',
     defaultDate: new Date(month),
 		allDaySlot: false,
@@ -55,6 +56,6 @@ $(document).ready(function() {
     }
     event.preventDefault();
     event.stopPropagation();
-    window.location.href = '/calendar?load=' + date.toISOString();
+    window.location.href = '/calendar?load=' + date.toISOString() + "&filter=" + filter;
   });
 });

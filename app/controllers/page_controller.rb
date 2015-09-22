@@ -24,6 +24,17 @@ class PageController < ApplicationController
 
   def calendar
     @month = params[:load] ? params[:load] : Time.now.to_date
+    @filter = params[:filter] ? params[:filter] : "none"
+    # hehe ghetto
+    if request.fullpath.include?("filter=")
+      if request.fullpath.include?("load=")
+        @filterpath = request.path + "?load=" + params[:load] + "&filter="
+      else
+        @filterpath = request.path + "?filter="
+      end
+    else
+      @filterpath = request.fullpath.include?("?") ? request.fullpath + "&filter=" : request.fullpath + "?filter="
+    end
   end
 
   def admin
