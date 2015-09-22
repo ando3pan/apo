@@ -26,7 +26,8 @@ function geocodeAddress(geocoder, resultsMap) {
 
 $(".event-signup").click(function() {
   if (!$(this).hasClass("disabled") &&
-    ($("#chair-required").length == 0 || $("#will-chair:checked").length == 1)) {
+    ($("#chair-required").length === 0 || $("#will-chair:checked").length === 1) &&
+    ($("#driver-required").length === 0 || $("#can-drive:checked").length === 1)) {
     $(this).val("Loading");
     $(this).removeClass("orange green red");
     $(this).addClass("disabled");
@@ -40,6 +41,16 @@ $("#will-chair").click(function() {
   } else {
     $("#chair-required").show();
     $("#hide-unless-chair").attr('style', 'display: none;');
+  }
+});
+
+$("#can-drive").click(function() {
+  if ($("#can-drive:checked").length == 1) {
+    $("#driver-required").hide();
+    $("#hide-unless-drive").attr('style', '');
+  } else {
+    $("#driver-required").show();
+    $("#hide-unless-drive").attr('style', 'display: none;');
   }
 });
 

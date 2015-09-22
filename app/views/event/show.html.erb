@@ -23,13 +23,14 @@
 		      <p><%= @event.info %></p>
 		    </div>
 		    <div class="card-action">
-		    	<% if @event.location.length > 0 %>
+    			<% if @event.location %>
+    				<span>Location:</span>
+      			<%= @event.location %>
+      			<br />
+      		<% end %>
+		    	<% if @event.address %>
 		      	<span>Address:</span>
-							<% if @event.address %>
-		      		<%= link_to @event.address, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
-		      		<% else %>
-		      		<%= @event.location %>
-		      		<% end %>
+		      	<%= link_to @event.address, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
 		      	<br />
 		      <% end %>
 		      <% if @event.distance.length > 0 %>
@@ -109,13 +110,27 @@
 										<button type="submit" class="waves-effect waves-light btn-large orange event-signup">
 								  		Join Waitlist
 								  	</button>
+								  <% elsif @needs_driver %>
+								  	<% if current_user.car %>
+									  	<!-- Driver required -->
+									  	<div id="driver-required" class="btn-large disabled event-signup" style="display:none;">
+									  		Driver Required
+									  	</div>
+									  	<!-- Button appears when willing to drive -->
+									  	<button id="hide-unless-drive"
+									  		type="submit" class="waves-effect waves-light btn-large green event-signup">
+									  		Sign Up To Drive
+									  	</button>
+								  	<% else %>
+								  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
+								  	<% end %>
 								  <% elsif @event.participants.count > 2 && @event.chair_id == nil %>
 								  	<!-- No chair after 3 signups -->
 								  	<div id="chair-required" class="btn-large disabled event-signup">
 								  		Chair Required
 								  	</div>
 								  	<!-- Button appears when chair is selected -->
-								  	<button id="hide-unless-chair" style="display:none;" 
+								  	<button id="hide-unless-chair" style="display:none;"
 								  		type="submit" class="waves-effect waves-light btn-large green event-signup">
 								  		Sign Up
 								  	</button>

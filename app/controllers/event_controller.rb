@@ -5,6 +5,16 @@ class EventController < ApplicationController
 
 	def show
 		@event   = Event.find(params[:id])
+		attendances = @event.attendances
+		# If you're not a driver:
+		# no driver: block if 4 signups
+		# 1 driver: block if 9 signups
+		# 2 drivers: block if 14 signups
+		# if you're a driver:
+		# if no driver: require drive if 4 signups
+		# 1 driver: require drive if 9 signups
+		# 2 drivers: require drive if 14 signups
+		@needs_driver = attendances.count - (attendances.where(can_drive: true).count * 5) == 4
 		@holiday = matches_holiday(@event.start_time)
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
@@ -28,7 +38,7 @@ class EventController < ApplicationController
 	def cancel
 		@event = Event.find(params[:attendance][:event_id])
 		a = @event.attendances.find_by_user_id(params[:attendance][:user_id])
-		if a.chair && @event.chair_id == params[:attendance][:user_id]
+		if a.chair && @event.chair_id == params[:attendance][:user_id].to_i
 			@event.update_attribute(:chair_id, nil)
 		end
 		a.destroy
@@ -112,7 +122,6 @@ class EventController < ApplicationController
 			# If a name is given
 		  if a["firstname"].length > 0 && a["lastname"].length > 0
 		  	user = User.where(firstname: a["firstname"]).where(lastname: a["lastname"]).first
-		  	puts "#{a['firstname']} #{user}"
 		  	unless user == nil
 		  		# Updating user's relation
 		  		attendee = @attendances.find_by_user_id(user.id)
@@ -136,6 +145,7 @@ class EventController < ApplicationController
 		render 'chair'
 	end
 
+	# TODO: filter by event type
 	def events_feed
 		events = []
 		start_time = Time.parse(params[:start])
@@ -195,11 +205,11 @@ class EventController < ApplicationController
 		str = e.participants.include?(current_user) ? "You signed up." : ""
 		if e.attendance_cap > 0
 			if e.participants.size >= e.attendance_cap
-				str += "<div style='color: #FFA3A3'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
+				str += "<div style='color: #FFB4B3'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
 			else
 				str += "<div>#{e.participants.size}/#{e.attendance_cap} participants</div>"
 			end
-		else 
+		else
 			str += "<div>#{e.participants.size} signed up</div>"
 		end
 		str

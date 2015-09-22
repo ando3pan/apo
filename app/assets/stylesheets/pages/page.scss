@@ -301,8 +301,14 @@ body {
 /* Media queries */
 
 @media only screen and (max-width: 601px) {
+	.container {
+		padding: 0 8px;
+		width: 100%;
+	}
+
 	.brand-logo img {
 		height: 40px;
 		width: 40px;
+		vertical-align: middle;
 	}
 }
