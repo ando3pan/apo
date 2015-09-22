@@ -73,110 +73,116 @@
 	  					Chair: <span><%= User.find(@event.chair_id).displayname %></span>
 	  				<% end %>
 	  			</div>
-	  			<% unless @event.event_type == "Meeting" %>
-	  			<% unless @event.participants.include?(current_user) %>
-	  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
-	  					<!-- Event is happening -->
-				  		<div class="btn-large disabled event-signup separate">Signups Are Closed</div>
-				  	<% elsif @event.end_time < Time.now %>
-				  		<!-- Event ended -->
-				  		<% if current_user.admin %>
-								<%= link_to event_chair_path(@event) do %>
-									<button class="waves-effect waves-light btn-large green separate event-signup">
-								  		View Chairsheet
-								  </button>
+	  			<% if @event.event_type != "Meeting" %>
+		  			<% unless @event.participants.include?(current_user) %>
+		  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
+		  					<!-- Event is happening -->
+					  		<div class="btn-large disabled event-signup separate">Signups Are Closed</div>
+					  	<% elsif @event.end_time < Time.now %>
+					  		<!-- Event ended -->
+					  		<% if current_user.admin %>
+									<%= link_to event_chair_path(@event) do %>
+										<button class="waves-effect waves-light btn-large green separate event-signup">
+									  		View Chairsheet
+									  </button>
+									<% end %>
+								<% else %>
+									<div class="btn-large disabled event-signup separate">Event Has Ended</div>
 								<% end %>
-							<% else %>
-								<div class="btn-large disabled event-signup separate">Event Has Ended</div>
-							<% end %>
-				  	<% else %>
-				  		<!-- Initialize form -->
-			  			<form action="/event/signup" method="POST" id="signup-form">
-			  				<!-- Pass through variables -->
-			  				<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
-			  				<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
-				  			<% if @event.chair_id == nil %>
-				  				<!-- If a chair is needed -->
-					  			<div class="input-field border-top">
-							      <input type="checkbox" id="will-chair" name="attendance[chair]" />
-				    				<label for="will-chair">Will you chair this event?</label>
-							    </div><br />
-							  <% end %>
-				  			<% if current_user.car %>
-				  				<!-- If willing to drive -->
-				  				<div class="input-field border-top">
-							      <input type="checkbox" id="can-drive" checked="checked" name="attendance[will_drive]" />
-			      				<label for="can-drive">Can you drive for this event?</label>
-							    </div><br />
-				  			<% end %>
-				  			<div class="separate">
-					  			<% if @event.participants.count >= @event.attendance_cap && @event.attendance_cap > 0 %>
-					  				<!-- Already reached cap -->
-										<button type="submit" class="waves-effect waves-light btn-large orange event-signup">
-								  		Join Waitlist
-								  	</button>
-								  <% elsif @needs_driver %>
-								  	<% if current_user.car %>
-									  	<!-- Driver required -->
-									  	<div id="driver-required" class="btn-large disabled event-signup" style="display:none;">
-									  		Driver Required
+					  	<% else %>
+					  		<!-- Initialize form -->
+				  			<form action="/event/signup" method="POST" id="signup-form">
+				  				<!-- Pass through variables -->
+				  				<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
+				  				<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
+					  			<% if @event.chair_id == nil %>
+					  				<!-- If a chair is needed -->
+						  			<div class="input-field border-top">
+								      <input type="checkbox" id="will-chair" name="attendance[chair]" />
+					    				<label for="will-chair">Will you chair this event?</label>
+								    </div><br />
+								  <% end %>
+					  			<% if current_user.car %>
+					  				<!-- If willing to drive -->
+					  				<div class="input-field border-top">
+								      <input type="checkbox" id="can-drive" checked="checked" name="attendance[will_drive]" />
+				      				<label for="can-drive">Can you drive for this event?</label>
+								    </div><br />
+					  			<% end %>
+					  			<div class="separate">
+						  			<% if @event.participants.count >= @event.attendance_cap && @event.attendance_cap > 0 %>
+						  				<!-- Already reached cap -->
+											<button type="submit" class="waves-effect waves-light btn-large orange event-signup">
+									  		Join Waitlist
+									  	</button>
+									  <% elsif @needs_driver %>
+									  	<% if current_user.car %>
+										  	<!-- Driver required -->
+										  	<div id="driver-required" class="btn-large disabled event-signup" style="display:none;">
+										  		Driver Required
+										  	</div>
+										  	<!-- Button appears when willing to drive -->
+										  	<button id="hide-unless-drive"
+										  		type="submit" class="waves-effect waves-light btn-large green event-signup">
+										  		Sign Up To Drive
+										  	</button>
+									  	<% else %>
+									  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
+									  	<% end %>
+									  <% elsif @event.participants.count > 2 && @event.chair_id == nil %>
+									  	<!-- No chair after 3 signups -->
+									  	<div id="chair-required" class="btn-large disabled event-signup">
+									  		Chair Required
 									  	</div>
-									  	<!-- Button appears when willing to drive -->
-									  	<button id="hide-unless-drive"
+									  	<!-- Button appears when chair is selected -->
+									  	<button id="hide-unless-chair" style="display:none;"
 									  		type="submit" class="waves-effect waves-light btn-large green event-signup">
-									  		Sign Up To Drive
+									  		Sign Up To Chair
 									  	</button>
 								  	<% else %>
-								  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
-								  	<% end %>
-								  <% elsif @event.participants.count > 2 && @event.chair_id == nil %>
-								  	<!-- No chair after 3 signups -->
-								  	<div id="chair-required" class="btn-large disabled event-signup">
-								  		Chair Required
-								  	</div>
-								  	<!-- Button appears when chair is selected -->
-								  	<button id="hide-unless-chair" style="display:none;"
-								  		type="submit" class="waves-effect waves-light btn-large green event-signup">
-								  		Sign Up To Chair
-								  	</button>
-							  	<% else %>
-							  		<!-- Regular signup -->
-								  	<button type="submit" class="waves-effect waves-light btn-large green event-signup">
-								  		Sign Up
-								  	</button>
-								  <% end %>
-								</div>
-							</form>
-						<% end %>
-					<% else %>
-						<!-- If event is over -->
-						<% if @event.end_time < Time.now %>
-							<!-- Chairsheet if chair -->
-							<% if @event.chair_id == current_user.id || current_user.admin %>
-								<%= link_to event_chair_path(@event) do %>
-									<button class="waves-effect waves-light btn-large green separate event-signup">
-								  		View Chairsheet
-								  </button>
-								<% end %>
-							<% else %>
-								<div class="btn-large disabled event-signup separate">Event Has Ended</div>
+								  		<!-- Regular signup -->
+									  	<button type="submit" class="waves-effect waves-light btn-large green event-signup">
+									  		Sign Up
+									  	</button>
+									  <% end %>
+									</div>
+								</form>
 							<% end %>
-						<% elsif Time.now < @event.start_time - 1.week  ||
-								@event.attendances.find_by_user_id(current_user.id).created_at > Time.now - 15.minutes %>
-							<!-- Cancel signup within 15 minutes or 1 week in advance -->
-							<form action="/event/cancel" method="POST">
-								<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
-		  					<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
-								<button id="signup-button" type="submit" 
-									class="waves-effect waves-light btn-large red lighten-1 event-signup separate">
-								  Cancel Signup
-								</button>
-							</form>
 						<% else %>
-							<!-- User is attending -->
-							<div class="btn-large disabled event-signup separate">Attending</div>
+							<!-- If event is over -->
+							<% if @event.end_time < Time.now %>
+								<!-- Chairsheet if chair -->
+								<% if @event.chair_id == current_user.id || current_user.admin %>
+									<%= link_to event_chair_path(@event) do %>
+										<button class="waves-effect waves-light btn-large green separate event-signup">
+									  		View Chairsheet
+									  </button>
+									<% end %>
+								<% else %>
+									<div class="btn-large disabled event-signup separate">Event Has Ended</div>
+								<% end %>
+							<% elsif Time.now < @event.start_time - 1.week  ||
+									@event.attendances.find_by_user_id(current_user.id).created_at > Time.now - 15.minutes %>
+								<!-- Cancel signup within 15 minutes or 1 week in advance -->
+								<form action="/event/cancel" method="POST">
+									<input style="display: none;" value=<%= @event.id %> name="attendance[event_id]"/>
+			  					<input style="display: none;" value=<%= current_user.id %> name="attendance[user_id]"/>
+									<button id="signup-button" type="submit" 
+										class="waves-effect waves-light btn-large red lighten-1 event-signup separate">
+									  Cancel Signup
+									</button>
+								</form>
+							<% else %>
+								<!-- User is attending -->
+								<div class="btn-large disabled event-signup separate">Attending</div>
+							<% end %>
 						<% end %>
-					<% end %>
+					<% elsif current_user.admin? %>
+						<%= link_to meeting_path(@event.id) do %>
+							<button class="waves-effect waves-light btn-large blue event-signup separate">
+						  		Go To Signin
+						  </button>
+						<% end %>
 					<% end %>
 					<% if current_user.admin? %>
 						<%= link_to "Edit This Event", new_event_path(edit: @event.id) %><br />

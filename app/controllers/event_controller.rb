@@ -1,6 +1,6 @@
 class EventController < ApplicationController
 	before_action      :ensure_signed_in
-	before_action      :ensure_admin, only: [:new, :destroy]
+	before_action      :ensure_admin, only: [:new, :destroy, :meeting]
 	skip_before_action :verify_authenticity_token
 
 	def show
@@ -19,6 +19,10 @@ class EventController < ApplicationController
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
 		end
+	end
+
+	def meeting
+		@event = Event.find(params[:id])
 	end
 
 	def signup
@@ -178,7 +182,7 @@ class EventController < ApplicationController
 
   def ensure_admin
     unless user_signed_in? && current_user.admin
-      redirect_to root_path, notice: "Only admins may access that page."
+      redirect_to root_path, notice: "You don't have permission to access that page."
     end
   end
 
@@ -189,7 +193,7 @@ class EventController < ApplicationController
 
 	def get_event_color(e)
 		type = e.event_type
-		opacity = e.participants.include?(current_user) ? 1: 0.9
+		opacity = 1
 		if type == "Service"
 			"rgba(57, 73, 171, #{opacity})"
 		elsif type == "Fellowship"
@@ -206,7 +210,7 @@ class EventController < ApplicationController
 	end
 
 	def get_event_description(e)
-		str = e.participants.include?(current_user) ? "You signed up." : ""
+		str = ""
 		if e.attendance_cap > 0
 			if e.participants.size >= e.attendance_cap
 				str += "<div style='color: #FFB4B3'>#{e.participants.size}/#{e.attendance_cap} participants</div>"
