@@ -7,6 +7,7 @@
     <a href="#" data-activates="mobile-demo" class="button-collapse"><div class="hamburger-icon"></div></a>
     <ul class="right hide-on-med-and-down">
       <% if !user_signed_in? %>
+        <li><%= link_to "Rush", "http://aporhopi.org/rush" %></li>
         <li><%= link_to "Register", new_user_registration_path %></li>
       <% else %>
         <% if current_user.admin %>
@@ -21,6 +22,7 @@
     <ul class="side-nav" id="mobile-demo">
       <li><%= link_to "Home", root_path %></li>
       <% if !user_signed_in? %>
+        <li><%= link_to "Rush", "http://aporhopi.org/rush" %></li>
         <li><%= link_to "Register", new_user_registration_path %></li>
       <% else %>
         <% if current_user.admin %>
