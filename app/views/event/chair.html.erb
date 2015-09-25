@@ -23,7 +23,7 @@
     			<div class="<%= "row attendee" %>">
     				<div class="aside-counter col s1"><%= i+1 %></div>
 	    			<div class="input-field col s4">
-		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %> value=<%= user.firstname %>>
+		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %> value=<%= user.firstname.strip %>>
 		          <label for=<%= "fn-#{i}" %>>First Name</label>
 		          <% if a.attended == nil %>
 		          	<div class="chairsheet-updated">
@@ -37,7 +37,7 @@
 		          <% end %>
 		        </div>
 		        <div class="input-field col s4">
-		          <input id=<%= "ln-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]lastname" %> value=<%= user.lastname %>>
+		          <input id=<%= "ln-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]lastname" %> value=<%= user.lastname.strip %>>
 		          <label for=<%= "ln-#{i}" %>>Last Name</label>
 		        </div>
 		        <div class="input-field col s3 attendance-options">

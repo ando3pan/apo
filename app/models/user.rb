@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
 
 
   before_save do
-  	self.a_username = self.username.downcase
-  	self.nickname = (self.nickname == "" ? self.firstname : self.nickname)
+  	self.a_username = self.username.downcase.strip
+    self.firstname = self.firstname.strip
+    self.lastname = self.lastname.strip
+  	self.nickname = (self.nickname == "" ? self.firstname : self.nickname).strip
     self.displayname = (self.displayname == "" ? "#{self.firstname} #{self.lastname}" : self.displayname)
 	end
 
