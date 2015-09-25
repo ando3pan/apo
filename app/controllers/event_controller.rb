@@ -148,7 +148,8 @@ class EventController < ApplicationController
 		  	end
 		  end
 		end
-		render 'chair'
+		flash[:success] = "Chairsheet updated."
+		redirect_to event_path(@event)
 	end
 
 	def events_feed
