@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
  	attr_accessor :login
 
-  has_many :attendances
+  has_many :attendances, dependent: :destroy
   has_many :attending_events, through: :attendances, source: :event #for the participants
   has_many :events #for the event organiser
 

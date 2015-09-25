@@ -19,54 +19,61 @@
     <div class="form-card">
     	<form action="/event/chairsheet" method="POST" id="chair-form">
     		<% @attendances.each_with_index do |a, i| %>
-    			<% user = User.find(a.user_id) %>
-    			<div class="<%= "row attendee" %>">
-    				<div class="aside-counter col s1"><%= i+1 %></div>
-	    			<div class="input-field col s4">
-		          <input id=<%= "fn-#{i}" %> type="text" class="validate" 
-                name=<%= "[u][#{i}]firstname" %> value="<%= user.firstname.strip %>" />
-		          <label for=<%= "fn-#{i}" %>>First Name</label>
-		          <% if a.attended == nil %>
-		          	<div class="chairsheet-updated">
-		          		Not submitted.
-		          	</div>
-		          <% end %>
-		          <% if a.updated_at > a.created_at %>
-		          	<div class="chairsheet-updated">
-		          		Last updated <%= time_ago_in_words a.updated_at %> ago.
-		          	</div>
-		          <% end %>
-		        </div>
-		        <div class="input-field col s4">
-		          <input id=<%= "ln-#{i}" %> type="text" class="validate"
-                name=<%= "[u][#{i}]lastname" %> value="<%= user.lastname.strip %>" />
-		          <label for=<%= "ln-#{i}" %>>Last Name</label>
-		        </div>
-		        <div class="input-field col s3 attendance-options">
-		        	<p>
-			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
-			          	checked />
-	      				<label for=<%= "att-#{i}" %>>Attended</label>
-							</p>
-							<p>
-			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> 
-			            <%= a.flaked ? "checked" : "" %> />
-	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
-							</p>
-							<p>
-			          <input type="radio" class="with-gap" id=<%= "rep-#{i}" %> value="replaced" name=<%= "[u][#{i}]attendance" %> />
-	      				<label for=<%= "rep-#{i}" %>>Replacement</label>
-							</p>
-							<div class="input-field">
-			          <input type="checkbox" id=<%= "dro-#{i}" %> <%= a.drove || a.can_drive ? "checked" : "" %> name=<%= "[u][#{i}]drove" %> />
-	      				<label for=<%= "dro-#{i}" %>>Drove</label>
-			        </div>
-			        <div class="input-field">
-			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> <%= a.chair ? "checked" : "" %> name=<%= "[u][#{i}]chair" %> />
-	      				<label for=<%= "cha-#{i}" %>>Chaired</label>
-			        </div>
-		        </div>
-		      </div>
+    			<% user = User.find(a.user_id) rescue nil %>
+          <% if user %>
+      			<div class="row attendee">
+      				<div class="aside-counter col s1"><%= i+1 %></div>
+  	    			<div class="input-field col s4">
+  		          <input id=<%= "fn-#{i}" %> type="text" class="validate" 
+                  name=<%= "[u][#{i}]firstname" %> value="<%= user.firstname.strip %>" />
+  		          <label for=<%= "fn-#{i}" %>>First Name</label>
+  		          <% if a.attended == nil %>
+  		          	<div class="chairsheet-updated">
+  		          		Not submitted.
+  		          	</div>
+  		          <% end %>
+  		          <% if a.updated_at > a.created_at %>
+  		          	<div class="chairsheet-updated">
+  		          		Last updated <%= time_ago_in_words a.updated_at %> ago.
+  		          	</div>
+  		          <% end %>
+  		        </div>
+  		        <div class="input-field col s4">
+  		          <input id=<%= "ln-#{i}" %> type="text" class="validate"
+                  name=<%= "[u][#{i}]lastname" %> value="<%= user.lastname.strip %>" />
+  		          <label for=<%= "ln-#{i}" %>>Last Name</label>
+  		        </div>
+  		        <div class="input-field col s3 attendance-options">
+  		        	<p>
+  			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
+  			          	checked />
+  	      				<label for=<%= "att-#{i}" %>>Attended</label>
+  							</p>
+  							<p>
+  			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> 
+  			            <%= a.flaked ? "checked" : "" %> />
+  	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
+  							</p>
+  							<p>
+  			          <input type="radio" class="with-gap" id=<%= "rep-#{i}" %> value="replaced" name=<%= "[u][#{i}]attendance" %> />
+  	      				<label for=<%= "rep-#{i}" %>>Replacement</label>
+  							</p>
+  							<div class="input-field">
+  			          <input type="checkbox" id=<%= "dro-#{i}" %> <%= a.drove || a.can_drive ? "checked" : "" %> name=<%= "[u][#{i}]drove" %> />
+  	      				<label for=<%= "dro-#{i}" %>>Drove</label>
+  			        </div>
+  			        <div class="input-field">
+  			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> <%= a.chair ? "checked" : "" %> name=<%= "[u][#{i}]chair" %> />
+  	      				<label for=<%= "cha-#{i}" %>>Chaired</label>
+  			        </div>
+  		        </div>
+  		      </div>
+          <% else %>
+            <div class="row attendee faded">
+              <div class="col s1"><%= i + 1 %></div>
+              <div class="col s11">User removed.</div>
+            </div>
+          <% end %>
     		<% end %>
     		<div id="attendances-size" style="display:none;"><%= @attendances.size %></div>
     		<div id="extra-attendees">
