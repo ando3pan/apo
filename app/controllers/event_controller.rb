@@ -123,7 +123,7 @@ class EventController < ApplicationController
 
 	def chairsheet
 		@event = Event.find(params[:id])
-		@attendances = @event.attendances
+		@attendances = @event.attendance_cap > 0 ? @event.attendances.limit(@event.attendance_cap) : @event.attendances
 		params[:u].each do |key, a|
 			# If a name is given
 		  if a["firstname"].length > 0 && a["lastname"].length > 0
