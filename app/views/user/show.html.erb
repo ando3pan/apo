@@ -24,12 +24,16 @@
 				<h5>Requirements</h5>
 				<%= @hours %> service hours completed.<br />
 				<%= pluralize @fellowships, "fellowship" %> attended.
+				<div class="faded small-link">
+					<strong>These numbers are not necessarily accurate!</strong><br />
+					You must still track your own requirements.
+				</div>
 			</div>
 		</div>
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>My Upcoming Events</h5>
-    		<% if @events.empty? %>
+    		<% if !@events || @events.empty? %>
 					<div class="no-participants">
 						No events.
 					</div>

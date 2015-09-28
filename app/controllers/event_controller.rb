@@ -42,12 +42,18 @@ class EventController < ApplicationController
 
 	def cancel
 		@event = Event.find(params[:attendance][:event_id])
-		a = @event.attendances.find_by_user_id(params[:attendance][:user_id])
-		if a.chair && @event.chair_id == params[:attendance][:user_id].to_i
-			@event.update_attribute(:chair_id, nil)
+		if Time.now < @event.start_time - 1.week  ||
+			@event.attendances.find_by_user_id(current_user.id).created_at > Time.now - 20.minutes
+			a = @event.attendances.find_by_user_id(params[:attendance][:user_id])
+			if a.chair && @event.chair_id == params[:attendance][:user_id].to_i
+				@event.update_attribute(:chair_id, nil)
+			end
+			a.destroy
+			redirect_to event_path(@event.id)
+		else
+			flash[:error] = "It's too late to cancel your signup."
+			redirect_to event_path(@event.id)
 		end
-		a.destroy
-		redirect_to event_path(@event.id)
 	end
 
 	def new
@@ -114,10 +120,10 @@ class EventController < ApplicationController
 	end
 
 	def chair
+		@event = Event.find(params[:id])
 		unless current_user.admin || @event.chair_id == current_user.id
 			redirect_to event_path(@event)
 		end
-		@event = Event.find(params[:id])
 		@attendances = @event.attendance_cap > 0 ? @event.attendances.limit(@event.attendance_cap) : @event.attendances
 	end
 
