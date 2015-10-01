@@ -58,6 +58,11 @@
   			          <input type="radio" class="with-gap" id=<%= "rep-#{i}" %> value="replaced" name=<%= "[u][#{i}]attendance" %> />
   	      				<label for=<%= "rep-#{i}" %>>Replacement</label>
   							</p>
+                <p>
+                  <input type="radio" class="with-gap" id=<%= "wait-#{i}" %> value="waitlist" name=<%= "[u][#{i}]attendance" %>
+                  <%= i+1 > @event.attendance_cap && !a.attended && !a.flaked ? "checked" : "" %> />
+                  <label for=<%= "wait-#{i}" %>>Did Not Attend (Waitlist)</label>
+                </p>
   							<div class="input-field">
   			          <input type="checkbox" id=<%= "dro-#{i}" %> <%= a.drove || a.can_drive ? "checked" : "" %> name=<%= "[u][#{i}]drove" %> />
   	      				<label for=<%= "dro-#{i}" %>>Drove</label>

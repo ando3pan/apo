@@ -124,36 +124,31 @@ class EventController < ApplicationController
 		unless current_user.admin || @event.chair_id == current_user.id
 			redirect_to event_path(@event)
 		end
-		@attendances = @event.attendance_cap > 0 ? @event.attendances.limit(@event.attendance_cap) : @event.attendances
+		@attendances = @event.attendances.order(:created_at).sort_by { |a| a.flaked ? 1 : 0 }
 	end
 
 	def chairsheet
 		@event = Event.find(params[:id])
-		@attendances = @event.attendances
+		# rebuild the relations
+		@event.attendances.clear
 		params[:u].each do |key, a|
 			# If a name is given
-		  if a["firstname"].length > 0 && a["lastname"].length > 0
+		  if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
 		  	user = User.where(firstname: a["firstname"]).where(lastname: a["lastname"]).first
-		  	unless user == nil
-		  		# Updating user's relation
-		  		attendee = @attendances.find_by_user_id(user.id)
-		  		unless attendee
-			  		# build relation for the replacement
-			  		@event.participants << user
-			  		attendee = @attendances.last
-			  	end
+		  	if user
+		  		# add the user
+		  		@event.participants << user
+		  		attendee = @event.attendances.find_by_user_id(user.id)
 
 			  	#  Update the relation
-			  	attendee.update_attribute(:attended, a["attendance"] == "attended")
+			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
 		  		attendee.update_attribute(:chair,    a.has_key?("chair"))
 		  		attendee.update_attribute(:drove,    a.has_key?("drove"))
-		  	else
-		  		# Error: user not found
-
 		  	end
 		  end
 		end
+
 		flash[:success] = "Chairsheet updated."
 		redirect_to event_path(@event)
 	end

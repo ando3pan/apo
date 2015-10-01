@@ -10,7 +10,7 @@
 	    <div class="col s2">Family</div>
 	    <div class="col s2">Driving</div>
 	  </li>
-	  <% event.attendances.each_with_index do |a, index| %>
+	  <% event.attendances.where(flaked: false).each_with_index do |a, index| %>
 	  	<% p = User.find(a.user_id) rescue nil %>
 	  	<% if p %>
 		  	<% waitlist = event.attendance_cap > 0 && index + 1 > event.attendance_cap %>

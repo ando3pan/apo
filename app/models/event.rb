@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 	belongs_to :user # The organiser
-	has_many :attendances, dependent: :destroy
-	has_many :participants, through: :attendances, source: :user 
+	has_many :attendances, -> { order 'created_at asc' }, dependent: :destroy
+	has_many :participants, -> { order 'created_at asc' }, through: :attendances, source: :user
 
 	validates :title, presence: true
 	validates :start_time, presence: true
