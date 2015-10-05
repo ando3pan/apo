@@ -2,35 +2,41 @@
 	<div class="signup-title <%= event.event_type.downcase %>">
 		<h5>Signup Sheet</h5>
 	</div>
-	<ul class="collection">
-		<li class="collection-item row light-blue lighten-5">
-			<div class="col s1">#</div>
-	    <div class="col s4">Name</div>
-	    <div class="col s3">Phone Number</div>
-	    <div class="col s2">Family</div>
-	    <div class="col s2">Driving</div>
-	  </li>
-	  <% attendances = @event.end_time < Time.now ? event.attendances.where(flaked: false) : event.attendances %>
-	  <% attendances.each_with_index do |a, index| %>
-	  	<% p = User.find(a.user_id) rescue nil %>
-	  	<% if p %>
-		  	<% waitlist = event.attendance_cap > 0 && index + 1 > event.attendance_cap %>
-			  <li class="collection-item row <%= event.chair_id == p.id ? "yellow lighten-2" : "" %>
-			  	<%= waitlist  ? "blue-grey lighten-4" : "" %>">
-			  	<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
-			    <div class="col s4"><%= p.displayname %></div>
-			    <div class="col s3"><%= number_to_phone(p.phone, area_code: true) %></div>
-			    <div class="col s2"><%= p.family %></div>
-			    <div class="col s2"><% if a.can_drive %>Yes<% elsif p.car %>No<% end %></div>
-			  </li>
-			 <% else %>
-			 	<li class="collection-item row faded">
-			 		<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
-			 		<div class="col s11">Removed</div>
-			 	</li>
-			 <% end %>
-		<% end %>
-	</ul>
+	<% attendances = @event.end_time < Time.now ? event.attendances.where(flaked: false) : event.attendances %>
+  <% if @event.end_time < Time.now && attendances.empty? %>
+  	<div class="text-center card-panel">
+  		<strong>Waiting for <%= User.find(@event.chair_id).displayname %> to submit the Chairsheet.</strong>
+  	</div>
+	<% else %>
+		<ul class="collection">
+			<li class="collection-item row light-blue lighten-5">
+				<div class="col s1">#</div>
+		    <div class="col s4">Name</div>
+		    <div class="col s3">Phone Number</div>
+		    <div class="col s2">Family</div>
+		    <div class="col s2">Driving</div>
+		  </li>
+		  <% attendances.each_with_index do |a, index| %>
+		  	<% p = User.find(a.user_id) rescue nil %>
+		  	<% if p %>
+			  	<% waitlist = event.attendance_cap > 0 && index + 1 > event.attendance_cap %>
+				  <li class="collection-item row <%= event.chair_id == p.id ? "yellow lighten-2" : "" %>
+				  	<%= waitlist  ? "blue-grey lighten-4" : "" %>">
+				  	<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
+				    <div class="col s4"><%= p.displayname %></div>
+				    <div class="col s3"><%= number_to_phone(p.phone, area_code: true) %></div>
+				    <div class="col s2"><%= p.family %></div>
+				    <div class="col s2"><% if a.can_drive %>Yes<% elsif p.car %>No<% end %></div>
+				  </li>
+				 <% else %>
+				 	<li class="collection-item row faded">
+				 		<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
+				 		<div class="col s11">Removed</div>
+				 	</li>
+				 <% end %>
+			<% end %>
+		</ul>
+	<% end %>
 <% else %>
 	<div class="card-panel no-participants">
 		Be the first to sign up!

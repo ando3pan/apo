@@ -4,12 +4,12 @@
 			<div class="card">
 				<% if @spotlight %>
 					<div class="card-image">
-						<img src=<%= @spotlight[0]['photos'][0]['alt_sizes'][0]['url'] %>>
+						<img src=<%= @spotlight[0]['photos'][0]['alt_sizes'][0]['url'] rescue '' %>>
 						<span class="card-title" style="color: white;">Spotlight</span>
 					</div>
 					<div class="card-content">
 						<p>
-							<%= @spotlight[0]['caption'].html_safe %>
+							<%= @spotlight[0]['caption'].html_safe rescue 'Error loading spotlight.' %>
 						</p>
 					</div>
 				<% else %>
