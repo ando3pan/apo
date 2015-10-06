@@ -4,9 +4,16 @@
 	</div>
 	<% attendances = @event.end_time < Time.now ? event.attendances.where(flaked: false) : event.attendances %>
   <% if @event.end_time < Time.now && attendances.empty? %>
-  	<div class="text-center card-panel">
-  		<strong>Waiting for <%= User.find(@event.chair_id).displayname %> to submit the Chairsheet.</strong>
-  	</div>
+  	<% if @event.chair_id %>
+	  	<div class="text-center card-panel">
+	  		<strong>Waiting for <%= User.find(@event.chair_id).displayname %> to submit the Chairsheet.</strong>
+	  	</div>
+	  <% else %>
+	  	<div class="text-center card-panel red lighten-4">
+	  		<strong>Error: this event has no chair.</strong><br />
+	  		Please give the <%= link_to "link to this event", event_path(@event) %> to the webmaster.
+	  	</div>
+	  <% end %>
 	<% else %>
 		<ul class="collection">
 			<li class="collection-item row light-blue lighten-5">
