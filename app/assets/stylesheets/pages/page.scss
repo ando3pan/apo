@@ -298,6 +298,19 @@ body {
 	overflow: hidden;
 }
 
+/* Home page */
+.gbm {
+	.card-title {
+		font-size: 3em;
+	}
+
+	.card-content {
+		color: #333;
+		line-height: 1em;
+		padding: 0 18px;
+	}
+}
+
 /* Media queries */
 
 @media only screen and (max-width: 601px) {

@@ -57,6 +57,17 @@
 	        		<%= render 'tumblr', posts: @posts %>
         		</div>
 	        	<div class="col s12 l4">
+              <% if @gbm %>
+                <div class="card gbm">
+                  <div class="card-image">
+                    <%= image_tag 'gbm.png' %>
+                    <span class="card-title white-text"><%= @gbm['title'] %></span>
+                  </div>
+                  <div class="card-content">
+                    <%= @gbm['body'].html_safe %>
+                  </div>
+                </div>
+              <% end %>
 	        		<div class="card-panel">
 				    		<h5>My Upcoming Events</h5>
 				    	<% if @events == nil || @events.empty? %>

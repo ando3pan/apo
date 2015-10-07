@@ -28,6 +28,13 @@ $(document).ready(function() {
     }
   });
 
+  // stupid workaround so events open in new tab
+  $calendar.on('click', '.fc-event', function(e) {
+    e.preventDefault();
+    window.open($(this).attr('href'), '_blank');
+  });
+
+  // month navigation
   $("button").unbind();
 
   $("button").on('click', function(event) {
