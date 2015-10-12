@@ -66,7 +66,7 @@
         <%= f.text_field :pledge_class, class: "validate" %>
       </div>
       <div class="input-field">
-        <% options = [@user.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate', 'Alumni'].uniq %>
+        <% options = [@user.membership_status, 'Unknown', 'Pledge', 'Active', 'Inactive', 'Associate', 'Alumni'].uniq %>
         <%= f.select(:membership_status, options_for_select(options)) %>
         <%= f.label :membership_status, "Membership Status" %>
       </div>
