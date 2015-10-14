@@ -80,7 +80,8 @@ class EventController < ApplicationController
 						public: @copy.public,
 						hours: @copy.hours,
 						driver_hours: @copy.driver_hours,
-						distance: @copy.distance
+						distance: @copy.distance,
+						off_campus: @copy.off_campus
 						)
 				end
 			end
