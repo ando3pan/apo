@@ -77,6 +77,10 @@
       <%= f.number_field :attendance_cap, class: "validate", placeholder: 0  %>
     </div>
     <div class="input-field">
+      <%= f.check_box :off_campus %>
+      <%= f.label :off_campus, "Needs Driver (For off campus events)" %>
+    </div><br />
+    <div class="input-field">
       <%= f.check_box :flake_penalty %>
       <%= f.label :flake_penalty %>
     </div><br />

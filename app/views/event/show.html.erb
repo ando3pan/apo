@@ -23,12 +23,12 @@
 		      <p><%= @event.info %></p>
 		    </div>
 		    <div class="card-action">
-    			<% if @event.location %>
+    			<% if @event.location.length > 0 %>
     				<span>Location:</span>
       			<%= @event.location %>
       			<br />
       		<% end %>
-		    	<% if @event.address %>
+		    	<% if @event.address.length > 0 %>
 		      	<span>Address:</span>
 		      	<%= link_to @event.address, "https://maps.google.com?daddr=#{@event.address}", target: "_blank", id: "mapsaddress" %>
 		      	<br />
@@ -102,7 +102,7 @@
 					    				<label for="will-chair">Will you chair this event?</label>
 								    </div><br />
 								  <% end %>
-					  			<% if current_user.car %>
+					  			<% if current_user.car && @event.off_campus %>
 					  				<!-- If willing to drive -->
 					  				<div class="input-field border-top">
 								      <input type="checkbox" id="can-drive" checked="checked" name="attendance[will_drive]" />
@@ -129,7 +129,7 @@
 									  	<% else %>
 									  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
 									  	<% end %>
-									  <% elsif (@event.participants.count > 2 || (@event.attendance_cap == 2 && @event.participants.count == 1)) &&
+									  <% elsif (@event.participants.count == 2 || (@event.attendance_cap == 2 && @event.participants.count == 1)) &&
 									  	@event.chair_id == nil %>
 									  	<!-- No chair after 3 signups -->
 									  	<div id="chair-required" class="btn-large disabled event-signup">

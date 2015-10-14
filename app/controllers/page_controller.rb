@@ -64,6 +64,9 @@ class PageController < ApplicationController
   def settings
   end
 
+  def info
+  end
+
   private
   def tumblr
     Tumblr::Client.new({
