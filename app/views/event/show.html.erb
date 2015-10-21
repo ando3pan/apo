@@ -20,7 +20,7 @@
 		      <div id="map-canvas"></div>
 		    </div>
 		    <div class="card-content">
-		      <p><%= @event.info %></p>
+		      <p><%= simple_format @event.info %></p>
 		    </div>
 		    <div class="card-action">
     			<% if @event.location.length > 0 %>

@@ -50,7 +50,7 @@
   	      				<label for=<%= "att-#{i}" %>>Attended</label>
   							</p>
   							<p>
-  			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> 
+  			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %>
   			            <%= a.flaked ? "checked" : "" %> />
   	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
   							</p>
@@ -60,7 +60,7 @@
   							</p>
                 <p>
                   <input type="radio" class="with-gap" id=<%= "wait-#{i}" %> value="waitlist" name=<%= "[u][#{i}]attendance" %>
-                  <%= i+1 > @event.attendance_cap && !a.attended && !a.flaked ? "checked" : "" %> />
+                  <%= @event.attendance_cap > 0 && i+1 > @event.attendance_cap && !a.attended && !a.flaked ? "checked" : "" %> />
                   <label for=<%= "wait-#{i}" %>>Did Not Attend (Waitlist)</label>
                 </p>
   							<div class="input-field">
