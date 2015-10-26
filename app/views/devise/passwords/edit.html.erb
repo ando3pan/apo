@@ -22,6 +22,7 @@
           <%= f.label :password_confirmation, "Confirm New Password" %><br />
           <%= f.password_field :password_confirmation, autocomplete: "off" %>
         </div>
+        <%= f.hidden_field :reset_password_token %>
 
         <div class="text-center">
           <%= f.submit "Change Password", class: "btn yellow darken-2 separate" %>

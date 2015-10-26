@@ -135,7 +135,8 @@ class EventController < ApplicationController
 		params[:u].each do |key, a|
 			# If a name is given
 		  if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
-		  	user = User.where(firstname: a["firstname"]).where(lastname: a["lastname"]).first
+		  	name = "#{a['firstname']} #{a['lastname']}"
+		  	user = User.where("lower(displayname) = ?", name.downcase).first
 		  	if user
 		  		# add the user
 		  		@event.participants << user
