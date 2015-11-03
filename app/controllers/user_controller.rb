@@ -6,6 +6,7 @@ class UserController < ApplicationController
     @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 		# how can I make this prettier
 		@hours = 0
+		@flakehours = 0
 		@fellowships = 0
 		@user.attendances.where(past_quarter: false).each do |a|
 			event = Event.find(a.event_id)
@@ -13,7 +14,7 @@ class UserController < ApplicationController
 				if a.attended?
 					@hours += a.drove ? event.driver_hours : event.hours
 				elsif event.flake_penalty? && a.flaked?
-					@hours -= event.ehours
+					@flakehours += event.hours
 				end
 			elsif event.event_type == "Fellowship" && a.attended?
 				@fellowships += 1
