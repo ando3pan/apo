@@ -193,7 +193,7 @@ class EventController < ApplicationController
 
 	def event_params
     params.require(:event).permit(:title, :start_time, :end_time, :location, :address, :event_type,
-    	:hours, :driver_hours, :distance, :flake_penalty, :info, :contact, :attendance_cap, :public, :user_id)
+    	:hours, :driver_hours, :distance, :flake_penalty, :info, :contact, :attendance_cap, :public, :off_campus, :user_id)
 	end
 
 	def get_event_color(e)
