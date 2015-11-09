@@ -209,6 +209,16 @@ class EventController < ApplicationController
 			"rgba(199, 140, 66, #{opacity})"
 		elsif type == "Interchapter"
 			"rgba(33, 73, 184, #{opacity})"
+		elsif type == "Alpha"
+			"rgba(237, 204, 57, #{opacity})"
+		elsif type == "Phi"
+			"rgba(123, 31, 162, #{opacity})"
+		elsif type == "Omega"
+			"rgba(13, 71, 161, #{opacity})"
+		elsif type == "Rho"
+			"rgba(198, 40, 40, #{opacity})"
+		elsif type == "Pi"
+			"rgba(56, 142, 60, #{opacity})"
 		else
 			"rgba(85, 85, 85, #{opacity})"
 		end

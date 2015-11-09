@@ -69,6 +69,46 @@
 	}
 }
 
+.alpha {
+	background-color: #fbc02d;
+
+	&.splash {
+		background-color: #fbc02d;
+	}
+}
+
+.phi {
+	background-color: #7B1FA2;
+
+	&.splash {
+		background-color: #7B1FA2;
+	}
+}
+
+.omega {
+	background-color: #0d47a1;
+
+	&.splash {
+		background-color: #0d47a1;
+	}
+}
+
+.rho {
+	background-color: #c62828;
+
+	&.splash {
+		background-color: #c62828;
+	}
+}
+
+.pi {
+	background-color: #388e3c;
+
+	&.splash {
+		background-color: #388e3c;
+	}
+}
+
 #map-canvas {
 	height: 220px;
 }
