@@ -208,7 +208,7 @@ class EventController < ApplicationController
 		elsif type == "Rush"
 			"rgba(199, 140, 66, #{opacity})"
 		elsif type == "Interchapter"
-			"rgba(33, 73, 184, #{opacity})"
+			"rgba(216, 27, 96, #{opacity})"
 		elsif type == "Alpha"
 			"rgba(237, 204, 57, #{opacity})"
 		elsif type == "Phi"
