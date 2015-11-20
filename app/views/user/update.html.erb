@@ -1,6 +1,6 @@
 <div class="splash-back stardust">
 <div class="container row">
-	<% if @edit %> 
+	<% if @edit %>
   <div class="col m12 l8 offset-l2 card-panel">
     <div class="text-center separate">
       <%= image_tag "pin.png" %>
@@ -31,18 +31,6 @@
       <div class="input-field">
         <%= f.label :lastname, "Last Name" %>
         <%= f.text_field :lastname, class: "validate" %>
-      </div>
-      <div class="input-field">
-        <%= f.label :nickname, "Nickname (optional)" %>
-        <%= f.text_field :nickname %>
-      </div>
-      <div class="input-field">
-        <% options = [@user.displayname, "#{@user.firstname} #{@user.lastname}"] %>
-        <% if @user.nickname != @user.firstname %>
-        <% options << "#{@user.nickname} #{@user.lastname}" %>
-        <% end %>
-        <%= f.select(:displayname, options_for_select(options.uniq))%>
-        <%= f.label :displayname, "Display Name" %>
       </div>
       <div class="input-field">
         <%= f.label :email %>

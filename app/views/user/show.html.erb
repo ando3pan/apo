@@ -29,6 +29,15 @@
 					<strong>These numbers are not necessarily accurate!</strong><br />
 					You must still track your own requirements.
 				</div>
+				<!--
+				<div class="btn-container">
+					<%= link_to greensheet_path(@user) do %>
+						<div class="btn green darken-1">
+							My Greensheet
+						</div>
+					<% end %>
+				</div>
+				-->
 			</div>
 		</div>
 		<div class="col l4">
@@ -46,15 +55,31 @@
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>Attended Events</h5>
-    		<% events = @user.attendances.where(attended: true) %>
+    		<% events = @user.attendances %>
     		<% if events.empty? %>
 					<div class="no-participants">
 						No events.
 					</div>
     		<% else %>
-	    		<% events.each do |a| %>
+	    		<% events.where(attended: true).each do |a| %>
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
+					<% end %>
+					<% flaked_events = events.where(flaked: true) %>
+					<% if flaked_events.any? %>
+						<h6>Flaked Events</h6>
+						<% flaked_events.each do |a| %>
+							<% e = Event.find(a.event_id) %>
+							<%= link_to e.title, event_path(e) %><br />
+						<% end %>
+					<% end %>
+					<% unchaired = events.where(attended: nil) %>
+					<% if unchaired.any? %>
+						<h6>Waiting For Chairsheet</h6>
+						<% unchaired.each do |a| %>
+							<% e = Event.find(a.event_id) %>
+							<%= link_to e.title, event_path(e) %><br />
+						<% end %>
 					<% end %>
 				<% end %>
 			</div>

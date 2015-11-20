@@ -78,9 +78,6 @@
                 <%= render 'event/events_by_time', events: @events %>
               <% end %>
  							</div>
-              <div class="card-panel">
-                Don't forget to <%= link_to "edit your profile", update_user_path(current_user) %>!
-              </div>
 							<div class="card-panel">
 								<h5>Links</h5>
                 <%= link_to 'Forums', 'http://aporhopi.org/forums/' %><br />
@@ -89,6 +86,7 @@
                   'https://www.dropbox.com/s/kb1qdztcj1nez99/aporeqs-1.pdf', target: '_blank' %><br />
                 <%= link_to 'Pledge Requirements',
                   'https://www.dropbox.com/s/7gc0bojilso7heh/pledge%20infograph.pdf', target: '_blank' %><br />
+                <%= link_to "Edit your profile", update_user_path(current_user) %><br />
                 <h5>Finance</h5>
                 <%= link_to 'Reimbursement Policies',
                   'https://dl.dropboxusercontent.com/u/30628607/Reimbursement-Policies.pdf', target: '_blank' %><br />

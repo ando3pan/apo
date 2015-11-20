@@ -2,7 +2,9 @@ class UserController < ApplicationController
 	before_action :ensure_user
 
 	def show
-		events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
+		#events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
+		attendances = Attendance.where(user_id: @user.id)
+		events = attendances.map{|x| Event.find(x.event_id)}
     @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 		# how can I make this prettier
 		@hours = 0
@@ -22,11 +24,17 @@ class UserController < ApplicationController
 		end
 	end
 
+	def greensheet
+	end
+
 	def update
 		@edit = true
 		updater = current_user.id
 		if request.patch?
+			user_params[:firstname].strip!
+			user_params[:lastname].strip!
 			if @user.update_attributes(user_params)
+				@user.update_attribute(:displayname, user_params[:firstname] + ' ' + user_params[:lastname])
 				if updater == @user.id
 					sign_in(@user, :bypass => true)
 				end

@@ -3,25 +3,26 @@ Rails.application.routes.draw do
 
   root 'page#home'
 
-  match '/admin',           to: 'page#admin',         via: [:get],          as: 'admin'
-  match '/admin/approve',   to: 'page#approve',       via: [:get, :post],   as: 'approve'
-  match '/admin/settings',  to: 'page#settings',      via: [:get],          as: 'settings'
-  match '/calendar',        to: 'page#calendar',      via: [:get],          as: 'calendar'
-  match '/events',          to: 'page#events',        via: [:get],          as: 'events'
-  match '/events_feed',     to: 'event#events_feed',  via: [:get],          as: 'event_json'
-  match '/info',            to: 'page#info',          via: [:get],          as: 'info'
+  match '/admin',               to: 'page#admin',         via: [:get],          as: 'admin'
+  match '/admin/approve',       to: 'page#approve',       via: [:get, :post],   as: 'approve'
+  match '/admin/settings',      to: 'page#settings',      via: [:get],          as: 'settings'
+  match '/calendar',            to: 'page#calendar',      via: [:get],          as: 'calendar'
+  match '/events',              to: 'page#events',        via: [:get],          as: 'events'
+  match '/events_feed',         to: 'event#events_feed',  via: [:get],          as: 'event_json'
+  match '/info',                to: 'page#info',          via: [:get],          as: 'info'
 
-  match '/event/new',       to: 'event#new',          via: [:get, :post],   as: 'new_event'
-  match '/event/signup',    to: 'event#signup',       via: [:post]
-  match '/event/chairsheet',to: 'event#chairsheet',   via: [:post]
-  match '/event/cancel',    to: 'event#cancel',       via: [:post]
-  match '/event/:id',       to: 'event#show',         via: [:get],          as: 'event'
-  match '/meeting/:id',     to: 'event#meeting',      via: [:get],          as: 'meeting'
-  match '/event/:id/chair', to: 'event#chair',        via: [:get],          as: 'event_chair'
-  match '/event/:id/delete',to: 'event#destroy',      via: [:delete],       as: 'destroy_event'
-  match '/users',           to: 'user#all',           via: [:get],          as: 'users'
-  match '/user/:id',        to: 'user#show',          via: [:get],          as: 'user'
-  match '/user/:id/update', to: 'user#update',        via: [:get, :patch],  as: 'update_user'
+  match '/event/new',           to: 'event#new',          via: [:get, :post],   as: 'new_event'
+  match '/event/signup',        to: 'event#signup',       via: [:post]
+  match '/event/chairsheet',    to: 'event#chairsheet',   via: [:post]
+  match '/event/cancel',        to: 'event#cancel',       via: [:post]
+  match '/event/:id',           to: 'event#show',         via: [:get],          as: 'event'
+  match '/meeting/:id',         to: 'event#meeting',      via: [:get],          as: 'meeting'
+  match '/event/:id/chair',     to: 'event#chair',        via: [:get],          as: 'event_chair'
+  match '/event/:id/delete',    to: 'event#destroy',      via: [:delete],       as: 'destroy_event'
+  match '/users',               to: 'user#all',           via: [:get],          as: 'users'
+  match '/user/:id',            to: 'user#show',          via: [:get],          as: 'user'
+  match '/user/:id/update',     to: 'user#update',        via: [:get, :patch],  as: 'update_user'
+  match '/user/:id/greensheet', to: 'user#greensheet',    via: [:get, :patch],  as: 'greensheet'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

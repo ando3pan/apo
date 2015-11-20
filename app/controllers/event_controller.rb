@@ -132,12 +132,13 @@ class EventController < ApplicationController
 		@event = Event.find(params[:id])
 		# rebuild the relations
 		@event.attendances.clear
+		chair = nil
 		params[:u].each do |key, a|
 			# If a name is given
 		  if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
 		  	name = "#{a['firstname']} #{a['lastname']}"
 		  	user = User.where("lower(displayname) = ?", name.downcase).first
-		  	if user
+		  	if user && @event.participants.where(id: user.id).empty?
 		  		# add the user
 		  		@event.participants << user
 		  		attendee = @event.attendances.find_by_user_id(user.id)
@@ -147,6 +148,9 @@ class EventController < ApplicationController
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
 		  		attendee.update_attribute(:chair,    a.has_key?("chair"))
 		  		attendee.update_attribute(:drove,    a.has_key?("drove"))
+		  		if a.has_key?("chair")
+		  			@event.update_attribute(:chair_id, user.id)
+		  		end
 		  	end
 		  end
 		end
