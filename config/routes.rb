@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match '/events',              to: 'page#events',        via: [:get],          as: 'events'
   match '/events_feed',         to: 'event#events_feed',  via: [:get],          as: 'event_json'
   match '/info',                to: 'page#info',          via: [:get],          as: 'info'
+  match '/announcements',       to: 'page#announcements', via: [:get],          as: 'announcements'
 
   match '/event/new',           to: 'event#new',          via: [:get, :post],   as: 'new_event'
   match '/event/signup',        to: 'event#signup',       via: [:post]
