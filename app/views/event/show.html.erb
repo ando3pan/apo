@@ -129,8 +129,8 @@
 									  	<% else %>
 									  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
 									  	<% end %>
-									  <% elsif (@event.participants.count == 2 || (@event.attendance_cap == 2 && @event.participants.count == 1)) &&
-									  	@event.chair_id == nil %>
+									  <% elsif (@event.chair_id == nil && (@event.participants.count > 1 ||
+									  	(@event.attendance_cap < 3 && @event.participants.count > 0))) %>
 									  	<!-- No chair after 3 signups -->
 									  	<div id="chair-required" class="btn-large disabled event-signup">
 									  		Chair Required
