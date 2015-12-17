@@ -25,6 +25,36 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
+    attendances = Attendance.where(user_id: @user.id)
+    @events = attendances.map{|x| Event.find(x.event_id)}
+    #elements of an array from below contain an array of 
+    #event, drove, flake, attended
+    services = [];
+    fellowships = [];
+    icevents = [];
+    fundraisers = [];
+    familyevents = [];
+    rushevents = [];
+    @user.attendances.where(past_quarter: false).each do |a|
+      event = Event.find(a.event_id)
+      case event.event_type
+      when "Service"
+        services.push( [event, a.drove, a.flaked, a.attended?] )
+      when "Fellowship"
+        fellowships.push( [event, a.drove, a.flaked, a.attended?] )
+      when "Interchapter"
+        icevents.push( [event, a.drove, a.flaked, a.attended?] )
+      when "Fundraising"
+        fundraisers.push( [event, a.drove, a.flaked, a.attended?] )
+      when "Alpha", "Phi", "Omega", "Rho", "Pi"
+        familyevents.push( [event, a.drove, a.flaked, a.attended?] )
+      when "Rush"
+        rushevents.push( [event, a.drove, a.flaked, a.attended?] )
+      end
+    @events = [ services, fellowships, icevents, fundraisers, familyevents,
+                rushevents ]
+    end
+    
 	end
 
 	def update

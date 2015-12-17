@@ -1,0 +1,39 @@
+<div class="container">
+  <h3>Your Greensheet</h3>
+  <% if @events.any? %>
+    <% @events.each do |e| %>
+      <% if e.any? %>
+        <div class="<%= e.first[0].event_type %> greensheet-section card-panel">
+          <h5><%= e.first[0].event_type %></h5>
+          <% e.each do |x| %>
+            <div class="row">
+              <div class="col title"><span>Event: <%= x[0].title %></span></div>
+
+              <div class="col hours"><span>Hours: 
+                <% hours = x[0].hours
+                   if x[0].event_type == "Service" 
+                     hours *= -1 if x[2] && x[0].flake_penalty? #flaked
+                     hours += 1 if x[1] && !x[2] #drove
+                   elsif x[0].flake_penalty? && x[2] #flaked non-service
+                     hours = "Flaked - Check if there is a penalty"
+                   elsif !x[3] #did not attend but no flake
+                     hours = "Did not complete"
+                   else
+                     hours = "Completed"
+                   end %>
+                <%= hours %>
+              </span></div>
+              
+              <div class="col chair"><span>Chair: 
+                <%= User.find(x[0].chair_id).displayname %></span>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>
+          
+  <% else %>
+    <span>You do not have any events completed yet.</span>
+  <% end %>
+</div>
