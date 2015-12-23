@@ -25,36 +25,65 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
-    attendances = Attendance.where(user_id: @user.id)
-    @events = attendances.map{|x| Event.find(x.event_id)}
-    #elements of an array from below contain an array of 
-    #event, drove, flake, attended
-    services = [];
-    fellowships = [];
-    icevents = [];
-    fundraisers = [];
-    familyevents = [];
-    rushevents = [];
-    @user.attendances.where(past_quarter: false).each do |a|
-      event = Event.find(a.event_id)
-      case event.event_type
-      when "Service"
-        services.push( [event, a.drove, a.flaked, a.attended?] )
-      when "Fellowship"
-        fellowships.push( [event, a.drove, a.flaked, a.attended?] )
-      when "Interchapter"
-        icevents.push( [event, a.drove, a.flaked, a.attended?] )
-      when "Fundraising"
-        fundraisers.push( [event, a.drove, a.flaked, a.attended?] )
-      when "Alpha", "Phi", "Omega", "Rho", "Pi"
-        familyevents.push( [event, a.drove, a.flaked, a.attended?] )
-      when "Rush"
-        rushevents.push( [event, a.drove, a.flaked, a.attended?] )
+    @eventtypes = ["Service", "Fellowship", "Interchapter", "Fundraising", 
+                   "Family", "Rush" ] #for dropdown in view
+    if request.get?
+      @sections = GreensheetSection.where(user_id: @user.id)
+      @sections ||= []
+      #already saved greensheet parts
+
+
+      attendances = Attendance.where(user_id: @user.id)
+      
+      @user.attendances.where(past_quarter: false).each do |a|
+        event = Event.find(a.event_id)
+        
+        dont_add = false 
+        #@sections already has that event, or no attendance
+
+        @sections.each do |s|
+          dont_add = true if s.title == event.title #already exists
+        end
+        dont_add = true if !a.attended && !a.flaked #no show but no consequence
+        dont_add = true if a.flaked && !event.flake_penalty #no consequence
+          
+        unless dont_add
+          if ["Alpha", "Phi", "Omega", "Rho", "Pi"].include? event.event_type
+            event.event_type = "Family" #list family for dropdown
+          end
+
+          hours = event.hours
+          #hours = 1 if event.event_type != "Service"
+          if a.flaked && event.flake_penalty
+            if event.event_type == "Service"
+              hours *= -1
+            else
+              hours = -1
+            end
+          end
+          hours = event.driver_hours if a.drove
+
+          @sections.push(GreensheetSection.create( user_id: @user.id, 
+                                                   title: event.title,
+                                                   start_time: event.start_time,
+                                                   hours: hours,
+                                  chair: User.find(event.chair_id).displayname,
+                                                   event_type: event.event_type
+          ))
+        end
       end
-    @events = [ services, fellowships, icevents, fundraisers, familyevents,
-                rushevents ]
-    end
-    
+    end #of the request.get? 
+
+    if request.patch?
+      @section = GreensheetSection.find(params[:greensheet_section][:id])
+      if @section.update_attributes(greensheet_section_params)
+        flash[:success] = "Greensheet successfully updated."
+      else
+        flash[:alert] = "There may have been problems saving."
+      end
+      @sections = GreensheetSection.where(user_id: @user.id)
+      render 'greensheet'
+    end #end request.patch?
 	end
 
 	def update
@@ -103,4 +132,8 @@ class UserController < ApplicationController
     end
   end
 
+  def greensheet_section_params
+    params.require(:greensheet_section).permit(:title, :start_time, :hours, 
+                                               :chair_id, :event_type)
+  end
 end

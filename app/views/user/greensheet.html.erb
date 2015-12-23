@@ -1,39 +1,33 @@
 <div class="container">
-  <h3>Your Greensheet</h3>
-  <% if @events.any? %>
-    <% @events.each do |e| %>
-      <% if e.any? %>
-        <div class="<%= e.first[0].event_type %> greensheet-section card-panel">
-          <h5><%= e.first[0].event_type %></h5>
-          <% e.each do |x| %>
-            <div class="row">
-              <div class="col title"><span>Event: <%= x[0].title %></span></div>
+  <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
+      <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
+    <% @sections.each do |s| %>
+      <%= simple_form_for s, url:greensheet_path, method: :patch do |f| %>
 
-              <div class="col hours"><span>Hours: 
-                <% hours = x[0].hours
-                   if x[0].event_type == "Service" 
-                     hours *= -1 if x[2] && x[0].flake_penalty? #flaked
-                     hours += 1 if x[1] && !x[2] #drove
-                   elsif x[0].flake_penalty? && x[2] #flaked non-service
-                     hours = "Flaked - Check if there is a penalty"
-                   elsif !x[3] #did not attend but no flake
-                     hours = "Did not complete"
-                   else
-                     hours = "Completed"
-                   end %>
-                <%= hours %>
-              </span></div>
-              
-              <div class="col chair"><span>Chair: 
-                <%= User.find(x[0].chair_id).displayname %></span>
+            <div class="card-panel">
+              <div class="row">
+                <%= f.input :title %>
+
+                <%= f.input :start_time, label: 'Date', as: :date, 
+                            html5: true %>
+
+                <%= f.input :hours %>
+
+                <%= f.input :chair %>
+
+                <%= f.input :event_type, label: "Type",
+                            selected: f.object.event_type %>
+                <%= f.input :id, as: :hidden %>
               </div>
-            </div>
-        <% end %>
-      </div>
-      <% end %>
+          </div>
+        <%= f.submit "Update" %>
+
+      <% end %> <!-- end of form -->
     <% end %>
-          
-  <% else %>
-    <span>You do not have any events completed yet.</span>
-  <% end %>
+
+      <% if !@sections.any? %>
+        <p>You don't have any events yet.</p>
+      <% end %>
+
 </div>
+

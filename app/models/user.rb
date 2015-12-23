@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :attending_events, through: :attendances, source: :event #for the participants
   has_many :events #for the event organiser
 
+  has_many :greensheet_sections
+
 	validates :username, presence: true, uniqueness: true, length: { minimum: 3 }, format: { with: /\A[a-zA-Z0-9]+\z/,
     message: "only allows letters and numbers" }, :case_sensitive => false
   validates :firstname, presence: true, length: { minimum: 1 }

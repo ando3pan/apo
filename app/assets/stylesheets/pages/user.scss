@@ -77,3 +77,28 @@
 	margin: 10px;
 	text-align: center;
 }
+
+/* greensheet */
+.card-panel .row {
+    * {
+        display: inline-block;
+    }
+
+    div:nth-child(3) { //hours
+        width: 40px;
+    }
+
+    div:nth-child(2) { //date
+        width: 140px;
+    }
+
+    div:nth-child(1) { //title
+        width: 150px;
+    }
+}
+
+.gsheet {
+    background-color: green;
+    color: green;
+    float: right;
+}
