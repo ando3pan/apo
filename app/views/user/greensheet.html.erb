@@ -29,21 +29,38 @@
                 <%= f.input :hours, disabled: true %>
                 <% end %>
 
-                <%= f.input :chair %>
+                <!-- current person chaired event -->
+                <% if User.find(f.object.user_id).displayname == f.object.chair %>
+                  <%= f.input :chair, input_html: {class: "self-chaired"} %>
+                <% else %>
+                  <%= f.input :chair %>
+                <% end %>
 
                 <%= f.input_field :event_type, label: "Type", collection:
                 @eventtypes%>
                 <%= f.input :id, as: :hidden %>
+                <%= f.submit "Update" %>
               </div>
           </div>
-        <%= f.submit "Update" %>
 
       <% end %> <!-- end of form -->
     <% end %>
 
-      <% if !@sections.any? %>
-        <p>You don't have any events yet.</p>
+    <% if !@sections.any? %>
+      <p>You don't have any events yet.</p>
+    <% end %>
+
+    <% @texts.each do |t| %>
+      <%= form_for t, url:greensheet_path, method: :patch do |f| %>
+        <div class="card-panel comment">
+          <h5><%= t.title %></h5>
+          <p><%= t.description %></p>
+          <%= f.text_area :text %>
+          <%= f.hidden_field :id %>
+          <%= f.submit "Update" %>
+        </div>
       <% end %>
+    <% end %>
 
 </div>
 

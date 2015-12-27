@@ -119,3 +119,23 @@
 .family {
     background-color: #ff5a5a
 }
+
+.card-panel.comment {
+    * {
+        display: inline-block;
+        margin: 0px auto;
+    }
+
+    h5 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}
+
+input.self-chaired {
+    background-color: #ffff99;
+}

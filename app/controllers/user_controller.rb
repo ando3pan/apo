@@ -34,14 +34,32 @@ class UserController < ApplicationController
     @family = 0
     @rush = 0
     @fundraise = 0
+
     @texts = GreensheetText.where(user_id: @user.id) #comment sections
+    unless @texts.any? #initialize comment sections
+      GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
+      @texts.push(GreensheetText.create(user_id: @user.id,
+                                        title: t,
+                                        description: d))
+      end
+    end
 
     if request.patch?
-      @section = GreensheetSection.find(params[:greensheet_section][:id])
-      if @section.update_attributes(greensheet_section_params)
-        flash[:success] = "Greensheet successfully updated."
-      else
-        flash[:alert] = "There may have been problems saving."
+      if params[:greensheet_text] #updated a comment
+        @text = GreensheetText.find(params[:greensheet_text][:id])
+        if @text.update_attributes(greensheet_text_params)
+          flash[:success] = "Greensheet successfully updated."
+        else
+          flash[:alert] = "There may have been problems saving."
+        end
+      
+      else #updated an event
+        @section = GreensheetSection.find(params[:greensheet_section][:id])
+        if @section.update_attributes(greensheet_section_params)
+          flash[:success] = "Greensheet successfully updated."
+        else
+          flash[:alert] = "There may have been problems saving."
+        end
       end
       @sections = GreensheetSection.where(user_id: @user.id)
     end #end request.patch?
@@ -179,5 +197,9 @@ class UserController < ApplicationController
   def greensheet_section_params
     params.require(:greensheet_section).permit(:title, :start_time, :hours, 
                                  :chair_id, :event_type, :original_event_type)
+  end
+
+  def greensheet_text_params
+    params.require(:greensheet_text).permit(:title, :description, :text)
   end
 end
