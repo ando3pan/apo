@@ -1,22 +1,38 @@
 <div class="container">
   <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
       <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
+  <p class="requirement-counter service">Service Hours: <%= @hours %></p>
+  <p class="requirement-counter fellowship">Fellowships: <%= @fellowships %></p>
+  <p class="requirement-counter fundraising">Fundraising: <%= @fundraise %></p>
+  <p class="requirement-counter interchapter">Interchapter: <%= @ics %></p>
+  <p class="requirement-counter family">Family: <%= @family%></p>
+  <p class="requirement-counter rush">Rush: <%= @rush %></p>
     <% @sections.each do |s| %>
+      <% if s.event_type == "Other" %>
+      <% @eventtypes = ["Other", "#{s.original_event_type}"] %>
+      <% else %>
+      <% @eventtypes = ["#{s.event_type}", "Other"] %>
+      <% end %>
+
       <%= simple_form_for s, url:greensheet_path, method: :patch do |f| %>
 
             <div class="card-panel">
-              <div class="row">
-                <%= f.input :title %>
+              <div class="reqs">
+                <%= f.input :title, disabled: true %>
 
                 <%= f.input :start_time, label: 'Date', as: :date, 
-                            html5: true %>
+                            html5: true, disabled: true %>
 
+                <% if current_user.admin %>
                 <%= f.input :hours %>
+                <% else %>
+                <%= f.input :hours, disabled: true %>
+                <% end %>
 
                 <%= f.input :chair %>
 
-                <%= f.input :event_type, label: "Type",
-                            selected: f.object.event_type %>
+                <%= f.input_field :event_type, label: "Type", collection:
+                @eventtypes%>
                 <%= f.input :id, as: :hidden %>
               </div>
           </div>

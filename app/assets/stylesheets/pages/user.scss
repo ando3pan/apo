@@ -79,10 +79,7 @@
 }
 
 /* greensheet */
-.card-panel .row {
-    * {
-        display: inline-block;
-    }
+.card-panel .reqs {
 
     div:nth-child(3) { //hours
         width: 40px;
@@ -95,10 +92,30 @@
     div:nth-child(1) { //title
         width: 150px;
     }
+
+    div {
+        display: inline-block;
+        //if disabled input
+        input.disabled {
+            color: #555555;
+        }
+    }
+
 }
 
 .gsheet {
     background-color: green;
     color: green;
     float: right;
+}
+
+.requirement-counter {
+    display: inline-block;
+    color: white;
+    padding: 5px 10px;
+}
+
+//no color for generic family in event.css
+.family {
+    background-color: #ff5a5a
 }

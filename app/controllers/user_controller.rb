@@ -25,13 +25,31 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
-    @eventtypes = ["Service", "Fellowship", "Interchapter", "Fundraising", 
-                   "Family", "Rush" ] #for dropdown in view
+    #@eventtypes = ["Service", "Fellowship", "Interchapter", "Fundraising", 
+    #               "Family", "Rush" ] #for dropdown in view
+    
+    @hours = 0 
+    @fellowships = 0
+    @ics = 0
+    @family = 0
+    @rush = 0
+    @fundraise = 0
+    @texts = GreensheetText.where(user_id: @user.id) #comment sections
+
+    if request.patch?
+      @section = GreensheetSection.find(params[:greensheet_section][:id])
+      if @section.update_attributes(greensheet_section_params)
+        flash[:success] = "Greensheet successfully updated."
+      else
+        flash[:alert] = "There may have been problems saving."
+      end
+      @sections = GreensheetSection.where(user_id: @user.id)
+    end #end request.patch?
+
     if request.get?
       @sections = GreensheetSection.where(user_id: @user.id)
       @sections ||= []
       #already saved greensheet parts
-
 
       attendances = Attendance.where(user_id: @user.id)
       
@@ -63,27 +81,53 @@ class UserController < ApplicationController
           end
           hours = event.driver_hours if a.drove
 
+          case event.event_type
+          when "Service"
+            @hours += hours
+          when "Fellowships"
+            @fellowships += hours
+          when "Interchapter"
+            @ics += hours
+          when "Family"
+            @family += hours
+          when "Rush"
+            @rush += hours
+          when "Fundraising"
+            @fundraise += hours
+          end
+
           @sections.push(GreensheetSection.create( user_id: @user.id, 
                                                    title: event.title,
                                                    start_time: event.start_time,
                                                    hours: hours,
                                   chair: User.find(event.chair_id).displayname,
-                                                   event_type: event.event_type
+                                                   event_type: event.event_type,
+                                          original_event_type: event.event_type
           ))
         end
       end
     end #of the request.get? 
 
-    if request.patch?
-      @section = GreensheetSection.find(params[:greensheet_section][:id])
-      if @section.update_attributes(greensheet_section_params)
-        flash[:success] = "Greensheet successfully updated."
-      else
-        flash[:alert] = "There may have been problems saving."
+    @sections.each do |s|
+      case s.event_type
+      when "Service"
+        @hours += s.hours
+      when "Fellowship"
+        @fellowships += s.hours
+      when "Interchapter"
+        @ics += s.hours
+      when "Family"
+        @family += s.hours
+      when "Rush"
+        @rush += s.hours
+      when "Fundraising"
+        @fundraise += s.hours
       end
-      @sections = GreensheetSection.where(user_id: @user.id)
+    end
+    if request.patch?
       render 'greensheet'
-    end #end request.patch?
+    end
+
 	end
 
 	def update
@@ -134,6 +178,6 @@ class UserController < ApplicationController
 
   def greensheet_section_params
     params.require(:greensheet_section).permit(:title, :start_time, :hours, 
-                                               :chair_id, :event_type)
+                                 :chair_id, :event_type, :original_event_type)
   end
 end
