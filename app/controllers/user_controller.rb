@@ -25,9 +25,6 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
-    #@eventtypes = ["Service", "Fellowship", "Interchapter", "Fundraising", 
-    #               "Family", "Rush" ] #for dropdown in view
-    
     @hours = 0 
     @fellowships = 0
     @ics = 0
@@ -36,11 +33,19 @@ class UserController < ApplicationController
     @fundraise = 0
 
     @texts = GreensheetText.where(user_id: @user.id) #comment sections
+    @num = 0
     unless @texts.any? #initialize comment sections
       GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
-      @texts.push(GreensheetText.create(user_id: @user.id,
-                                        title: t,
-                                        description: d))
+
+        gtext = GreensheetText.create(user_id: @user.id, title: t,
+                                      description: d)
+        @texts.push(gtext) unless @texts.include?(gtext)#avoid duplicate problem
+
+=begin for some reason this creates a duplicate first element
+        @texts.push(GreensheetText.create(user_id: @user.id,
+                                        #  title: t,
+                                          description: d))
+=end
       end
     end
 

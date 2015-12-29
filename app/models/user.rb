@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :events #for the event organiser
 
   has_many :greensheet_sections
+  accepts_nested_attributes_for :greensheet_sections, allow_destroy: true
+  has_many :greensheet_texts
+  accepts_nested_attributes_for :greensheet_texts, allow_destroy: true
 
 	validates :username, presence: true, uniqueness: true, length: { minimum: 3 }, format: { with: /\A[a-zA-Z0-9]+\z/,
     message: "only allows letters and numbers" }, :case_sensitive => false
