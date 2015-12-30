@@ -59,8 +59,13 @@
               <%= form.input :chair %>
             <% end %>
 
-            <%= form.input_field :event_type, label: "Type", collection:
-            @eventtypes%>
+            <% if form.object.hours < 0 and !current_user.admin #flaked so can't change event type%>
+              <%= form.input_field :event_type, label: "Type", collection:
+              @eventtypes, disabled: true %>
+            <% else %>
+              <%= form.input_field :event_type, label: "Type", collection:
+              @eventtypes%>
+            <% end %>
 
           </div>
         </div>

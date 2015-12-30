@@ -45,11 +45,6 @@ class UserController < ApplicationController
                                       description: d)
         @texts.push(gtext) unless @texts.include?(gtext)#avoid duplicate problem
 
-=begin for some reason this creates a duplicate first element
-        @texts.push(GreensheetText.create(user_id: @user.id,
-                                        #  title: t,
-                                          description: d))
-=end
       end
     end
 
@@ -88,7 +83,8 @@ class UserController < ApplicationController
         chair ||= "No Chair"
 
         #already exists, may be event changes
-        gsheet = GreensheetSection.find_by(event_id: a.event_id) 
+        gsheet = GreensheetSection.find_by(event_id: a.event_id, 
+                                           user_id: @user.id) 
         if gsheet
           dont_add = true
           gsheet.update_attributes(title: event.title, hours: hours,
@@ -100,22 +96,6 @@ class UserController < ApplicationController
         dont_add = true if a.flaked && !event.flake_penalty #no consequence
           
         unless dont_add
-=begin          case event.event_type
-          when "Service"
-            @hours += hours
-          when "Fellowships"
-            @fellowships += hours
-          when "Interchapter"
-            @ics += hours
-          when "Family"
-            @family += hours
-          when "Rush"
-            @rush += hours
-          when "Fundraising"
-            @fundraise += hours
-          end
-=end
-
           @sections.push(GreensheetSection.create( user_id: @user.id, 
                                                    title: event.title,
                                                    start_time: event.start_time,
