@@ -31,10 +31,14 @@ class UserController < ApplicationController
     @family = 0
     @rush = 0
     @fundraise = 0
+    @interviewparties = 0
+    @infonights = 0
+    @flyering = 0
+    @chalkboarding = 0
 
     @texts = GreensheetText.where(user_id: @user.id) #comment sections
-    @num = 0
     unless @texts.any? #initialize comment sections
+      #modify titles/descriptions in app/models/greensheet_text.rb file
       GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
 
         gtext = GreensheetText.create(user_id: @user.id, title: t,
@@ -50,29 +54,20 @@ class UserController < ApplicationController
     end
 
     if request.patch?
-      if params[:greensheet_text] #updated a comment
-        @text = GreensheetText.find(params[:greensheet_text][:id])
-        if @text.update_attributes(greensheet_text_params)
-          flash[:success] = "Greensheet successfully updated."
-        else
-          flash[:alert] = "There may have been problems saving."
-        end
-      
-      else #updated an event
-        @section = GreensheetSection.find(params[:greensheet_section][:id])
-        if @section.update_attributes(greensheet_section_params)
-          flash[:success] = "Greensheet successfully updated."
-        else
-          flash[:alert] = "There may have been problems saving."
-        end
+      if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes])
+         if @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes])
+           flash[:success] = "Greensheet successfully updated."
+         end
+      else
+        flash[:alert] = "There may have been problems saving."
       end
+      
       @sections = GreensheetSection.where(user_id: @user.id)
     end #end request.patch?
 
     if request.get?
       @sections = GreensheetSection.where(user_id: @user.id)
-      @sections ||= []
-      #already saved greensheet parts
+      @sections ||= [] #no saved sections yet
 
       attendances = Attendance.where(user_id: @user.id)
       
@@ -82,29 +77,30 @@ class UserController < ApplicationController
         dont_add = false 
         #@sections already has that event, or no attendance
 
-        @sections.each do |s|
-          dont_add = true if s.title == event.title #already exists
+        #accounts for flaking and all
+        hours = GreensheetSection.calculateHours(a, event)
+
+        if ["Alpha", "Phi", "Omega", "Rho", "Pi"].include? event.event_type
+          event.event_type = "Family" #list family for dropdown
         end
+
+        chair = User.find_by(id: event.chair_id).displayname
+        chair ||= "No Chair"
+
+        #already exists, may be event changes
+        gsheet = GreensheetSection.find_by(event_id: a.event_id) 
+        if gsheet
+          dont_add = true
+          gsheet.update_attributes(title: event.title, hours: hours,
+            chair: chair,
+            event_type: event.event_type)
+        end
+
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
         dont_add = true if a.flaked && !event.flake_penalty #no consequence
           
         unless dont_add
-          if ["Alpha", "Phi", "Omega", "Rho", "Pi"].include? event.event_type
-            event.event_type = "Family" #list family for dropdown
-          end
-
-          hours = event.hours
-          #hours = 1 if event.event_type != "Service"
-          if a.flaked && event.flake_penalty
-            if event.event_type == "Service"
-              hours *= -1
-            else
-              hours = -1
-            end
-          end
-          hours = event.driver_hours if a.drove
-
-          case event.event_type
+=begin          case event.event_type
           when "Service"
             @hours += hours
           when "Fellowships"
@@ -118,18 +114,22 @@ class UserController < ApplicationController
           when "Fundraising"
             @fundraise += hours
           end
+=end
 
           @sections.push(GreensheetSection.create( user_id: @user.id, 
                                                    title: event.title,
                                                    start_time: event.start_time,
                                                    hours: hours,
-                                  chair: User.find(event.chair_id).displayname,
+                                                   chair: chair,
                                                    event_type: event.event_type,
-                                          original_event_type: event.event_type
+                                          original_event_type: event.event_type,
+                                          event_id: event.id
           ))
         end
       end
     end #of the request.get? 
+
+    @sections = @sections.uniq #rid of more duplicate problems
 
     @sections.each do |s|
       case s.event_type
@@ -145,8 +145,14 @@ class UserController < ApplicationController
         @rush += s.hours
       when "Fundraising"
         @fundraise += s.hours
+      when "Other"
+        @interviewparties += 1 if s.title.include? "Interview"
+        @infonights += 1 if s.title.include? "Info"
+        @flyering += 1 if s.title.include? "Flyering"
+        @chalkboarding += 1 if s.title.include? "Chalkboard"
       end
     end
+
     if request.patch?
       render 'greensheet'
     end
@@ -199,12 +205,4 @@ class UserController < ApplicationController
     end
   end
 
-  def greensheet_section_params
-    params.require(:greensheet_section).permit(:title, :start_time, :hours, 
-                                 :chair_id, :event_type, :original_event_type)
-  end
-
-  def greensheet_text_params
-    params.require(:greensheet_text).permit(:title, :description, :text)
-  end
 end
