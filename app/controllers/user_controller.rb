@@ -1,25 +1,28 @@
 class UserController < ApplicationController
+	PAST_QUARTER_CUTOFF = Time.new(2016, 1, 1, 0, 0)
 	before_action :ensure_user
 
 	def show
 		#events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
 		attendances = Attendance.where(user_id: @user.id)
-		events = attendances.map{|x| Event.find(x.event_id)}
-    @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
+		@attended_events = attendances.map{|x| Event.find(x.event_id)}.select{|x| x.end_time > PAST_QUARTER_CUTOFF }
+    @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 		# how can I make this prettier
 		@hours = 0
 		@flakehours = 0
 		@fellowships = 0
-		@user.attendances.where(past_quarter: false).each do |a|
+		@user.attendances.each do |a|
 			event = Event.find(a.event_id)
-			if event.event_type == "Service"
-				if a.attended?
-					@hours += a.drove ? event.driver_hours : event.hours
-				elsif event.flake_penalty? && a.flaked?
-					@flakehours += event.hours
+			if event.end_time > PAST_QUARTER_CUTOFF
+				if event.event_type == "Service"
+					if a.attended?
+						@hours += a.drove ? event.driver_hours : event.hours
+					elsif event.flake_penalty? && a.flaked?
+						@flakehours += event.hours
+					end
+				elsif event.event_type == "Fellowship" && a.attended?
+					@fellowships += 1
 				end
-			elsif event.event_type == "Fellowship" && a.attended?
-				@fellowships += 1
 			end
 		end
 	end
