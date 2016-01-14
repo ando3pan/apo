@@ -5,7 +5,8 @@ class UserController < ApplicationController
 	def show
 		#events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
 		attendances = Attendance.where(user_id: @user.id)
-		@attended_events = attendances.map{|x| Event.find(x.event_id)}.select{|x| x.end_time > PAST_QUARTER_CUTOFF }
+		@attendances = attendances.where("created_at >  ?", PAST_QUARTER_CUTOFF)
+		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
     @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 		# how can I make this prettier
 		@hours = 0
