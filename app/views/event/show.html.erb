@@ -75,7 +75,7 @@
 	  			</div>
 	  			<% if @event.event_type != "Meeting" %>
 		  			<% unless @event.participants.include?(current_user) %>
-		  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
+		  				<% if @event.start_time < (Time.now + 30.minutes) && Time.now < @event.end_time %>
 		  					<!-- Event is happening -->
 					  		<div class="btn-large disabled event-signup separate">Signups Are Closed</div>
 					  	<% elsif @event.end_time < Time.now %>
