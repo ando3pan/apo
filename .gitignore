@@ -17,3 +17,6 @@
 /tmp
 .env
 Procfile
+
+#ignore swp files
+*.swp
