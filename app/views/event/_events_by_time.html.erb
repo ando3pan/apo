@@ -1,6 +1,6 @@
-<% events.each_pair do |date, evts| %>
-  <div class="event-date"><%= date %></div>
-  <% evts.each do |e| %>
+<% events.each do |date_evts| %>
+  <div class="event-date"><%= date_evts[0] %></div>
+  <% date_evts[1].each do |e| %>
     <div class="event-thumb">
       <%= e.start_time.strftime("%-I:%M %p") %>: <%= link_to e.title, event_path(e) %>
     </div>
