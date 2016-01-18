@@ -8,7 +8,7 @@ class UserController < ApplicationController
 		@attendances = attendances.where("created_at >  ?", PAST_QUARTER_CUTOFF)
 		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
     @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
-    @event = @events.sort_by { |date, evt| date }
+    @events = @events.sort_by { |date, evt| date }
 		# how can I make this prettier
 		@hours = 0
 		@flakehours = 0
