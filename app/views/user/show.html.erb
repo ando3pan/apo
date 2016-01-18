@@ -53,17 +53,17 @@
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>Attended Events</h5>
-    		<% events = @attended_events %>
+    		<% events = @attendances %>
     		<% if events.empty? %>
 					<div class="no-participants">
 						No events.
 					</div>
     		<% else %>
-	    		<% events.where(attended: true).each do |a| %>
+	    		<% events.select { |e| e.attended }.each do |a| %>
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
-					<% flaked_events = events.where(flaked: true) %>
+					<% flaked_events = events.select { |e| e.flaked == true } %>
 					<% if flaked_events.any? %>
 						<h6>Flaked Events</h6>
 						<% flaked_events.each do |a| %>
@@ -71,7 +71,7 @@
 							<%= link_to e.title, event_path(e) %><br />
 						<% end %>
 					<% end %>
-					<% unchaired = events.where(attended: nil) %>
+					<% unchaired = events.select { |e| e.attended == nil } %>
 					<% if unchaired.any? %>
 						<h6>Waiting For Chairsheet</h6>
 						<% unchaired.each do |a| %>
