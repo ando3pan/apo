@@ -1,12 +1,14 @@
 <div class="container">
   <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
       <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
+  <div>
   <p class="greensheet-description">By default, Interview Parties count as
   Fellowships and Info Nights, Flyering, and Chalkboarding count as Rush events.
   To count them towards the corresponding requirement (i.e. chalkboarding for
   Big's requirements), change the type to "Other," and you don't have to mention
   it in the comments below. For all other type changes (i.e. making a rush event
-  count as a fellowship), describe it briefly in the comment section.
+  count as a fellowship), describe it briefly in the comment section.</p>
+  </div>
   <div class="counters">
     <p class="requirement-counter service">Service Hours: <%= @hours %></p>
     <p class="requirement-counter fellowship">Fellowships: <%= @fellowships %></p>
@@ -54,9 +56,10 @@
 
             <!-- current person chaired event -->
             <% if @user.displayname == form.object.chair %>
-              <%= form.input :chair, input_html: {class: "self-chaired"} %>
+              <%= form.input :chair, input_html: {class: "self-chaired"},
+                  disabled: true %>
             <% else %>
-              <%= form.input :chair %>
+              <%= form.input :chair, disabled: true %>
             <% end %>
 
             <% if form.object.hours < 0 and !current_user.admin #flaked so can't change event type%>
