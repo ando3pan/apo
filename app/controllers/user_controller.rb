@@ -91,7 +91,7 @@ class UserController < ApplicationController
           dont_add = true
           gsheet.update_attributes(title: event.title, hours: hours,
             chair: chair,
-            event_type: event.event_type)
+            original_event_type: event.event_type)
         end
 
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
