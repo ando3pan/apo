@@ -3,7 +3,6 @@ class UserController < ApplicationController
 	before_action :ensure_user
 
 	def show
-		#events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
 		attendances = Attendance.where(user_id: @user.id)
 		@attendances = attendances.where("created_at >  ?", PAST_QUARTER_CUTOFF)
 		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
@@ -53,7 +52,7 @@ class UserController < ApplicationController
       end
     end
 
-    if request.patch?
+    if request.patch? #update any potential changes
       if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes])
          if @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes])
            flash[:success] = "Greensheet successfully updated."
@@ -69,9 +68,7 @@ class UserController < ApplicationController
       @sections = GreensheetSection.where(user_id: @user.id)
       @sections ||= [] #no saved sections yet
 
-      attendances = Attendance.where(user_id: @user.id)
-      
-      @user.attendances.where(past_quarter: false).each do |a|
+      @user.attendances.where("created_at > ?", PAST_QUARTER_CUTOFF).each do |a|
         event = Event.find(a.event_id)
         
         dont_add = false 
@@ -84,8 +81,8 @@ class UserController < ApplicationController
           event.event_type = "Family" #list family for dropdown
         end
 
-        chair = User.find_by(id: event.chair_id).displayname
-        chair ||= "No Chair"
+        chair = User.find_by(id: event.chair_id)
+        chair = chair ? chair.displayname : "No Chair"
 
         #already exists, may be event changes
         gsheet = GreensheetSection.find_by(event_id: a.event_id, 
