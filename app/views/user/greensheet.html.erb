@@ -1,0 +1,89 @@
+<div class="container">
+  <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
+      <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
+  <p class="greensheet-description">By default, Interview Parties count as
+  Fellowships and Info Nights, Flyering, and Chalkboarding count as Rush events.
+  To count them towards the corresponding requirement (i.e. chalkboarding for
+  Big's requirements), change the type to "Other," and you don't have to mention
+  it in the comments below. For all other type changes (i.e. making a rush event
+  count as a fellowship), describe it briefly in the comment section.
+  <div class="counters">
+    <p class="requirement-counter service">Service Hours: <%= @hours %></p>
+    <p class="requirement-counter fellowship">Fellowships: <%= @fellowships %></p>
+    <p class="requirement-counter fundraising">Fundraising: <%= @fundraise %></p>
+    <p class="requirement-counter interchapter">Interchapter: <%= @ics %></p>
+    <p class="requirement-counter family">Family: <%= @family%></p>
+    <div class="hover-rush requirement-counter">
+      <p class="requirement-counter rush">Other &#9662 </p>
+      <ul>
+        <li class="requirement-counter rush extra">Rush Events: 
+        <%= @rush %></li>
+        <li class="requirement-counter rush extra">Interview Parties: 
+        <%= @interviewparties %></li>
+        <li class="requirement-counter rush extra">Info Nights: 
+        <%= @infonights %></li>
+        <li class="requirement-counter rush extra">Flyering: 
+        <%= @flyering %></li>
+        <li class="requirement-counter rush extra">Chalkboarding: 
+        <%= @chalkboarding %></li>
+      </ul>
+    </div>
+  </div>
+
+    <%= simple_form_for @user, url:greensheet_path, method: :patch do |f| %>
+
+      <%= f.simple_fields_for :greensheet_sections, @sections do |form| %>
+        <% if form.object.event_type == "Other" %>
+          <% @eventtypes = ["Other", "#{form.object.original_event_type}"] %>
+        <% else %>
+          <% @eventtypes = ["#{form.object.event_type}", "Other"] %>
+        <% end %>
+
+        <div class="card-panel">
+          <div class="reqs">
+            <%= form.input :title, disabled: true %>
+
+            <%= form.input :start_time, label: 'Date', as: :date, 
+                        html5: true, disabled: true %>
+
+            <% if current_user.admin %>
+            <%= form.input :hours %>
+            <% else %>
+            <%= form.input :hours, disabled: true %>
+            <% end %>
+
+            <!-- current person chaired event -->
+            <% if @user.displayname == form.object.chair %>
+              <%= form.input :chair, input_html: {class: "self-chaired"} %>
+            <% else %>
+              <%= form.input :chair %>
+            <% end %>
+
+            <% if form.object.hours < 0 and !current_user.admin #flaked so can't change event type%>
+              <%= form.input_field :event_type, label: "Type", collection:
+              @eventtypes, disabled: true %>
+            <% else %>
+              <%= form.input_field :event_type, label: "Type", collection:
+              @eventtypes%>
+            <% end %>
+
+          </div>
+        </div>
+      <% end %><!-- end of fields_for -->
+
+      <% if !@sections.any? %>
+        <p>You don't have any events yet.</p>
+      <% end %>
+
+      <%= f.simple_fields_for :greensheet_texts, @texts do |form| %>
+        <div class="card-panel comment">
+          <h5><%= form.object.title %></h5>
+          <p><%= form.object.description %></p>
+          <%= form.text_area :text %>
+        </div>
+      <% end %>
+
+      <%= f.submit "Update", class: "submit-btn" %>
+    <% end %> <!-- end of form -->
+</div>
+
