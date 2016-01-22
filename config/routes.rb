@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   match '/admin',               to: 'page#admin',         via: [:get],          as: 'admin'
   match '/admin/approve',       to: 'page#approve',       via: [:get, :post],   as: 'approve'
-  match '/admin/settings',      to: 'page#settings',      via: [:get],          as: 'settings'
+  match '/admin/settings',      to: 'page#settings',      via: [:get, :post],          as: 'settings'
   match '/calendar',            to: 'page#calendar',      via: [:get],          as: 'calendar'
   match '/events',              to: 'page#events',        via: [:get],          as: 'events'
   match '/events_feed',         to: 'event#events_feed',  via: [:get],          as: 'event_json'
