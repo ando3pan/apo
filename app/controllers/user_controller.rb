@@ -1,10 +1,11 @@
 class UserController < ApplicationController
-	PAST_QUARTER_CUTOFF = Time.new(2016, 1, 1, 0, 0)
 	before_action :ensure_user
+  before_action :set_quarter_cutoff, only: [:show, :greensheet]
 
 	def show
 		attendances = Attendance.where(user_id: @user.id)
-		@attendances = attendances.where("created_at >  ?", PAST_QUARTER_CUTOFF)
+
+		@attendances = attendances.where("created_at >  ?", @quarter_cutoff )
 		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
     @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
     @events = @events.sort_by { |date, evt| date }
@@ -14,7 +15,7 @@ class UserController < ApplicationController
 		@fellowships = 0
 		@user.attendances.each do |a|
 			event = Event.find(a.event_id)
-			if event.end_time > PAST_QUARTER_CUTOFF
+			if event.end_time > @quarter_cutoff
 				if event.event_type == "Service"
 					if a.attended?
 						@hours += a.drove ? event.driver_hours : event.hours
@@ -68,7 +69,7 @@ class UserController < ApplicationController
       @sections = GreensheetSection.where(user_id: @user.id)
       @sections ||= [] #no saved sections yet
 
-      @user.attendances.where("created_at > ?", PAST_QUARTER_CUTOFF).each do |a|
+      @user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
         event = Event.find(a.event_id)
         
         dont_add = false 
@@ -184,6 +185,20 @@ class UserController < ApplicationController
 		@user ||= User.find(params[:id])
     unless user_signed_in? && (current_user.id == @user.id || current_user.admin)
       redirect_to root_path, notice: "You do not have permission to see that page."
+    end
+  end
+
+  def set_quarter_cutoff
+    s = Setting.first
+    @quarter_cutoff = Time.parse(s.fall_quarter.to_s)
+
+    winter = Time.parse(s.winter_quarter.to_s)
+    spring = Time.parse(s.spring_quarter.to_s)
+
+    if Time.now > spring
+      @quarter_cutoff = spring
+    elsif Time.now > winter
+      @quarter_cutoff = winter
     end
   end
 

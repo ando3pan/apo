@@ -66,6 +66,15 @@ class PageController < ApplicationController
   end
 
   def settings
+    @settings = Setting.first
+    @settings ||= Setting.create
+    if request.post?
+      if @settings.update_attributes(settings_params)
+        flash[:success] = "Settings updated"
+      elsif
+        flash[:alert] = "Error updating settings"
+      end
+    end
   end
 
   def info
@@ -91,6 +100,11 @@ class PageController < ApplicationController
     unless user_signed_in? && current_user.admin
       redirect_to root_path, notice: "Only admins may access that page."
     end
+  end
+
+  def settings_params
+    params.require(:setting).permit(:fall_quarter, :winter_quarter,
+    :spring_quarter)
   end
 
 end
