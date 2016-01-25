@@ -25,7 +25,8 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
-    @hours = 0 
+    @reqs = Hash.new(0)
+=begin    @hours = 0 
     @fellowships = 0
     @ics = 0
     @family = 0
@@ -35,6 +36,7 @@ class UserController < ApplicationController
     @infonights = 0
     @flyering = 0
     @chalkboarding = 0
+=end
 
     @texts = GreensheetText.where(user_id: @user.id) #comment sections
     unless @texts.any? #initialize comment sections
@@ -114,7 +116,7 @@ class UserController < ApplicationController
     @sections.each do |s|
       case s.event_type
       when "Service"
-        @hours += s.hours
+        @reqs[:hours] += s.hours
       when "Fellowship"
         @fellowships += s.hours
       when "Interchapter"
