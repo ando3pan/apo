@@ -29,18 +29,20 @@
 					<strong>These numbers are not necessarily accurate!</strong><br />
 					You must still track your own requirements.
 				</div>
-				<div class="btn-container">
-					<%= link_to greensheet_path(@user) do %>
-						<div class="btn green darken-1">
-							My Greensheet
-						</div>
-					<% end %>
-				</div>
+        <% if current_user.admin %>
+          <div class="btn-container">
+            <%= link_to greensheet_path(@user) do %>
+              <div class="btn green darken-1">
+                My Greensheet
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 			</div>
 		</div>
 		<div class="col l4">
 			<div class="card-panel">
-    		<h5>My Upcoming Events</h5>
+    		<h5>My Events</h5>
     		<% if !@events || @events.empty? %>
 					<div class="no-participants">
 						No events.
@@ -53,17 +55,17 @@
 		<div class="col l4">
 			<div class="card-panel">
     		<h5>Attended Events</h5>
-    		<% events = @user.attendances %>
+    		<% events = @attendances %>
     		<% if events.empty? %>
 					<div class="no-participants">
 						No events.
 					</div>
     		<% else %>
-	    		<% events.where(attended: true).each do |a| %>
+	    		<% events.select { |e| e.attended }.each do |a| %>
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
-					<% flaked_events = events.where(flaked: true) %>
+					<% flaked_events = events.select { |e| e.flaked == true } %>
 					<% if flaked_events.any? %>
 						<h6>Flaked Events</h6>
 						<% flaked_events.each do |a| %>
@@ -71,7 +73,7 @@
 							<%= link_to e.title, event_path(e) %><br />
 						<% end %>
 					<% end %>
-					<% unchaired = events.where(attended: nil) %>
+					<% unchaired = events.select { |e| e.attended == nil } %>
 					<% if unchaired.any? %>
 						<h6>Waiting For Chairsheet</h6>
 						<% unchaired.each do |a| %>

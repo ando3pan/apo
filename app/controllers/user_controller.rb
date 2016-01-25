@@ -1,25 +1,30 @@
 class UserController < ApplicationController
 	before_action :ensure_user
+  before_action :set_quarter_cutoff, only: [:show, :greensheet]
 
 	def show
-		#events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
 		attendances = Attendance.where(user_id: @user.id)
-		events = attendances.map{|x| Event.find(x.event_id)}
-    @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
+
+		@attendances = attendances.where("created_at >  ?", @quarter_cutoff )
+		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
+    @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
+    @events = @events.sort_by { |date, evt| date }
 		# how can I make this prettier
 		@hours = 0
 		@flakehours = 0
 		@fellowships = 0
-		@user.attendances.where(past_quarter: false).each do |a|
+		@user.attendances.each do |a|
 			event = Event.find(a.event_id)
-			if event.event_type == "Service"
-				if a.attended?
-					@hours += a.drove ? event.driver_hours : event.hours
-				elsif event.flake_penalty? && a.flaked?
-					@flakehours += event.hours
+			if event.end_time > @quarter_cutoff
+				if event.event_type == "Service"
+					if a.attended?
+						@hours += a.drove ? event.driver_hours : event.hours
+					elsif event.flake_penalty? && a.flaked?
+						@flakehours += event.hours
+					end
+				elsif event.event_type == "Fellowship" && a.attended?
+					@fellowships += 1
 				end
-			elsif event.event_type == "Fellowship" && a.attended?
-				@fellowships += 1
 			end
 		end
 	end
@@ -50,7 +55,7 @@ class UserController < ApplicationController
       end
     end
 
-    if request.patch?
+    if request.patch? #update any potential changes
       if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes])
          if @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes])
            flash[:success] = "Greensheet successfully updated."
@@ -66,9 +71,7 @@ class UserController < ApplicationController
       @sections = GreensheetSection.where(user_id: @user.id)
       @sections ||= [] #no saved sections yet
 
-      attendances = Attendance.where(user_id: @user.id)
-      
-      @user.attendances.where(past_quarter: false).each do |a|
+      @user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
         event = Event.find(a.event_id)
         
         dont_add = false 
@@ -81,8 +84,8 @@ class UserController < ApplicationController
           event.event_type = "Family" #list family for dropdown
         end
 
-        chair = User.find_by(id: event.chair_id).displayname
-        chair ||= "No Chair"
+        chair = User.find_by(id: event.chair_id)
+        chair = chair ? chair.displayname : "No Chair"
 
         #already exists, may be event changes
         gsheet = GreensheetSection.find_by(event_id: a.event_id, 
@@ -91,7 +94,7 @@ class UserController < ApplicationController
           dont_add = true
           gsheet.update_attributes(title: event.title, hours: hours,
             chair: chair,
-            event_type: event.event_type)
+            original_event_type: event.event_type)
         end
 
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
@@ -184,6 +187,20 @@ class UserController < ApplicationController
 		@user ||= User.find(params[:id])
     unless user_signed_in? && (current_user.id == @user.id || current_user.admin)
       redirect_to root_path, notice: "You do not have permission to see that page."
+    end
+  end
+
+  def set_quarter_cutoff
+    s = Setting.first
+    @quarter_cutoff = Time.parse(s.fall_quarter.to_s)
+
+    winter = Time.parse(s.winter_quarter.to_s)
+    spring = Time.parse(s.spring_quarter.to_s)
+
+    if Time.now > spring
+      @quarter_cutoff = spring
+    elsif Time.now > winter
+      @quarter_cutoff = winter
     end
   end
 

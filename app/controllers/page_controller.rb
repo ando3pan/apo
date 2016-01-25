@@ -6,12 +6,16 @@ class PageController < ApplicationController
   def home
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
-      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
+      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 5)["posts"] rescue []
       @gbm = tumblr.posts('aporhopi.tumblr.com', :tag => 'gbm', :limit => 1)["posts"] rescue []
       @gbm = @gbm.any? ? @gbm.first : nil
       events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
       @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
     end
+  end
+
+  def announcements
+    @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
   end
 
   def events
@@ -62,6 +66,15 @@ class PageController < ApplicationController
   end
 
   def settings
+    @settings = Setting.first
+    @settings ||= Setting.create
+    if request.post?
+      if @settings.update_attributes(settings_params)
+        flash[:success] = "Settings updated"
+      elsif
+        flash[:alert] = "Error updating settings"
+      end
+    end
   end
 
   def info
@@ -87,6 +100,11 @@ class PageController < ApplicationController
     unless user_signed_in? && current_user.admin
       redirect_to root_path, notice: "Only admins may access that page."
     end
+  end
+
+  def settings_params
+    params.require(:setting).permit(:fall_quarter, :winter_quarter,
+    :spring_quarter)
   end
 
 end

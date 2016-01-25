@@ -75,7 +75,7 @@
 	  			</div>
 	  			<% if @event.event_type != "Meeting" %>
 		  			<% unless @event.participants.include?(current_user) %>
-		  				<% if @event.start_time < Time.now && Time.now < @event.end_time %>
+		  				<% if @event.start_time < (Time.now - 30.minutes) && Time.now < @event.end_time %>
 		  					<!-- Event is happening -->
 					  		<div class="btn-large disabled event-signup separate">Signups Are Closed</div>
 					  	<% elsif @event.end_time < Time.now %>
@@ -129,8 +129,8 @@
 									  	<% else %>
 									  		<div class="btn-large disabled event-signup separate">Needs a Driver</div>
 									  	<% end %>
-									  <% elsif (@event.participants.count == 2 || (@event.attendance_cap == 2 && @event.participants.count == 1)) &&
-									  	@event.chair_id == nil %>
+									  <% elsif (@event.chair_id == nil && (@event.participants.count > 1 ||
+									  	(@event.attendance_cap < 3 && @event.participants.count > 0))) %>
 									  	<!-- No chair after 3 signups -->
 									  	<div id="chair-required" class="btn-large disabled event-signup">
 									  		Chair Required

@@ -268,6 +268,20 @@ body {
 	text-transform: uppercase;
 }
 
+/* Admin Settings */
+input.date-setting {
+    width: 200px;
+    margin-left: 10px;
+}
+
+.setting-title {
+    margin-left: 20px;
+}
+
+.row.setting {
+    margin-bottom: -20px;
+}
+
 /* Approve page */
 .unapproved-users {
 	padding: 12px;
@@ -311,7 +325,7 @@ body {
 /* Home page */
 .gbm {
 	.card-title {
-		font-size: 3em;
+		font-size: 2.8em;
 	}
 
 	.card-content {
