@@ -88,13 +88,28 @@ class EventController < ApplicationController
 		elsif request.post?
 			if params[:event][:action] == "Create"
 				@event = current_user.events.create(event_params)
-			else
+			else #update
 				@event = Event.find(params[:event][:id])
 				@event.update_attributes(event_params)
+
+        #update greensheet on event update
+        chair = User.find_by(id: params[:event][:chair_id])
+        chair = chair ? chair.displayname : "No Chair"
+        greensheets = GreensheetSection.where(event_id: params[:event][:id])
+        greensheets.map{ |g| g.update_attributes(title: params[:event][:title],
+                                      hours: params[:event][:hours],
+                                      chair: chair,
+                          original_event_type: params[:event][:event_type]) }
 			end
+
+      #default non service events to one hour
+      if @event.event_type != "Service" && @event.hours == 0
+        @event.hours = 1
+      end
 			if @event.driver_hours == 0
 				@event.driver_hours = @event.hours
 			end
+
 			if @event.save
 				redirect_to event_path(@event)
 				if params[:event][:action] == "Create"
@@ -107,6 +122,7 @@ class EventController < ApplicationController
 				@action = params[:event][:action]
 				render 'new'
 			end
+
 		else
 			redirect_to root_path
 		end
