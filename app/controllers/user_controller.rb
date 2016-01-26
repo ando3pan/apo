@@ -22,8 +22,8 @@ class UserController < ApplicationController
 					elsif event.flake_penalty? && a.flaked?
 						@flakehours += event.hours
 					end
-				elsif event.event_type == "Fellowship" && a.attended?
-					@fellowships += event.hours
+				elsif event.event_type == "Fellowship"
+					@fellowships += GreensheetSection.calculateHours(a, event)
 				end
 			end
 		end
