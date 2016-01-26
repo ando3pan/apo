@@ -32,7 +32,7 @@ class UserController < ApplicationController
 	def greensheet
     @reqs = Hash.new(0) #contain all the diff requirement counters
 
-    @texts = GreensheetText.where(user_id: @user.id) #comment sections
+    @texts = GreensheetText.where(user_id: @user.id).order(:created_at) #comment sections
     
     unless @texts.any? #initialize comment sections
       #modify titles/descriptions in app/models/greensheet_text.rb file
