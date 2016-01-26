@@ -29,15 +29,13 @@
 					<strong>These numbers are not necessarily accurate!</strong><br />
 					You must still track your own requirements.
 				</div>
-        <% if current_user.admin %>
-          <div class="btn-container">
-            <%= link_to greensheet_path(@user) do %>
-              <div class="btn green darken-1">
-                My Greensheet
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+        <div class="btn-container">
+          <%= link_to greensheet_path(@user) do %>
+            <div class="btn green darken-1">
+              My Greensheet
+            </div>
+          <% end %>
+        </div>
 			</div>
 		</div>
 		<div class="col l4">

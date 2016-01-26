@@ -8,7 +8,7 @@ class UserController < ApplicationController
 		@attendances = attendances.where("created_at >  ?", @quarter_cutoff )
 		@attended_events = @attendances.map{|x| Event.find(x.event_id)}
     @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
-    @events = @events.sort_by { |date, evt| date }
+    @events = @events.sort_by { |date, evt| date } if @events #events isnt null
 		# how can I make this prettier
 		@hours = 0
 		@flakehours = 0
@@ -23,7 +23,7 @@ class UserController < ApplicationController
 						@flakehours += event.hours
 					end
 				elsif event.event_type == "Fellowship" && a.attended?
-					@fellowships += 1
+					@fellowships += event.hours
 				end
 			end
 		end

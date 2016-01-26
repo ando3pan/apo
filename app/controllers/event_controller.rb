@@ -96,10 +96,15 @@ class EventController < ApplicationController
         chair = User.find_by(id: params[:event][:chair_id])
         chair = chair ? chair.displayname : "No Chair"
         greensheets = GreensheetSection.where(event_id: params[:event][:id])
-        greensheets.map{ |g| g.update_attributes(title: params[:event][:title],
-                                      hours: params[:event][:hours],
-                                      chair: chair,
-                          original_event_type: params[:event][:event_type]) }
+        greensheets.map{ |g| 
+          a = Attendance.find_by( event_id: params[:event][:id], user_id:
+                                 g.user_id )
+          hours = GreensheetSection.calculateHours( a, @event )
+          g.update_attributes(title: params[:event][:title],
+                              hours: hours, chair: chair,
+                              original_event_type: params[:event][:event_type]) 
+
+        }
 			end
 
       #default non service events to one hour
