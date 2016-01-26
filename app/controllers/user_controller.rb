@@ -121,6 +121,8 @@ class UserController < ApplicationController
         @reqs[:chalkboarding] += 1 if s.title.include? "Chalkboard"
       end
     end
+
+    @sections = @sections.order(:event_type, :start_time )
 	end
 
 	def update
