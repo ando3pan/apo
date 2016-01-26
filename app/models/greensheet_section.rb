@@ -2,6 +2,7 @@ class GreensheetSection < ActiveRecord::Base
 belongs_to :user
 
   def self.calculateHours(attendance, event)
+    return 0 if !attendance.attended
     hours = event.hours
     unless attendance.flaked
       hours = event.driver_hours if attendance.drove
