@@ -50,9 +50,10 @@
       <%= f.select(:event_type, options_for_select(options))%>
       <%= f.label :event_type, "Event Type" %>
     </div>
-    <div id="for-service" <% if @copy == nil %>style="display: none;"<% end %>>
+
+    <div id="for-service">
       <div class="input-field">
-        <%= f.label :hours, "Service Hours" %>
+        <%= f.label :hours, "Hours/Credits" %>
         <%= f.number_field :hours, class: "validate", step: 'any', min: '0'  %>
       </div>
       <div class="input-field">
@@ -64,6 +65,7 @@
         <%= f.text_field :distance, class: "validate" %>
       </div>
     </div>
+
     <div class="input-field">
       <%= f.label :info, "Information" %>
       <%= f.text_area :info, class: "materialize-textarea validate" %>
@@ -107,19 +109,3 @@
     <% end %>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script type="text/javascript">
-  $(document).ready(function() {
-    $(".event-selector").click(function(event) {
-      if ($(event.target).context.outerText === "Service") {
-        $("#for-service").show();
-        $('#event_flake_penalty').prop('checked', true);
-      } else {
-        $("#for-service").hide();
-        $('#event_flake_penalty').prop('checked', false);
-      }
-    });
-  });
-  </script>
-<% end %>

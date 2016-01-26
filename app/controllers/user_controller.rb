@@ -30,26 +30,16 @@ class UserController < ApplicationController
 	end
 
 	def greensheet
-    @hours = 0 
-    @fellowships = 0
-    @ics = 0
-    @family = 0
-    @rush = 0
-    @fundraise = 0
-    @interviewparties = 0
-    @infonights = 0
-    @flyering = 0
-    @chalkboarding = 0
+    @reqs = Hash.new(0) #contain all the diff requirement counters
 
     @texts = GreensheetText.where(user_id: @user.id) #comment sections
+    
     unless @texts.any? #initialize comment sections
       #modify titles/descriptions in app/models/greensheet_text.rb file
       GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
-
         gtext = GreensheetText.create(user_id: @user.id, title: t,
                                       description: d)
         @texts.push(gtext) unless @texts.include?(gtext)#avoid duplicate problem
-
       end
     end
 
@@ -75,30 +65,26 @@ class UserController < ApplicationController
         dont_add = false 
         #@sections already has that event, or no attendance
 
-        #accounts for flaking and all
-        hours = GreensheetSection.calculateHours(a, event)
-
-        if ["Alpha", "Phi", "Omega", "Rho", "Pi"].include? event.event_type
-          event.event_type = "Family" #list family for dropdown
-        end
-
-        chair = User.find_by(id: event.chair_id)
-        chair = chair ? chair.displayname : "No Chair"
 
         #already exists, may be event changes
         gsheet = GreensheetSection.find_by(event_id: a.event_id, 
                                            user_id: @user.id) 
-        if gsheet
-          dont_add = true
-          gsheet.update_attributes(title: event.title, hours: hours,
-            chair: chair,
-            original_event_type: event.event_type)
-        end
 
+        dont_add = true if gsheet #already exists
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
         dont_add = true if a.flaked && !event.flake_penalty #no consequence
           
         unless dont_add
+          chair = User.find_by(id: event.chair_id)
+          chair = chair ? chair.displayname : "No Chair"
+
+          #accounts for flaking and all
+          hours = GreensheetSection.calculateHours(a, event)
+
+          if ["Alpha", "Phi", "Omega", "Rho", "Pi"].include? event.event_type
+            event.event_type = "Family" #list family for dropdown
+          end
+
           @sections.push(GreensheetSection.create( user_id: @user.id, 
                                                    title: event.title,
                                                    start_time: event.start_time,
@@ -117,29 +103,24 @@ class UserController < ApplicationController
     @sections.each do |s|
       case s.event_type
       when "Service"
-        @hours += s.hours
+        @reqs[:hours] += s.hours
       when "Fellowship"
-        @fellowships += s.hours
+        @reqs[:fellowships] += s.hours
       when "Interchapter"
-        @ics += s.hours
+        @reqs[:ics] += s.hours
       when "Family"
-        @family += s.hours
+        @reqs[:family] += s.hours
       when "Rush"
-        @rush += s.hours
+        @reqs[:rush] += s.hours
       when "Fundraising"
-        @fundraise += s.hours
+        @reqs[:fundraise] += s.hours
       when "Other"
-        @interviewparties += 1 if s.title.include? "Interview"
-        @infonights += 1 if s.title.include? "Info"
-        @flyering += 1 if s.title.include? "Flyering"
-        @chalkboarding += 1 if s.title.include? "Chalkboard"
+        @reqs[:interviewparties] += 1 if s.title.include? "Interview"
+        @reqs[:infonights] += 1 if s.title.include? "Info"
+        @reqs[:flyering] += 1 if s.title.include? "Flyering"
+        @reqs[:chalkboarding] += 1 if s.title.include? "Chalkboard"
       end
     end
-
-    if request.patch?
-      render 'greensheet'
-    end
-
 	end
 
 	def update

@@ -10,24 +10,24 @@
   count as a fellowship), describe it briefly in the comment section.</p>
   </div>
   <div class="counters">
-    <p class="requirement-counter service">Service Hours: <%= @hours %></p>
-    <p class="requirement-counter fellowship">Fellowships: <%= @fellowships %></p>
-    <p class="requirement-counter fundraising">Fundraising: <%= @fundraise %></p>
-    <p class="requirement-counter interchapter">Interchapter: <%= @ics %></p>
-    <p class="requirement-counter family">Family: <%= @family%></p>
+    <p class="requirement-counter service">Service Hours: <%= @reqs[:hours] %></p>
+    <p class="requirement-counter fellowship">Fellowships: <%= @reqs[:fellowships] %></p>
+    <p class="requirement-counter fundraising">Fundraising: <%= @reqs[:fundraise] %></p>
+    <p class="requirement-counter interchapter">Interchapter: <%= @reqs[:ics] %></p>
+    <p class="requirement-counter family">Family: <%= @reqs[:family] %></p>
     <div class="hover-rush requirement-counter">
       <p class="requirement-counter rush">Other &#9662 </p>
       <ul>
         <li class="requirement-counter rush extra">Rush Events: 
-        <%= @rush %></li>
+        <%= @reqs[:rush] %></li>
         <li class="requirement-counter rush extra">Interview Parties: 
-        <%= @interviewparties %></li>
+        <%= @reqs[:interviewparties] %></li>
         <li class="requirement-counter rush extra">Info Nights: 
-        <%= @infonights %></li>
+        <%= @reqs[:infonights] %></li>
         <li class="requirement-counter rush extra">Flyering: 
-        <%= @flyering %></li>
+        <%= @reqs[:flyering] %></li>
         <li class="requirement-counter rush extra">Chalkboarding: 
-        <%= @chalkboarding %></li>
+        <%= @reqs[:chalkboarding] %></li>
       </ul>
     </div>
   </div>
