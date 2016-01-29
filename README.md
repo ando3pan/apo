@@ -6,10 +6,14 @@ The basic layout is as follows:
 
 * config/routes matches url's to its respective controller (and action within
   the controller)
-    *`match '/user/:id',            to: 'user#show',          via: [:get],          as: 'user'`
-    *'/user/:id' will go to the show action within the user controller, which
-    will show the profile of the user with the specified id. The profile page
-    will be displayed according to the app/views/user/show.html.erb file.
+
+>>`match '/user/:id',            to: 'user#show',          via: [:get],          as: 'user'`
+
+>>'aporhopi.org/user/:id' will go to the show action within the user controller, which
+>>will show the profile of the user with the specified id. 
+
+>>The profile page
+>>will be displayed according to the app/views/user/show.html.erb file.
 
 * app/controllers/ contains all the controller files, each of which define
   related actions.
@@ -38,4 +42,4 @@ The basic layout is as follows:
 * app/assets/stylesheets/ contains all the files with the CSS code to format the
   views.
 
-* app/assets/javascripts/ contains all the JavaScript/CoffeeScript files. 
+* app/assets/javascripts/ contains all the JavaScript/CoffeeScript files.
