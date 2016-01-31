@@ -1,0 +1,13 @@
+<div class="forum container">
+  <h1>Forum</h1>
+  <%= link_to "Create",  new_forum_path %>
+  <% if @forums.empty? %>
+    <p>No forums to display</p>
+  <% else %>
+    <% @forums.each do |f| %>
+      <h5 class="title"><%= f.title %></h5>
+      <p class="description"><%= f.description %></p>
+      <p class="username"><%= User.find( f.creator_id ).displayname %></p>
+    <% end %>
+  <% end %>
+</div>

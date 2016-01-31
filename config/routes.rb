@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   match '/user/:id',            to: 'user#show',          via: [:get],          as: 'user'
   match '/user/:id/update',     to: 'user#update',        via: [:get, :patch],  as: 'update_user'
   match '/user/:id/greensheet', to: 'user#greensheet',    via: [:get, :post, :patch],  as: 'greensheet'
+  match '/forum',               to: 'forum#show',         via: [:get],          as: 'forum'
+  match '/forum/new',           to: 'forum#new',          via: [:get, :post],   as: 'new_forum'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
