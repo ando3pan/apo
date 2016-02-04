@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131221518) do
+ActiveRecord::Schema.define(version: 20160204053615) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160131221518) do
     t.integer  "creator_id", default: 0,  null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "topic_id",   default: 0
   end
 
   create_table "settings", force: :cascade do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 20160131221518) do
     t.integer  "creator_id", default: 0,  null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "forum_id",   default: 0
   end
 
   create_table "users", force: :cascade do |t|

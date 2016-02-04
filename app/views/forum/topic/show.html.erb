@@ -1,0 +1,12 @@
+<div class="forum topics container">
+  <h1>Topics</h1>
+  <%= link_to "Create",  new_topic_path(@forum) %>
+  <% if @topics.empty? %>
+    <p>No topics to display</p>
+  <% else %>
+    <% @topics.each do |t| %>
+      <h5 class="title"><%= link_to t.title, post_path(t) %></h5>
+      <p class="username"><%= User.find( t.creator_id ).displayname %></p>
+    <% end %>
+  <% end %>
+</div>
