@@ -1,6 +1,7 @@
 <div class="forum container">
-  <h3>Create a new forum</h3>
-  <%= form_for(@forum, url: new_forum_path, method: :post) do |f| %>
+  <h3>Edit a forum</h3>
+  
+  <%= form_for(@forum, url: edit_forum_path, method: :patch) do |f| %>
     <% if @forum.errors.any? %>
       <ul>
       <% @forum.errors.full_messages.each do |msg| %>
@@ -19,7 +20,7 @@
     </p>
 
     <input style="display: none;" value=<%= current_user.id %> name="forum[creator_id]"/>
+    <p><%= f.submit "Save" %></p>
 
-    <p><%= f.submit "Create" %></p>
   <% end %>
 </div>

@@ -7,7 +7,15 @@
     <% @forums.each do |f| %>
       <h5 class="title"><%= link_to f.title, topic_path(f) %></h5>
       <p class="description"><%= f.description %></p>
-      <p class="username"><%= User.find( f.creator_id ).displayname %></p>
+      <p class="username">Created by <%= User.find( f.creator_id ).displayname %></p>
+      <p class="topic_num"># of Topics: <%= f.topics.size %></p>
+      <p class="last_updated">Last updated <%= f.updated_at.strftime("%m/%d/%y at %I:%M %p") %></p>
+
+      <% if f.creator_id == current_user.id or current_user.admin %>
+        <%= link_to "Delete", destroy_forum_path(f), method: :delete %>
+        <%= link_to "Edit", edit_forum_path(f), method: :get %>
+      <% end %>
+
     <% end %>
   <% end %>
 </div>

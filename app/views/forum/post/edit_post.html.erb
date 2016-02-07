@@ -1,0 +1,22 @@
+<div class="forum post container">
+  <h3>Edit your post</h3>
+  
+  <%= form_for(@post, url: edit_post_path, method: :patch) do |f| %>
+    <% if @post.errors.any? %>
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg%></li>
+      <% end %>
+      </ul>
+    <% end %>
+
+    <p>
+      <%= f.label :comment %><br />
+      <%= f.text_area :comment %>
+    </p>
+
+    <input style="display: none;" value=<%= current_user.id %> name="post[creator_id]"/>
+    <p><%= f.submit "Save" %></p>
+
+  <% end %>
+</div>

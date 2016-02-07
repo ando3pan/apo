@@ -1,0 +1,41 @@
+<div class="forum posts container">
+  <h1>Posts</h1>
+  <% if @posts.empty? %>
+    <p>No posts to display</p>
+  <% else %>
+    <% @posts.each do |p| %>
+      <p class="comment"><%= p.comment %></p>
+      <p class="username"><%= User.find( p.creator_id ).displayname %></p>
+      <p class="date"><%= p.updated_at.strftime("%m/%d/%y at %I:%M %p") %></p>
+
+      <% if p.creator_id == current_user.id or current_user.admin %>
+        <%= link_to "Delete", destroy_post_path(p), method: :delete %>
+        <%= link_to "Edit", edit_post_path(p), method: :get %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+
+  <%= form_for(@new_post, url: post_path, method: :post) do |f| %>
+    <% if @new_post.errors.any? %>
+      <ul>
+        <%= @new_post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <p>
+      <%= f.label :post %><br />
+      <%= f.text_area :comment %>
+    </p>
+
+    <input style="display: none;" value=<%= current_user.id %> name="post[creator_id]"/>
+    <input style="display: none;" value=<%= @topic.id %> name="post[topic_id]"/>
+
+    <p><%= f.submit "Create" %></p>
+  <% end %>
+
+  <br />
+  <%= link_to "Back to Topic", topic_path(@topic.forum_id) %>
+</div>

@@ -6,7 +6,18 @@
   <% else %>
     <% @topics.each do |t| %>
       <h5 class="title"><%= link_to t.title, post_path(t) %></h5>
-      <p class="username"><%= User.find( t.creator_id ).displayname %></p>
+      <p class="username">Created by <%= User.find( t.creator_id ).displayname %></p>
+      <p class="post_num"># of Posts: <%= t.posts.size %></p>
+      <p class="last_updated">Last updated <%= t.updated_at.strftime("%m/%d/%y at %I:%M %p") %></p>
+
+      <% if t.creator_id == current_user.id or current_user.admin %>
+        <%= link_to "Delete", destroy_topic_path(t), method: :delete %>
+        <%= link_to "Edit", edit_topic_path(t), method: :get %>
+      <% end %>
+
     <% end %>
   <% end %>
+
+  <br />
+  <%= link_to "Back to Forum", forum_path %>
 </div>
