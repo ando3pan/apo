@@ -95,6 +95,7 @@ class ForumController < ApplicationController
 
   def post
     @topic = Topic.find( params[:id] )
+
     if request.post?
       @post = Post.create
       if @post.update_attributes(post_params)
@@ -106,6 +107,7 @@ class ForumController < ApplicationController
         flash[:alert] = "Error creating post"
       end
     end
+
     @new_post = Post.new
     @posts = Post.where(topic_id: params[:id]).order(:created_at)
     render "forum/post/show"
