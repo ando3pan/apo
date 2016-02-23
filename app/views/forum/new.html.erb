@@ -1,0 +1,35 @@
+<div class="forum card-panel container">
+  <h3>Create a new forum</h3>
+  <%= form_for(@forum, url: new_forum_path, method: :post) do |f| %>
+    <% if @forum.errors.any? %>
+      <ul>
+      <% @forum.errors.full_messages.each do |msg| %>
+        <li><%= msg%></li>
+      <% end %>
+      </ul>
+    <% end %>
+
+    <p>
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :description %><br />
+      <%= f.text_area :description %>
+    </p>
+
+    <% if current_user.admin %>
+      <div class="input-field">
+        <p>
+          <%= f.check_box :eboard_only %>
+          <%= f.label :eboard_only %><br />
+        </p>
+      </div>
+    <% end %>
+
+    <input style="display: none;" value=<%= current_user.id %> name="forum[creator_id]"/>
+
+    <p "inline"><%= f.submit "Create", class: "btn top-margin button yellow darken-2 center" %></p>
+  <%= link_to "Back to forums", forum_path, class: "button right-button" %>
+  <% end %>
+</div>

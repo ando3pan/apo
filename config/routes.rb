@@ -25,6 +25,20 @@ Rails.application.routes.draw do
   match '/user/:id/update',     to: 'user#update',        via: [:get, :patch],  as: 'update_user'
   match '/user/:id/greensheet', to: 'user#greensheet',    via: [:get, :post, :patch],  as: 'greensheet'
 
+  match '/forum',               to: 'forum#show',         via: [:get],          as: 'forum'
+  match '/forum/:id',           to: 'forum#destroy_forum',via: [:delete],       as: 'destroy_forum'
+  match '/forum/:id/edit',      to: 'forum#edit_forum',   via: [:get, :patch],  as: 'edit_forum'
+  match '/forum/new',           to: 'forum#new',          via: [:get, :post],   as: 'new_forum'
+
+  match '/forum/:id',           to: 'forum#topic',        via: [:get],          as: 'topic'
+  match '/forum/:id/new',       to: 'forum#new_topic',    via: [:get, :post],   as: 'new_topic'
+  match '/topic/:id/edit',      to: 'forum#edit_topic',   via: [:get, :patch],  as: 'edit_topic'
+  match '/topic/:id',           to: 'forum#destroy_topic',via: [:delete],       as: 'destroy_topic'
+
+  match '/topic/:id',           to: 'forum#post',         via: [:get, :post],   as: 'post'
+  match '/post/:id/edit',       to: 'forum#edit_post',    via: [:get, :patch],  as: 'edit_post'
+  match '/post/:id',            to: 'forum#destroy_post', via: [:delete],       as: 'destroy_post'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

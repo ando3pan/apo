@@ -1,0 +1,36 @@
+<div class="forum topics card-panel container">
+  <h1>Topics</h1>
+  <%= link_to "Back to forums", forum_path, class: "button" %>
+  <%= link_to "Create a new topic",  new_topic_path(@forum), class:
+    "right-button button" %>
+  <% if @topics.empty? %>
+    <p>No topics to display</p>
+  <% else %>
+
+    <table class="forum-table">
+      <tr>
+        <th>Title</th>
+        <th># Posts</th>
+        <th>Last updated</th>
+        <th>Options</th>
+      </tr>
+
+      <% @topics.each do |t| %>
+      <tr>
+        <td><h5 class="title"><%= link_to t.title, post_path(t) %></h5>
+          <p class="created-by">Created by <%= User.find( t.creator_id ).displayname %></p></td>
+        <td><p class="post-num"><%= t.posts.size %></p></td>
+        <td><p><%= t.updated_at.strftime("%m/%d/%y") %><br/>
+               <%= t.updated_at.strftime("%I:%M %p") %></p></td>
+
+        <% if t.creator_id == current_user.id or current_user.admin %>
+          <td><%= link_to "Delete", destroy_topic_path(t), method: :delete %>
+          <%= link_to "Edit", edit_topic_path(t), method: :get %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+
+  <% end %>
+
+</div>

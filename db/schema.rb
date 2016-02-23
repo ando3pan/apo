@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122203607) do
+ActiveRecord::Schema.define(version: 20160218030513) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 20160122203607) do
     t.boolean  "off_campus",     default: true
   end
 
+  create_table "forums", force: :cascade do |t|
+    t.string   "title",       default: "",    null: false
+    t.string   "description", default: "",    null: false
+    t.integer  "creator_id",  default: 0,     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "eboard_only", default: false
+  end
+
   create_table "greensheet_sections", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -75,12 +84,28 @@ ActiveRecord::Schema.define(version: 20160122203607) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string   "comment",    default: "", null: false
+    t.integer  "creator_id", default: 0,  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "topic_id",   default: 0
+  end
+
   create_table "settings", force: :cascade do |t|
     t.datetime "fall_quarter",   default: '2016-01-25 14:06:09', null: false
     t.datetime "winter_quarter", default: '2016-01-25 14:06:09', null: false
     t.datetime "spring_quarter", default: '2016-01-25 14:06:09', null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "title",      default: "", null: false
+    t.integer  "creator_id", default: 0,  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "forum_id",   default: 0
   end
 
   create_table "users", force: :cascade do |t|
