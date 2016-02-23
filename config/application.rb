@@ -2,7 +2,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-config.serve_static_assets = true
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -26,5 +25,7 @@ module Rhopi
     config.active_record.raise_in_transactional_callbacks = true
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
+    
+    config.serve_static_assets = true
   end
 end
