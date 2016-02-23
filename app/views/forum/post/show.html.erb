@@ -1,19 +1,30 @@
-<div class="forum posts container">
+<div class="forum posts card-panel container">
   <h1>Posts</h1>
+  <%= link_to "Back to Topic", topic_path(@topic.forum_id) %>
   <% if @posts.empty? %>
     <p>No posts to display</p>
   <% else %>
-    <% @posts.each do |p| %>
-      <p class="comment"><%= p.comment %></p>
-      <p class="username"><%= User.find( p.creator_id ).displayname %></p>
-      <p class="date"><%= p.updated_at.strftime("%m/%d/%y at %I:%M %p") %></p>
+    <table class="forum-table">
+      <tr>
+        <th class="comment">Post</th>
+        <th>Creator</th>
+        <th>Created at</th>
+        <th>Options</th>
+      </tr>
+      <% @posts.each do |p| %>
+        <tr>
+          <td class="comment"><p><%= p.comment %></p></td>
+          <td class="username"><p><%= User.find( p.creator_id ).displayname %></p></td>
+          <td class="date"><p><%= p.updated_at.strftime("%m/%d/%y")%><br/>
+                              <%= p.updated_at.strftime("%I:%M %p") %></p></td>
 
-      <% if p.creator_id == current_user.id or current_user.admin %>
-        <%= link_to "Delete", destroy_post_path(p), method: :delete %>
-        <%= link_to "Edit", edit_post_path(p), method: :get %>
+          <% if p.creator_id == current_user.id or current_user.admin %>
+            <td> <%= link_to "Delete", destroy_post_path(p), method: :delete %>
+            <%# link_to "Edit", edit_post_path(p), method: :get %></td>
+          <% end %>
+
       <% end %>
-
-    <% end %>
+    </table>
   <% end %>
 
   <%= form_for(@new_post, url: post_path, method: :post) do |f| %>
@@ -33,9 +44,7 @@
     <input style="display: none;" value=<%= current_user.id %> name="post[creator_id]"/>
     <input style="display: none;" value=<%= @topic.id %> name="post[topic_id]"/>
 
-    <p><%= f.submit "Create" %></p>
+    <p><%= f.submit "Create", class: "btn yellow darken-2 center" %></p>
   <% end %>
 
-  <br />
-  <%= link_to "Back to Topic", topic_path(@topic.forum_id) %>
 </div>

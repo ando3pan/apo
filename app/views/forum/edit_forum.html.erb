@@ -1,4 +1,4 @@
-<div class="forum card container">
+<div class="forum card-panel container">
   <h3>Edit a forum</h3>
   
   <%= form_for(@forum, url: edit_forum_path, method: :patch) do |f| %>
@@ -20,7 +20,8 @@
     </p>
 
     <input style="display: none;" value=<%= current_user.id %> name="forum[creator_id]"/>
-    <p><%= f.submit "Save" %></p>
+    <p><%= f.submit "Save", class: "btn button yellow darken-2 center" %></p>
 
   <% end %>
+  <%= link_to "Back to forums", forum_path, class: "button right-button" %>
 </div>

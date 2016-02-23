@@ -1,4 +1,4 @@
-<div class="forum post container">
+<div class="forum post card-panel container">
   <h3>Edit your post</h3>
   
   <%= form_for(@post, url: edit_post_path, method: :patch) do |f| %>
@@ -16,7 +16,7 @@
     </p>
 
     <input style="display: none;" value=<%= current_user.id %> name="post[creator_id]"/>
-    <p><%= f.submit "Save" %></p>
+    <p><%= f.submit "Save", class: "yellow darken-2 center btn" %></p>
 
   <% end %>
 </div>

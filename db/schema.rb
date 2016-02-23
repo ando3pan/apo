@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204053615) do
+ActiveRecord::Schema.define(version: 20160218030513) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,11 +54,12 @@ ActiveRecord::Schema.define(version: 20160204053615) do
   end
 
   create_table "forums", force: :cascade do |t|
-    t.string   "title",       default: "", null: false
-    t.string   "description", default: "", null: false
-    t.integer  "creator_id",  default: 0,  null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",       default: "",    null: false
+    t.string   "description", default: "",    null: false
+    t.integer  "creator_id",  default: 0,     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "eboard_only", default: false
   end
 
   create_table "greensheet_sections", force: :cascade do |t|

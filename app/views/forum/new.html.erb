@@ -1,4 +1,4 @@
-<div class="forum container">
+<div class="forum card-panel container">
   <h3>Create a new forum</h3>
   <%= form_for(@forum, url: new_forum_path, method: :post) do |f| %>
     <% if @forum.errors.any? %>
@@ -18,8 +18,18 @@
       <%= f.text_area :description %>
     </p>
 
+    <% if current_user.admin %>
+      <div class="input-field">
+        <p>
+          <%= f.check_box :eboard_only %>
+          <%= f.label :eboard_only %><br />
+        </p>
+      </div>
+    <% end %>
+
     <input style="display: none;" value=<%= current_user.id %> name="forum[creator_id]"/>
 
-    <p><%= f.submit "Create" %></p>
+    <p "inline"><%= f.submit "Create", class: "btn top-margin button yellow darken-2 center" %></p>
+  <%= link_to "Back to forums", forum_path, class: "button right-button" %>
   <% end %>
 </div>

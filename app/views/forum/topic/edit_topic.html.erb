@@ -1,4 +1,4 @@
-<div class="forum topic container">
+<div class="forum topic card-panel container">
   <h3>Edit a topic</h3>
   <%= form_for(@topic, url: edit_topic_path, method: :patch) do |f| %>
     <% if @topic.errors.any? %>
@@ -17,6 +17,7 @@
     <input style="display: none;" value=<%= current_user.id %> name="topic[creator_id]"/>
     <input style="display: none;" value=<%= @forum.id %> name="topic[forum_id]"/>
 
-    <p><%= f.submit "Save" %></p>
+    <p><%= f.submit "Save", class: "yellow btn darken-2 center" %></p>
   <% end %>
+  <%= link_to "Back to topics", topic_path(@forum), class: "button right-button" %>
 </div>

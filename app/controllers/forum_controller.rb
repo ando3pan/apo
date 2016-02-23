@@ -7,7 +7,7 @@ class ForumController < ApplicationController
 
   def destroy_forum
     f = Forum.find(params[:id])
-    if f.delete
+    if f.delete && f.destroy
       flash[:success] = "Deleted successfully"
     elsif
       flash[:alert] = "Delete failed"
@@ -46,8 +46,13 @@ class ForumController < ApplicationController
   #after clicking on a specific forum
   def topic
     @forum = Forum.find( params[:id])
-    @topics = Topic.where(forum_id: params[:id]).order(updated_at: :desc)
-    render "forum/topic/show"
+    if @forum.eboard_only and !current_user.admin
+      flash[:alert] = "You do not have permission to see that"
+      redirect_to forum_path
+    else
+      @topics = Topic.where(forum_id: params[:id]).order(updated_at: :desc)
+      render "forum/topic/show"
+    end
   end
 
   #create a new topic
@@ -70,7 +75,7 @@ class ForumController < ApplicationController
   def destroy_topic
     t = Topic.find(params[:id])
     @forum = Forum.find( t.forum_id )
-    if t.delete
+    if t.delete && t.destroy
       flash[:success] = "Deleted successfully"
     elsif
       flash[:alert] = "Delete failed"
@@ -95,22 +100,27 @@ class ForumController < ApplicationController
 
   def post
     @topic = Topic.find( params[:id] )
-
-    if request.post?
-      @post = Post.create
-      if @post.update_attributes(post_params)
-        flash[:success] = "Post created"
-        @topic.update_attribute(:updated_at, @post.updated_at )
-        @forum = Forum.find( @topic.forum_id )
-        @forum.update_attribute(:updated_at, @post.updated_at )
-      else
-        flash[:alert] = "Error creating post"
+    forum = Forum.find( @topic.forum_id )
+    if forum.eboard_only and !current_user.admin
+      flash[:alert] = "You do not have permission to see that"
+      redirect_to forum_path
+    else
+      if request.post?
+        @post = Post.create
+        if @post.update_attributes(post_params)
+          flash[:success] = "Post created"
+          @topic.update_attribute(:updated_at, @post.updated_at )
+          @forum = Forum.find( @topic.forum_id )
+          @forum.update_attribute(:updated_at, @post.updated_at )
+        else
+          flash[:alert] = "Error creating post"
+        end
       end
-    end
 
-    @new_post = Post.new
-    @posts = Post.where(topic_id: params[:id]).order(:created_at)
-    render "forum/post/show"
+      @new_post = Post.new
+      @posts = Post.where(topic_id: params[:id]).order(:created_at)
+      render "forum/post/show"
+    end
   end
 
   def edit_post
@@ -141,7 +151,8 @@ class ForumController < ApplicationController
 
   private
   def forum_params
-    params.require(:forum).permit(:title, :description, :creator_id )
+    params.require(:forum).permit(:title, :description, :creator_id,
+                                  :eboard_only )
   end
 
   def topic_params
