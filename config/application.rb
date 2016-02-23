@@ -26,6 +26,5 @@ module Rhopi
     config.time_zone = 'Pacific Time (US & Canada)'
     config.active_record.default_timezone = :local
     
-    config.serve_static_assets = true
   end
 end
