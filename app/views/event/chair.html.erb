@@ -171,7 +171,8 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
   //AUTOCOMPLETE
-  $(function() {
+  //$(function() {
+  $(document).on('page:change', function(){
       new app.Users(1);
   });
 
