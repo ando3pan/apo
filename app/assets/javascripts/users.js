@@ -1,8 +1,9 @@
 //autocomplete
 
 var app = window.app = {};
-app.Users = function() {
-    this._input = $('#user-search-txt');
+app.Users = function(count) {
+    this.count = count;
+    this._input = $('#user-search-txt-'+count);
     this._initAutocomplete();
 };
 
@@ -11,7 +12,7 @@ app.Users.prototype = {
         this._input
             .autocomplete({
                 source: '/event/autocomplete_user_displayname.json',
-                appendTo: '#user-search-results',
+                appendTo: '#user-search-results-'+this.count,
                 select: $.proxy(this._select, this)
             })
             .autocomplete('instance')._renderItem = $.proxy(this._render, this);

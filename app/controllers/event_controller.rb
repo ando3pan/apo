@@ -163,8 +163,9 @@ class EventController < ApplicationController
 		chair = nil
 		params[:u].each do |key, a|
 			# If a name is given
-		  if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
-		  	name = "#{a['firstname']} #{a['lastname']}"
+		  #if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
+		  if a["name"] and a["name"].length > 0 && a["attendance"] != "waitlist"
+		  	name = a['name']
 		  	user = User.where("lower(displayname) = ?", name.downcase).first
 		  	if user && @event.participants.where(id: user.id).empty?
 		  		# add the user

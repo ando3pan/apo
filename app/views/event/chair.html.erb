@@ -30,10 +30,17 @@
           <% if user %>
       			<div class="row attendee">
       				<div class="aside-counter col s1"><%= i+1 %></div>
+
   	    			<div class="input-field col s4">
+                <!--
+  		          <input id=<%# "fn-#{i}" %> type="text" class="validate"
+                  name=<%# "[u][#{i}]firstname" %> value="<%# user.firstname.strip %>" />
+  		          <label for=<%# "fn-#{i}" %>>First Name</label>
+                -->
   		          <input id=<%= "fn-#{i}" %> type="text" class="validate"
-                  name=<%= "[u][#{i}]firstname" %> value="<%= user.firstname.strip %>" />
-  		          <label for=<%= "fn-#{i}" %>>First Name</label>
+                  name=<%= "[u][#{i}]name" %> value="<%= user.displayname.strip %>" />
+  		          <label for=<%= "fn-#{i}" %>>Name</label>
+
   		          <% if a.attended == nil %>
   		          	<div class="chairsheet-updated">
   		          		Not submitted.
@@ -45,11 +52,15 @@
   		          	</div>
   		          <% end %>
   		        </div>
+
+              <!--
   		        <div class="input-field col s4">
-  		          <input id=<%= "ln-#{i}" %> type="text" class="validate"
-                  name=<%= "[u][#{i}]lastname" %> value="<%= user.lastname.strip %>" />
-  		          <label for=<%= "ln-#{i}" %>>Last Name</label>
+  		          <input id=<%# "ln-#{i}" %> type="text" class="validate"
+                  name=<%# "[u][#{i}]lastname" %> value="<%# user.lastname.strip %>" />
+  		          <label for=<%# "ln-#{i}" %>>Last Name</label>
   		        </div>
+              -->
+
   		        <div class="input-field col s3 attendance-options">
   		        	<p>
   			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
@@ -100,10 +111,10 @@
 
             <!--AUTOCOMPLETE-->
             <div class="user-search input-field col s5 newest-form">
-              <input type="text" id="user-search-txt" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >
+              <input type="text" id="user-search-txt-<%= "#{i}" %>" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >
               <label for=<%= "name-#{i}" %>>Name</label>
               <div class="remove-flow">
-                <div class="results" id="user-search-results"></div>
+                <div class="results" id="user-search-results-<%="#{i}"%>"></div>
               </div>
             </div>
 
@@ -161,7 +172,7 @@
 <script type="text/javascript">
   //AUTOCOMPLETE
   $(function() {
-      new app.Users;
+      new app.Users(1);
   });
 
 	// prevent double submission if clicked fast
@@ -190,10 +201,10 @@
       '<div class="aside-counter col s1">'+(index+1)+'</div>' +
       '<!--AUTOCOMPLETE-->' +
       '<div class="user-search input-field col s5 newest-form">' +
-        '<input type="text" id="user-search-txt" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >' +
+        '<input type="text" id="user-search-txt-' + index + '" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >' +
         '<label for=<%= "name-#{i}" %>>Name</label>' +
         '<div class="remove-flow">' +
-          '<div class="results" id="user-search-results"></div>' +
+          '<div class="results" id="user-search-results-' + index + '"></div>' +
         '</div>' +
       '</div>' +
 /*      '<div class="input-field col s4 newest-form">' +
@@ -222,11 +233,13 @@
        '<input type="checkbox" class="chair-c" id="cha-'+index+'" name="[u]['+index+']chair" />' +
        '<label for="cha-'+index+'">Chair</label>			      ' +
      '</div>';
+
     <% if @event.event_type === 'ServiceX' %>' +
       nextInput += '<div class="input-field">               <input type="checkbox" class="spo-c" id="spo-'+index+'" name="[u]['+index+']spontaneous" />               <label for="spo-'+index+'">Fellowship</label>';
     <% end %>
     nextInput += '</div></div></div>';
 		$("#extra-attendees").append(nextInput);
+    new app.Users(index);
 	})
 
 	// prevent selecting multiple chairs
