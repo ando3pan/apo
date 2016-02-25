@@ -13,9 +13,15 @@
 
     <div class="form-card">
 
-      <%= autocomplete_field_tag :displayname, params[:displayname],
+      <!--AUTOCOMPLETE-->
+      <%# autocomplete_field_tag :displayname, params[:displayname],
         autocomplete_user_displayname_events_path, { placeholder: "Name", type:
                                                      "text" } %>
+      <div class="user-search">
+        <input type="text" id="user-search-txt" placeholder="Name">
+        <div class="results" id="user-search-results"></div>
+      </div>
+
     	<form action="/event/chairsheet" method="POST" id="chair-form">
         <% if @event.event_type === 'ServiceX' %>
           <div class="card-panel gap blue lighten-5 row">
@@ -149,6 +155,11 @@
 
 <% content_for :javascript do %>
 <script type="text/javascript">
+  //AUTOCOMPLETE
+  $(function() {
+      new app.Users;
+  });
+
 	// prevent double submission if clicked fast
 	$("#submit").click(function() {
 		$(this).html("Processing");

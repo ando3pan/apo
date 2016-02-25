@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 #  match '/events/autocomplete_fullname_name',
 #          to: 'event#autocomplete_fullname_name',         via: [:get],  as:
 #         'autocomplete'
-  resources :events, only: [:autocomplete_user_displayname] do
+  resources :event, only: [:autocomplete_user_displayname] do
     get :autocomplete_user_displayname, on: :collection
   end
 

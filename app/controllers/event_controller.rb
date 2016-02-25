@@ -148,6 +148,14 @@ class EventController < ApplicationController
 		@attendances = @event.attendances.order(:created_at).sort_by { |a| a.flaked ? 1 : 0 }
 	end
 
+  def autocomplete_user_displayname
+    #for autocomplete names
+    respond_to do |format|
+      format.html
+      format.json { render json: @users = User.search(params[:term]) }
+    end
+  end
+
 	def chairsheet
 		@event = Event.find(params[:id])
 		# rebuild the relations

@@ -46,4 +46,9 @@ class User < ActiveRecord::Base
     super and self.approved?
   end
 
+  #use for autocomplete
+  def self.search(term)
+    where('LOWER(displayname) LIKE :term', term: "%#{term.downcase}%")
+  end
+
 end

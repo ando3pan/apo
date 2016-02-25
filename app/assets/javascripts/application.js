@@ -18,3 +18,4 @@
 //= require materialize.min
 //= require moment
 //= require fullcalendar
+//= require users
