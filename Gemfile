@@ -34,6 +34,11 @@ gem 'fullcalendar-rails'
 # Tumblr
 gem 'tumblr_client'
 
+#for autocomplete
+#gem 'rails-jquery-autocomplete'
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'

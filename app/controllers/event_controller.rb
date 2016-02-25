@@ -2,6 +2,7 @@ class EventController < ApplicationController
 	before_action      :ensure_signed_in
 	before_action      :ensure_admin, only: [:new, :destroy, :meeting]
 	skip_before_action :verify_authenticity_token
+  autocomplete       :user, :displayname
 
 	def show
 		@event   = Event.find(params[:id])

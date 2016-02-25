@@ -12,6 +12,10 @@
     </div>
 
     <div class="form-card">
+
+      <%= autocomplete_field_tag :displayname, params[:displayname],
+        autocomplete_user_displayname_events_path, { placeholder: "Name", type:
+                                                     "text" } %>
     	<form action="/event/chairsheet" method="POST" id="chair-form">
         <% if @event.event_type === 'ServiceX' %>
           <div class="card-panel gap blue lighten-5 row">
@@ -121,6 +125,7 @@
 			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> name=<%= "[u][#{i}]chair" %> />
 	      				<label for=<%= "cha-#{i}" %>>Chair</label>
 			        </div>
+
               <% if @event.event_type === 'ServiceX' %>
                   <div class="input-field">
                     <input type="checkbox" class="spontaneous-c" id=<%= "spo-#{i}" %> name=<%= "[u][#{i}]spontaneous" %> />
