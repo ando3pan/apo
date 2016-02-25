@@ -262,3 +262,39 @@
 #meeting-roster {
 	margin-bottom: 40px;
 }
+
+/* AUTOCOMPLETE */
+span.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.user-search .results .ui-widget-content {
+    background: #fdfdfd;
+    border-color: #ddd;
+    box-shadow: 0 .1em .2em rgba(187, 187, 187, 0.64);
+    max-height: 20em;
+    overflow: hidden;
+    overflow-y: auto;
+    top: 10px;
+}
+
+//to take out results from page flow
+.remove-flow{
+    position: absolute;
+}
+
+.user-search .results .ui-menu-item {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    padding: 10px 0px;
+    //position: absolute;
+    position: relative;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover{
+        background-color: #dddddd;
+    }
+}

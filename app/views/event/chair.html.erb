@@ -13,15 +13,6 @@
 
     <div class="form-card">
 
-      <!--AUTOCOMPLETE-->
-      <%# autocomplete_field_tag :displayname, params[:displayname],
-        autocomplete_user_displayname_events_path, { placeholder: "Name", type:
-                                                     "text" } %>
-      <div class="user-search">
-        <input type="text" id="user-search-txt" placeholder="Name">
-        <div class="results" id="user-search-results"></div>
-      </div>
-
     	<form action="/event/chairsheet" method="POST" id="chair-form">
         <% if @event.event_type === 'ServiceX' %>
           <div class="card-panel gap blue lighten-5 row">
@@ -106,6 +97,17 @@
     			<div class="<%= "row attendee" %>">
     				<div class="aside-counter col s1"><%= @attendances.size+1 %></div>
     				<% i = @attendances.size %>
+
+            <!--AUTOCOMPLETE-->
+            <div class="user-search input-field col s5 newest-form">
+              <input type="text" id="user-search-txt" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >
+              <label for=<%= "name-#{i}" %>>Name</label>
+              <div class="remove-flow">
+                <div class="results" id="user-search-results"></div>
+              </div>
+            </div>
+
+            <!--
 	    			<div class="input-field col s4 newest-form">
 		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %>>
 		          <label for=<%= "fn-#{i}" %>>First Name</label>
@@ -114,6 +116,8 @@
 		          <input id=<%= "ln-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]lastname" %>>
 		          <label for=<%= "ln-#{i}" %>>Last Name</label>
 		        </div>
+            -->
+
 		        <div class="input-field col s3 attendance-options">
 		        	<p>
 			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %> checked />
@@ -181,8 +185,44 @@
 		$(this).removeClass("newest-form");
 		index++;
 		// so ghetto hehe
-		var nextInput = '<div class="row attendee" ><div class="aside-counter col s1">'+(index+1)+'</div>	    			<div class="input-field col s4 newest-form">		          <input id="fn-'+index+'" type="text" class="validate" name="[u]['+index+']firstname">		          <label for="fn-'+index+'">First Name</label>		        </div>		        <div class="input-field col s4">		          <input id="ln-'+index+'" type="text" class="validate" name="[u]['+index+']lastname">		          <label for="ln-'+index+'">Last Name</label>		        </div>		        <div class="input-field col s3 attendance-options">		        	<p>			          <input type="radio" class="with-gap" id="att-'+index+'" value="attended" name="[u]['+index+']attendance" checked />	      				<label for="att-'+index+'">Attended</label>							</p> <p>                <input type="radio" class="with-gap" id="fla-'+index+'" value="flaked" name="[u]['+index+']attendance"  />                <label for="fla-'+index+'">Flaked</label>             </p>							<div class="input-field">			          <input type="checkbox" id="dro-'+index+'" name="[u]['+index+']drove" />	      				<label for="dro-'+index+'">Drove</label>			        </div>			        <div class="input-field">			          <input type="checkbox" class="chair-c" id="cha-'+index+'" name="[u]['+index+']chair" />	      				<label for="cha-'+index+'">Chair</label>			        </div>';
-    <% if @event.event_type === 'ServiceX' %>
+    var nextInput = 
+      '<div class="row attendee" >' +
+      '<div class="aside-counter col s1">'+(index+1)+'</div>' +
+      '<!--AUTOCOMPLETE-->' +
+      '<div class="user-search input-field col s5 newest-form">' +
+        '<input type="text" id="user-search-txt" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >' +
+        '<label for=<%= "name-#{i}" %>>Name</label>' +
+        '<div class="remove-flow">' +
+          '<div class="results" id="user-search-results"></div>' +
+        '</div>' +
+      '</div>' +
+/*      '<div class="input-field col s4 newest-form">' +
+        '<input id="fn-'+index+'" type="text" class="validate" name="[u]['+index+']firstname">' +
+       '<label for="fn-'+index+'">First Name</label>' +
+     '</div>' +
+     '<div class="input-field col s4">' +
+       '<input id="ln-'+index+'" type="text" class="validate" name="[u]['+index+']lastname">' +
+       '<label for="ln-'+index+'">Last Name</label>' +
+     '</div>' +
+*/
+     '<div class="input-field col s3 attendance-options">' +
+       '<p>' +
+         '<input type="radio" class="with-gap" id="att-'+index+'" value="attended" name="[u]['+index+']attendance" checked />' +
+         '<label for="att-'+index+'">Attended</label>' +
+       '</p>' +
+       '<p>' +
+         '<input type="radio" class="with-gap" id="fla-'+index+'" value="flaked" name="[u]['+index+']attendance"  />' +
+         '<label for="fla-'+index+'">Flaked</label>' +
+       '</p>' +
+     '<div class="input-field">' +
+       '<input type="checkbox" id="dro-'+index+'" name="[u]['+index+']drove" />' +
+       '<label for="dro-'+index+'">Drove</label>' +
+     '</div>' +
+     '<div class="input-field">' +
+       '<input type="checkbox" class="chair-c" id="cha-'+index+'" name="[u]['+index+']chair" />' +
+       '<label for="cha-'+index+'">Chair</label>			      ' +
+     '</div>';
+    <% if @event.event_type === 'ServiceX' %>' +
       nextInput += '<div class="input-field">               <input type="checkbox" class="spo-c" id="spo-'+index+'" name="[u]['+index+']spontaneous" />               <label for="spo-'+index+'">Fellowship</label>';
     <% end %>
     nextInput += '</div></div></div>';

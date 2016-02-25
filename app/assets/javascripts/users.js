@@ -18,7 +18,7 @@ app.Users.prototype = {
     },
 
     _select: function(e, ui) {
-        //this._input.val(ui.item.title + ' - ' + ui.item.author);
+        this._input.val(ui.item.displayname);
         return false;
     },
 
