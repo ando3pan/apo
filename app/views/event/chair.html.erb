@@ -37,9 +37,9 @@
                   name=<%# "[u][#{i}]firstname" %> value="<%# user.firstname.strip %>" />
   		          <label for=<%# "fn-#{i}" %>>First Name</label>
                 -->
-  		          <input id=<%= "fn-#{i}" %> type="text" class="validate"
-                  name=<%= "[u][#{i}]name" %> value="<%= user.displayname.strip %>" />
-  		          <label for=<%= "fn-#{i}" %>>Name</label>
+  		          <input id=<%= "name-#{i}" %> type="text" class="validate"
+                  name=<%= "[u][#{i}]fullname" %> value="<%= user.displayname.strip %>" />
+  		          <label for=<%= "name-#{i}" %>>Name</label>
 
   		          <% if a.attended == nil %>
   		          	<div class="chairsheet-updated">
@@ -111,8 +111,9 @@
 
             <!--AUTOCOMPLETE-->
             <div class="user-search input-field col s5 newest-form">
-              <input type="text" id="user-search-txt-<%= "#{i}" %>" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >
-              <label for=<%= "name-#{i}" %>>Name</label>
+              <input type="text" id="user-search-txt-<%= "#{i}" %>" class="validate <%= "name-#{i}" %>" name=<%= "[u][#{i}]fullname" %> >
+              <%# text_field_tag "[u][#{i}]fullname", nil, placeholder: "Name", id: "user-search-txt-#{i}", class: "validate name-#{i}" %>
+              <label for="user-search-txt-<%= "#{i}" %>" <%# "fullname-#{i}" %>>Name</label>
               <div class="remove-flow">
                 <div class="results" id="user-search-results-<%="#{i}"%>"></div>
               </div>
@@ -120,7 +121,7 @@
 
             <!--
 	    			<div class="input-field col s4 newest-form">
-		          <input id=<%= "fn-#{i}" %> type="text" class="validate" name=<%= "[u][#{i}]firstname" %>>
+		          <input id="<%# "fn-#{i}" %>" type="text" class="validate" name=<%= "[u][#{i}]firstname" %>>
 		          <label for=<%= "fn-#{i}" %>>First Name</label>
 		        </div>
 		        <div class="input-field col s4">
@@ -128,6 +129,7 @@
 		          <label for=<%= "ln-#{i}" %>>Last Name</label>
 		        </div>
             -->
+            
 
 		        <div class="input-field col s3 attendance-options">
 		        	<p>
@@ -173,7 +175,7 @@
   //AUTOCOMPLETE
   //$(function() {
   $(document).on('page:change', function(){
-      new app.Users(1);
+      new app.Users(<%= i %>);
   });
 
 	// prevent double submission if clicked fast
@@ -196,14 +198,15 @@
 	$(document).delegate(".newest-form", "click", function() {
 		$(this).removeClass("newest-form");
 		index++;
+    console.log(index);
 		// so ghetto hehe
     var nextInput = 
       '<div class="row attendee" >' +
       '<div class="aside-counter col s1">'+(index+1)+'</div>' +
       '<!--AUTOCOMPLETE-->' +
       '<div class="user-search input-field col s5 newest-form">' +
-        '<input type="text" id="user-search-txt-' + index + '" class="<%= "name-#{i}" %>" name=<%= "[u][#{i}]name" %> >' +
-        '<label for=<%= "name-#{i}" %>>Name</label>' +
+        '<input type="text" id="user-search-txt-' + index + '" class="validate name-' + index + '" name="[u]['+index+']fullname" value="">' +
+        '<label for="name-"+index >Name</label>' +
         '<div class="remove-flow">' +
           '<div class="results" id="user-search-results-' + index + '"></div>' +
         '</div>' +
