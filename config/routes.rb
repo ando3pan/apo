@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   match '/calendar',            to: 'page#calendar',      via: [:get],          as: 'calendar'
   match '/events',              to: 'page#events',        via: [:get],          as: 'events'
   match '/events_feed',         to: 'event#events_feed',  via: [:get],          as: 'event_json'
+
+#  match '/events/autocomplete_fullname_name',
+#          to: 'event#autocomplete_fullname_name',         via: [:get],  as:
+#         'autocomplete'
+  resources :event, only: [:autocomplete_user_displayname] do
+    get :autocomplete_user_displayname, on: :collection
+  end
+
   match '/info',                to: 'page#info',          via: [:get],          as: 'info'
   match '/announcements',       to: 'page#announcements', via: [:get],          as: 'announcements'
 
@@ -17,6 +25,7 @@ Rails.application.routes.draw do
   match '/event/chairsheet',    to: 'event#chairsheet',   via: [:post]
   match '/event/cancel',        to: 'event#cancel',       via: [:post]
   match '/event/:id',           to: 'event#show',         via: [:get],          as: 'event'
+
   match '/meeting/:id',         to: 'event#meeting',      via: [:get],          as: 'meeting'
   match '/event/:id/chair',     to: 'event#chair',        via: [:get],          as: 'event_chair'
   match '/event/:id/delete',    to: 'event#destroy',      via: [:delete],       as: 'destroy_event'
@@ -38,6 +47,7 @@ Rails.application.routes.draw do
   match '/topic/:id',           to: 'forum#post',         via: [:get, :post],   as: 'post'
   match '/post/:id/edit',       to: 'forum#edit_post',    via: [:get, :patch],  as: 'edit_post'
   match '/post/:id',            to: 'forum#destroy_post', via: [:delete],       as: 'destroy_post'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

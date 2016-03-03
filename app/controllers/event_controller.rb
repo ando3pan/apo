@@ -2,6 +2,7 @@ class EventController < ApplicationController
 	before_action      :ensure_signed_in
 	before_action      :ensure_admin, only: [:new, :destroy, :meeting]
 	skip_before_action :verify_authenticity_token
+  autocomplete       :user, :displayname
 
 	def show
 		@event   = Event.find(params[:id])
@@ -147,6 +148,14 @@ class EventController < ApplicationController
 		@attendances = @event.attendances.order(:created_at).sort_by { |a| a.flaked ? 1 : 0 }
 	end
 
+  def autocomplete_user_displayname
+    #for autocomplete names
+    respond_to do |format|
+      format.html
+      format.json { render json: @users = User.search(params[:term]) }
+    end
+  end
+
 	def chairsheet
 		@event = Event.find(params[:id])
 		# rebuild the relations
@@ -154,8 +163,9 @@ class EventController < ApplicationController
 		chair = nil
 		params[:u].each do |key, a|
 			# If a name is given
-		  if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
-		  	name = "#{a['firstname']} #{a['lastname']}"
+		  #if a["firstname"].length > 0 && a["lastname"].length > 0 && a["attendance"] != "waitlist"
+		  if a["fullname"].length and a["fullname"].length > 0 && a["attendance"] != "waitlist"
+		  	name = a['fullname']
 		  	user = User.where("lower(displayname) = ?", name.downcase).first
 		  	if user && @event.participants.where(id: user.id).empty?
 		  		# add the user
