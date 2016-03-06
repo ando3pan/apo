@@ -122,6 +122,7 @@ class UserController < ApplicationController
       end
     end
 
+    @last_updated = @sections.order('updated_at DESC').first.updated_at
     @sections = @sections.order(:event_type, :start_time )
 	end
 
