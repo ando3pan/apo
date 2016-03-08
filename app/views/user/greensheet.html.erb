@@ -2,7 +2,9 @@
   <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
       <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
   <div>
-    <p class="last-updated">Last updated: <%= @last_updated.strftime("%m/%d/%Y") %> </p>
+    <!--
+    <p class="last-updated">Last updated: <%# @last_updated.strftime("%m/%d/%Y") %> </p>
+    -->
   <p class="greensheet-description">By default, Interview Parties count as
   Fellowships and Info Nights, Flyering, and Chalkboarding count as Rush events.
   To count them towards the corresponding requirement (i.e. chalkboarding for
