@@ -125,6 +125,7 @@ class UserController < ApplicationController
     latest_section = @sections.order('updated_at DESC').first
     if latest_section #nil check
       @last_updated = latest_section.updated_at
+      @last_updated ||= Time.now
     end
     @sections = @sections.order(:event_type, :start_time )
 	end
