@@ -101,6 +101,7 @@ class EventController < ApplicationController
           hours = GreensheetSection.calculateHours( a, @event )
           g.update_attributes(title: params[:event][:title],
                               hours: hours, 
+                              event_type: params[:event][:event_type],
                               original_event_type: params[:event][:event_type]) 
 
         }
