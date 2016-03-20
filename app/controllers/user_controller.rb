@@ -64,21 +64,13 @@ class UserController < ApplicationController
     end #end request.patch?
 
     if request.get?
-      if @display == "year"
-        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @fall )
-      else 
-        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff )
-      end
-      @sections ||= [] #no saved sections yet
-
-      @user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
+      #@user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
+      @user.attendances.each do |a|
         event = Event.find(a.event_id)
         
         dont_add = false 
-        #@sections already has that event, or no attendance
+        #no attendance or already exists
 
-
-        #already exists, may be event changes
         gsheet = GreensheetSection.find_by(event_id: a.event_id, 
                                            user_id: @user.id) 
 
@@ -97,17 +89,25 @@ class UserController < ApplicationController
             event.event_type = "Family" #list family for dropdown
           end
 
-          @sections.push(GreensheetSection.create( user_id: @user.id, 
-                                                   title: event.title,
-                                                   start_time: event.start_time,
-                                                   hours: hours,
-                                                   chair: chair,
-                                                   event_type: event.event_type,
-                                          original_event_type: event.event_type,
-                                          event_id: event.id
-          ))
+          GreensheetSection.create( user_id: @user.id, 
+                                    title: event.title,
+                                    start_time: event.start_time,
+                                    hours: hours,
+                                    chair: chair,
+                                    event_type: event.event_type,
+                                    original_event_type: event.event_type,
+                                    event_id: event.id,
+                                    created_at: event.start_time
+          )
         end
       end
+
+      if @display == "year"
+        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @fall )
+      else 
+        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff )
+      end
+
     end #of the request.get? 
 
     @sections = @sections.uniq #rid of more duplicate problems
