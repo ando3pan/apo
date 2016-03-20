@@ -1,6 +1,11 @@
 <div class="container">
   <h3><% if current_user.id == @user.id %> <%= "Your Greensheet" %>
       <% else %> <%= "#{@user.firstname}'s Greensheet" %> <% end %></h3>
+  <% if @display == "year" %>
+    <%= link_to "Current Quarter", greensheet_path(@user, :display => "current" ), class: "btn"%>
+  <% else %>
+    <%= link_to "Whole Year", greensheet_path(@user, :display => "year" ), class: "btn"%>
+  <% end %>
   <div>
   <p class="greensheet-description">By default, Interview Parties count as
   Fellowships and Info Nights, Flyering, and Chalkboarding count as Rush events.

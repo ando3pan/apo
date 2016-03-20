@@ -31,16 +31,23 @@ class UserController < ApplicationController
 
 	def greensheet
     @reqs = Hash.new(0) #contain all the diff requirement counters
+    @display = params[:display] #either current or year
 
-    @texts = GreensheetText.where(user_id: @user.id).order(:created_at) #comment sections
-    
-    unless @texts.any? #initialize comment sections
-      #modify titles/descriptions in app/models/greensheet_text.rb file
-      GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
-        gtext = GreensheetText.create(user_id: @user.id, title: t,
-                                      description: d)
-        @texts.push(gtext) unless @texts.include?(gtext)#avoid duplicate problem
+    #get all the greensheet comment sections
+    if @display == "year" #all comments for whole year
+      @texts = GreensheetText.where("user_id = ? AND created_at > ?", @user.id, @fall ).order(:created_at) #comment sections
+
+    else #all comments for current quarter
+      @texts = GreensheetText.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff ).order(:created_at) #comment sections
+      unless @texts.any?  #initialize comment sections
+        #modify titles/descriptions in app/models/greensheet_text.rb file
+        GreensheetText.titles.zip(GreensheetText.descriptions).each do |t,d|
+          gtext = GreensheetText.create(user_id: @user.id, title: t,
+                                        description: d)
+          @texts.push(gtext) unless @texts.include?(gtext)#avoid duplicate problem
+        end
       end
+
     end
 
     if request.patch? #update any potential changes
@@ -53,10 +60,15 @@ class UserController < ApplicationController
       end
       
       @sections = GreensheetSection.where(user_id: @user.id)
+      redirect_to greensheet_path(@user, :display=>"current")
     end #end request.patch?
 
     if request.get?
-      @sections = GreensheetSection.where(user_id: @user.id)
+      if @display == "year"
+        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @fall )
+      else 
+        @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff )
+      end
       @sections ||= [] #no saved sections yet
 
       @user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
@@ -173,15 +185,16 @@ class UserController < ApplicationController
 
   def set_quarter_cutoff
     s = Setting.first
-    @quarter_cutoff = Time.parse(s.fall_quarter.to_s)
+    @fall = Time.parse(s.fall_quarter.to_s)
+    @quarter_cutoff = @fall
 
-    winter = Time.parse(s.winter_quarter.to_s)
-    spring = Time.parse(s.spring_quarter.to_s)
+    @winter = Time.parse(s.winter_quarter.to_s)
+    @spring = Time.parse(s.spring_quarter.to_s)
 
-    if Time.now > spring
-      @quarter_cutoff = spring
-    elsif Time.now > winter
-      @quarter_cutoff = winter
+    if Time.now > @spring
+      @quarter_cutoff = @spring
+    elsif Time.now > @winter
+      @quarter_cutoff = @winter
     end
   end
 
