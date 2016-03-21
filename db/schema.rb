@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218030513) do
+ActiveRecord::Schema.define(version: 20160321230739) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 20160218030513) do
     t.decimal  "hours",               default: 0.0
     t.string   "chair"
     t.string   "event_type"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "original_event_type", default: "",  null: false
-    t.integer  "event_id",            default: 0,   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "original_event_type", default: "any", null: false
+    t.integer  "event_id",            default: 0,     null: false
   end
 
   create_table "greensheet_texts", force: :cascade do |t|

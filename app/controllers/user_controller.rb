@@ -51,16 +51,19 @@ class UserController < ApplicationController
     end
 
     if request.patch? #update any potential changes
-      if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes])
-         if @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes])
+      #autosaves @new_section if it is filled out
+      if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes]) \
+         and @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes]) 
            flash[:success] = "Greensheet successfully updated."
-         end
+      #this nasty below accounts for if @new_section was left blank, but everything else is updated correctly
+      elsif params[:user][:greensheet_sections_attributes].values.last[:title] == ""
+           flash[:success] = "Greensheet successfully updated."
       else
         flash[:alert] = "There may have been problems saving."
       end
       
-      @sections = GreensheetSection.where(user_id: @user.id)
-      redirect_to greensheet_path(@user, :display=>"current")
+      @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff )
+      @new_section = GreensheetSection.new
     end #end request.patch?
 
     if request.get?
@@ -135,6 +138,7 @@ class UserController < ApplicationController
     end
 
     @sections = @sections.order(:event_type, :start_time )
+    @new_section = GreensheetSection.new #for eboard to add new events
 	end
 
 	def update
@@ -173,6 +177,10 @@ class UserController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :firstname, :lastname, :nickname, :displayname,
       :phone, :family, :line, :pledge_class, :membership_status, :major, :graduation_year, :shirt_size, :car,
       :password, :password_confirmation)
+	end
+
+	def greensheet_section_params 
+    params.require(:greensheet_section).permit(:title, :start_time, :user_id, :hours, :chair, :event_type, :original_event_type)
 	end
 
 	def ensure_user
