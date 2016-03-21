@@ -55,13 +55,20 @@ class UserController < ApplicationController
       if @user.update(greensheet_sections_attributes: params[:user][:greensheet_sections_attributes]) \
          and @user.update(greensheet_texts_attributes: params[:user][:greensheet_texts_attributes]) 
            flash[:success] = "Greensheet successfully updated."
-      #this nasty below accounts for if @new_section was left blank, but everything else is updated correctly
-      elsif params[:user][:greensheet_sections_attributes].values.last[:title] == ""
-           flash[:success] = "Greensheet successfully updated."
       else
         flash[:alert] = "There may have been problems saving."
       end
-      
+
+      g = GreensheetSection.last
+      #this nasty below accounts for if @new_section was left blank, but everything else is updated correctly
+      if g.title == "" or g.chair == "" or g.event_type == ""
+        g.delete
+        #only filled in some of the info
+        if g.title != "" or g.chair != "" or g.event_type != ""
+          flash[:alert] = "Event not added properly"
+        end
+      end
+
       @sections = GreensheetSection.where("user_id = ? AND created_at > ?", @user.id, @quarter_cutoff )
       @new_section = GreensheetSection.new
     end #end request.patch?

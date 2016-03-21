@@ -1,6 +1,5 @@
 class GreensheetSection < ActiveRecord::Base
 belongs_to :user
-validates :title, :start_time, :event_type, :hours, :chair, presence: true
 
   def self.calculateHours(attendance, event)
     return 0 if !attendance.attended
