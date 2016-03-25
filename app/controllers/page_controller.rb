@@ -1,5 +1,5 @@
 class PageController < ApplicationController
-  before_filter :ensure_signed_in, except: [:home]
+  before_filter :ensure_signed_in, except: [:home, :dancecomp]
   before_action :ensure_admin, only: [:admin, :approve, :settings]
   skip_before_action :verify_authenticity_token
 
