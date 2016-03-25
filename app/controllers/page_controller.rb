@@ -80,6 +80,11 @@ class PageController < ApplicationController
   def info
   end
 
+  #dance comp website from arlen
+  def dancecomp
+    render "dancecomp", layout: false
+  end
+
   private
   def tumblr
     Tumblr::Client.new({
