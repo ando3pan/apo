@@ -13,7 +13,7 @@
       </tr>
       <% @posts.each do |p| %>
         <tr>
-          <td class="comment"><p><%= p.comment %></p></td>
+          <td class="comment"><pre><%= p.comment %></pre></td>
           <td class="username"><p><%= User.find( p.creator_id ).displayname %></p></td>
           <td class="date"><p><%= p.updated_at.strftime("%m/%d/%y")%><br/>
                               <%= p.updated_at.strftime("%I:%M %p") %></p></td>
