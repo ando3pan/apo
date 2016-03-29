@@ -1,6 +1,7 @@
 // Place all the styles related to the Forum controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$comment-width: 500px;
 
 .forum{
     &.container{
@@ -66,7 +67,7 @@
     }
 
     .comment{
-        width: 500px;
+        width: $comment-width;
     }
 
     //put them on the same line
@@ -77,5 +78,8 @@
     //for the forum comments
     pre{
         font-family: "Robot", sans-serif;
+        width: $comment-width;
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
 }
