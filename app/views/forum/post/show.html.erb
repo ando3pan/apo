@@ -20,7 +20,10 @@
 
           <% if p.creator_id == current_user.id or current_user.admin %>
             <td> <%= link_to "Delete", destroy_post_path(p), method: :delete %>
-            <%# link_to "Edit", edit_post_path(p), method: :get %></td>
+              <% if current_user.admin and p.creator_id == current_user.id %>
+                <%= link_to "Edit", edit_post_path(p), method: :get %>
+              <% end %>
+            </td>
           <% end %>
 
       <% end %>
