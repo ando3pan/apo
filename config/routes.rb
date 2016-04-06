@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   match '/info',                to: 'page#info',          via: [:get],          as: 'info'
   match '/announcements',       to: 'page#announcements', via: [:get],          as: 'announcements'
+  match '/appreciations',       to: 'page#appreciations', via: [:get],          as: 'appreciations'
 
   match '/event/new',           to: 'event#new',          via: [:get, :post],   as: 'new_event'
   match '/event/signup',        to: 'event#signup',       via: [:post]

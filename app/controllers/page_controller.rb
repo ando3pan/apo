@@ -25,6 +25,11 @@ class PageController < ApplicationController
     end
   end
 
+  def appreciations
+      #@posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'appreciations')["posts"] rescue []
+      @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcements')["posts"] rescue []
+  end
+
   def announcements
     @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
   end
