@@ -335,6 +335,43 @@ input.date-setting {
 	}
 }
 
+/** Service hour graph */
+#service-hours-panel {
+    p, .bar {
+        display: inline-block;
+    }
+
+    span {
+        float: right;
+    }
+
+    p {
+        margin: 5px 0px;
+    }
+
+    .bar{
+
+        height: 10px;
+        background-color: black;
+    }
+
+    #bar-Alpha {
+        background-color: #fbc02d;
+    }
+    #bar-Omega{
+        background-color: #0d47a1;
+    }
+    #bar-Phi {
+        background-color: #7B1FA2;
+    }
+    #bar-Rho {
+        background-color: #c62828;
+    }
+    #bar-Pi {
+        background-color: #388e3c;
+    }
+}
+
 /* Media queries */
 
 @media only screen and (max-width: 601px) {

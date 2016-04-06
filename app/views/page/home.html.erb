@@ -108,7 +108,21 @@
                 <%= link_to 'Photo Challenge',
                 'https://docs.google.com/spreadsheets/d/1hRLipsUL5X-gLDNJz8AhCAg4rykxifl_0MOnF-apNhM/edit#gid=1518940153',
                 target: '_blank' %>
-							</div>
+              </div><!--end card-panel-->
+
+              <div id="service-hours-panel" class="card-panel">
+                <h5>Service Hours</h5>
+                <p>Total: </p><br/><div id="bar-total" class="bar"></div>
+                  <span id="hours-total"><%= @hours[:total] %></span>
+
+                <% ["Alpha", "Phi", "Omega", "Rho", "Pi"].each do |fam| %>
+                  <br/>
+                  <p>&<%= fam %>;: </p><br/><div id="bar-<%= fam %>" class="bar"></div>
+                  <span id="hours-<%= fam %>"><%= @hours[fam] %></span>
+              <% end %>
+
+              </div>
+
 	        	</div>
 	        </div>
         </div>

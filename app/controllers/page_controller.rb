@@ -1,6 +1,7 @@
 class PageController < ApplicationController
   before_filter :ensure_signed_in, except: [:home, :dancecomp]
   before_action :ensure_admin, only: [:admin, :approve, :settings]
+  before_action :set_quarter_cutoff, only: [:home ]
   skip_before_action :verify_authenticity_token
 
   def home
@@ -11,6 +12,15 @@ class PageController < ApplicationController
       @gbm = @gbm.any? ? @gbm.first : nil
       events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
       @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
+
+      @hours = Hash.new(0)
+      Attendance.where(attended: true).each do |x| #go through all attendances
+        hours = Event.find(x.event_id).hours
+        @hours[:total] += hours
+        family = User.find(x.user_id).family
+        @hours["#{family}"] += hours
+      end
+
     end
   end
 
@@ -110,6 +120,21 @@ class PageController < ApplicationController
   def settings_params
     params.require(:setting).permit(:fall_quarter, :winter_quarter,
     :spring_quarter)
+  end
+
+  def set_quarter_cutoff
+    s = Setting.first
+    @fall = Time.parse(s.fall_quarter.to_s)
+    @quarter_cutoff = @fall
+
+    @winter = Time.parse(s.winter_quarter.to_s)
+    @spring = Time.parse(s.spring_quarter.to_s)
+
+    if Time.now > @spring
+      @quarter_cutoff = @spring
+    elsif Time.now > @winter
+      @quarter_cutoff = @winter
+    end
   end
 
 end

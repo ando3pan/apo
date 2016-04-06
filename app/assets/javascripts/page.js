@@ -15,6 +15,7 @@ jQuery(document).ready(function($){
 		revealAnimationDelay = 1500;
 	
 	initHeadline();
+    makeHoursGraph();
 	
 
 	function initHeadline() {
@@ -151,4 +152,32 @@ jQuery(document).ready(function($){
 		$oldWord.removeClass('is-visible').addClass('is-hidden');
 		$newWord.removeClass('is-hidden').addClass('is-visible');
 	}
+
+    /** FUNCTIONS FOR THE FAM SERVICE HOUR GRAPHS */
+    function makeHoursGraph() {
+        var totalHours = parseInt($('#hours-total').text());
+        var alphaHours = parseInt($('#hours-Alpha').text());
+        var omegaHours = parseInt($('#hours-Omega').text());
+        var phiHours = parseInt($('#hours-Phi').text());
+        var rhoHours = parseInt($('#hours-Rho').text());
+        var piHours = parseInt($('#hours-Pi').text());
+        var maxBarSize = $('#service-hours-panel').width() * 3/4;
+
+        $('#bar-total').css("width", maxBarSize );
+        var hours = alphaHours/totalHours * maxBarSize;
+        if( hours == 0 ) hours = 1;
+        $('#bar-Alpha').css("width", hours);
+        var hours = phiHours/totalHours * maxBarSize;
+        if( hours == 0 ) hours = 1;
+        $('#bar-Phi').css("width", hours );
+        var hours = omegaHours/totalHours * maxBarSize;
+        if( hours == 0 ) hours = 1;
+        $('#bar-Omega').css("width", hours );
+        var hours = rhoHours/totalHours * maxBarSize;
+        if( hours == 0 ) hours = 1;
+        $('#bar-Rho').css("width", hours );
+        var hours = piHours/totalHours * maxBarSize;
+        if( hours == 0 ) hours = 1;
+        $('#bar-Pi').css("width", hours );
+    }
 });
