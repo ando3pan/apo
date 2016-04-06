@@ -80,6 +80,7 @@
  							</div>
 							<div class="card-panel">
 								<h5>Links</h5>
+                <%= link_to "Edit your profile", update_user_path(current_user) %><br />
                 <%= link_to 'Forums', forum_path %><br />
                 <%= link_to 'Bylaws', "https://docs.google.com/document/d/17M5xW8fF0jELRvbEYhtYbCc-i-YERId6iOgPiA3A2DM/edit", target: '_blank' %><br />
                 <%= link_to 'Pledge Photos', info_path %><br />
@@ -87,13 +88,14 @@
                   'https://www.dropbox.com/s/kb1qdztcj1nez99/aporeqs-1.pdf', target: '_blank' %><br />
                 <%= link_to 'Pledge Requirements',
                   'https://www.dropbox.com/s/7gc0bojilso7heh/pledge%20infograph.pdf', target: '_blank' %><br />
-                <%= link_to "Edit your profile", update_user_path(current_user) %><br />
                 <%= link_to "GBM Attendances",
                   "https://drive.google.com/open?id=0B9AK5U3sI0g7SkxVX2RlbkxKTkE", target: '_blank'  %><br />
                 <%= link_to "GBM Minutes",
                   'https://drive.google.com/folderview?id=0B9AK5U3sI0g7WTRPQ3JKOE03b3M&usp=sharing', target: '_blank' %><br />
                 <%= link_to "Committee Times",
                   'https://docs.google.com/spreadsheets/d/11Xe4lqrCAn5vwGI__TO-ggbHsJg97ANtkXoqreRkSyk/edit', target: '_blank' %><br />
+
+                <h5>Service</h5>
                 <%= link_to "Appreciations", appreciations_path %><br />
 
                 <h5>Finance</h5>
