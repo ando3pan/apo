@@ -16,7 +16,9 @@ class PageController < ApplicationController
       @hours = Hash.new(0)
       Attendance.where("created_at >= ? ", @quarter_cutoff )
                 .where(attended: true).each do |x| #go through all attendances
-        hours = Event.find(x.event_id).hours
+        event = Event.find(x.event_id)
+        next if event.event_type != "Service"
+        hours = event.hours
         @hours[:total] += hours
         family = User.find(x.user_id).family
         @hours["#{family}"] += hours
