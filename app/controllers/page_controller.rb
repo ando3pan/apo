@@ -14,7 +14,8 @@ class PageController < ApplicationController
       @events = events.any? ? events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
 
       @hours = Hash.new(0)
-      Attendance.where(attended: true).each do |x| #go through all attendances
+      Attendance.where("created_at >= ? ", @quarter_cutoff )
+                .where(attended: true).each do |x| #go through all attendances
         hours = Event.find(x.event_id).hours
         @hours[:total] += hours
         family = User.find(x.user_id).family
