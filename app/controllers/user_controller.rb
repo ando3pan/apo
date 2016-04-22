@@ -3,6 +3,10 @@ class UserController < ApplicationController
   before_action :set_quarter_cutoff, only: [:show, :greensheet]
 
 	def show
+    if params[:toggle_admin]
+      @user.admin = !@user.admin #toggle admin
+      @user.save
+    end
 		attendances = Attendance.where(user_id: @user.id)
 
 		@attendances = attendances.where("created_at >  ?", @quarter_cutoff )

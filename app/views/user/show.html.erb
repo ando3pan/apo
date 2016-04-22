@@ -12,6 +12,19 @@
 			<% end %>
 			Joined <%= @user.created_at.strftime("%b %d, %Y") %>.
 		</span>
+
+    <% if current_user.admin %>
+      <%= link_to user_path(@user, toggle_admin: true) do %>
+        <div class="btn yellow darken-2 toggle-admin-btn">
+          <% if @user.admin %>
+            Remove as Admin
+          <% else %>
+            Make Admin
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
 		<%= link_to update_user_path(@user) do %>
 			<div class="btn yellow darken-2">
 				Edit Profile
