@@ -82,4 +82,11 @@ $comment-width: 500px;
         white-space: pre-wrap;
         word-wrap: break-word;
     }
+
+}
+
+@media only screen and (max-device-width:600px){
+    .forum pre {
+        width: initial;
+    }
 }
