@@ -131,6 +131,8 @@ class PageController < ApplicationController
 
   def set_quarter_cutoff
     s = Setting.first
+    s ||= Setting.create
+
     @fall = Time.parse(s.fall_quarter.to_s)
     @quarter_cutoff = @fall
 
