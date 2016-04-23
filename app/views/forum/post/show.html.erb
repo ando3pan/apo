@@ -1,31 +1,49 @@
 <div class="forum posts card-panel container">
-  <h1>Posts</h1>
+  <h2><%= @topic.title%></h2>
+  
   <%= link_to "Back to Topic", topic_path(@topic.forum_id) %>
   <% if @posts.empty? %>
     <p>No posts to display</p>
   <% else %>
-    <table class="forum-table">
+    <table class="forum-table info">
       <tr>
         <th class="comment">Post</th>
-        <th>Creator</th>
-        <th>Created at</th>
         <th>Options</th>
       </tr>
+      
       <% @posts.each do |p| %>
         <tr>
+          <table class = "">
+        <tr class = "info comments">
+            <td>
+            <span class = "username"><%= User.find( p.creator_id ).displayname %></span>
+            <span class = "date"><%= p.updated_at.strftime("%m/%d/%y")%> 
+                              <%= p.updated_at.strftime("%I:%M %p") %></span>
+                              
+                              </td>
+        </tr>
+        <tr class = "comments">
+          
+          <hr class = "separator">
+          <table>
+            <tr>
+              
           <td class="comment"><pre><%= p.comment %></pre></td>
-          <td class="username"><p><%= User.find( p.creator_id ).displayname %></p></td>
-          <td class="date"><p><%= p.updated_at.strftime("%m/%d/%y")%><br/>
-                              <%= p.updated_at.strftime("%I:%M %p") %></p></td>
-
           <% if p.creator_id == current_user.id or current_user.admin %>
-            <td> <%= link_to "Delete", destroy_post_path(p), method: :delete %>
+            <td>
               <% if current_user.admin and p.creator_id == current_user.id %>
                 <%= link_to "Edit", edit_post_path(p), method: :get %>
               <% end %>
+               <%= link_to "Delete", destroy_post_path(p), method: :delete %>
+                  
             </td>
           <% end %>
-
+          </tr>
+          </table>
+          
+      </tr>
+      </table>
+      </tr>
       <% end %>
     </table>
   <% end %>

@@ -1,8 +1,12 @@
 // Place all the styles related to the Forum controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-$comment-width: 500px;
+$comment-width: 100%;
+@media(max-width: 700px) {
+    $comment-width: 30%;
+}
 
+.comments:nth-child(odd) {background-color: #f2f2f2}
 .forum{
     &.container{
         margin: 40px auto;
@@ -12,7 +16,7 @@ $comment-width: 500px;
         margin: 0;
         text-align: center;
     }
-
+    
     td {
         padding: 5px;
         *{
@@ -21,12 +25,13 @@ $comment-width: 500px;
         }
     }
 
-
+    
+    
     td,tr,table {
-        border: 1px solid black;
+        
+        border: 0px solid black;
         text-align: center;
     }
-
     th {
         background-color: #0288d1;
         color: white;
@@ -68,6 +73,22 @@ $comment-width: 500px;
 
     .comment{
         width: $comment-width;
+        text-align: left;
+        border: 0px solid black;
+    }
+    
+    .comments{
+        border: 0px solid black;
+    }
+    .username{
+        float: left;
+    }
+    .date{
+        float: right;
+    }
+    .separator{
+        color: #f2f2f2;
+        float:center;
     }
 
     //put them on the same line
