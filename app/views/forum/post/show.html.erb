@@ -6,10 +6,6 @@
     <p>No posts to display</p>
   <% else %>
     <table class="forum-table info">
-      <tr>
-        <th class="comment">Post</th>
-        <th>Options</th>
-      </tr>
       
       <% @posts.each do |p| %>
         <tr>
@@ -34,7 +30,7 @@
               <% if current_user.admin and p.creator_id == current_user.id %>
                 <%= link_to "Edit", edit_post_path(p), method: :get %>
               <% end %>
-               <%= link_to "Delete", destroy_post_path(p), method: :delete %>
+               <%= link_to "Delete", destroy_post_path(p), method: :delete, data:{confirm: 'Are you sure?'}%>
                   
             </td>
           <% end %>

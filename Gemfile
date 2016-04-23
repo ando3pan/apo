@@ -39,6 +39,9 @@ gem 'tumblr_client'
 gem 'rails4-autocomplete'
 gem 'jquery-ui-rails'
 
+#dialog box
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
