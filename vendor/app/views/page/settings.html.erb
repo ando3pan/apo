@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="card-panel">
+    <div class="row setting">
+      <h3 class="setting-title">Settings</h3>
+    </div>
+    <%= form_for(@settings, url: settings_path, method: :post) do |f| %>
+      <div class="input-field">
+        <%= f.label :fall_quarter%><br />
+        <%= f.date_field :fall_quarter, class: "validate date-setting" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :winter_quarter%><br />
+        <%= f.date_field :winter_quarter, class: "validate date-setting" %>
+      </div>
+      <div class="input-field">
+        <%= f.label :spring_quarter%><br />
+        <%= f.date_field :spring_quarter, class: "validate date-setting" %>
+      </div>
+      
+      <%= f.submit "Update", class: "btn yellow darken-2 center" %>
+    <% end %>
+  </div>
+</div>

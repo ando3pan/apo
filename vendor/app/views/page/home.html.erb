@@ -1,0 +1,144 @@
+<div class="splash-back <%= "blue-tile" if user_signed_in? %>">
+	<div class="container">
+		<div class="row">
+			<% unless user_signed_in? %>
+			<div class="col s12 l8">
+				<div class="hero-text">
+					Alpha Phi Omega
+					<p>Rho Pi</p>
+					<span>University of California San Diego</span>
+				</div>
+				<!-- http://codyhouse.co/gem/css-animated-headlines/ -->
+				<section class="cd-intro">
+					<div class="cd-headline clip is-full-width">
+						<span>Alpha Phi Omega stands for </span>
+						<span class="cd-words-wrapper">
+							<b class="is-visible">leadership</b>
+							<b>friendship</b>
+							<b>service</b>
+						</span>
+					</div>
+				</section>
+			</div>
+			<div class="col s12 l4">
+          <div class="card">
+            <div class="card-content">
+            	<div class="text-center">
+            		<%= image_tag "crest.png", width: 140 %>
+            	</div>
+            	<span class="card-title">Member Login</span>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+							  <div class="input-field">
+							    <%= f.label :username %>
+							    <%= f.text_field :login %>
+							  </div>
+							  <div class="input-field">
+							    <%= f.label :password %>
+							    <%= f.password_field :password, autocomplete: "off" %>
+							  </div>
+							  <% if devise_mapping.rememberable? -%>
+							    <div class="input-field gap">
+							      <%= f.check_box :remember_me %>
+							      <%= f.label :remember_me %>
+							    </div>
+							  <% end -%>
+							  <div class="text-center">
+							    <%= f.submit "Sign In", class: "btn yellow darken-2 separate" %><br />
+                  <%= link_to "Forgot Password", new_user_password_path, class: "small-link" %>
+							  </div>
+							<% end %>
+            </div>
+          </div>
+        </div>
+        <% else %>
+        <div class="col s12">
+        	<div class="row">
+        		<div class="col s12 l8">
+	        		<%= render 'tumblr', posts: @posts %>
+        		</div>
+	        	<div class="col s12 l4">
+              <% if @gbm %>
+                <div class="card gbm">
+                  <div class="card-image">
+                    <%= image_tag 'gbm.png' %>
+                    <span class="card-title white-text"><%= @gbm['title'] %></span>
+                  </div>
+                  <div class="card-content">
+                    <%= @gbm['body'].html_safe %>
+                  </div>
+                </div>
+              <% end %>
+	        		<div class="card-panel">
+				    		<h5>My Upcoming Events</h5>
+				    	<% if @events == nil || @events.empty? %>
+                <div class="faded">
+                  Not signed up for any events.
+                </div>
+              <% else %>
+                <%= render 'event/events_by_time', events: @events %>
+              <% end %>
+ 							</div>
+							<div class="card-panel">
+								<h5>Links</h5>
+                <%= link_to "Edit your profile", update_user_path(current_user) %><br />
+                <%= link_to 'Forums', forum_path %><br />
+                <%= link_to 'Bylaws', "https://docs.google.com/document/d/17M5xW8fF0jELRvbEYhtYbCc-i-YERId6iOgPiA3A2DM/edit", target: '_blank' %><br />
+                <%= link_to 'Pledge Photos', info_path %><br />
+                <%= link_to 'Active Requirements',
+                  'https://www.dropbox.com/s/kb1qdztcj1nez99/aporeqs-1.pdf', target: '_blank' %><br />
+                <%= link_to 'Pledge Requirements',
+                  'https://www.dropbox.com/s/7gc0bojilso7heh/pledge%20infograph.pdf', target: '_blank' %><br />
+                <%= link_to "GBM Attendances",
+                  "https://drive.google.com/open?id=0B9AK5U3sI0g7SkxVX2RlbkxKTkE", target: '_blank'  %><br />
+                <%= link_to "GBM Minutes",
+                  'https://drive.google.com/folderview?id=0B9AK5U3sI0g7WTRPQ3JKOE03b3M&usp=sharing', target: '_blank' %><br />
+                <%= link_to "Committee Times",
+                  'https://docs.google.com/spreadsheets/d/11Xe4lqrCAn5vwGI__TO-ggbHsJg97ANtkXoqreRkSyk/edit', target: '_blank' %><br />
+
+                <h5>Service</h5>
+                <%= link_to "Appreciations", appreciations_path %><br />
+
+                <h5>Finance</h5>
+                <%= link_to 'Reimbursement Policies',
+                  'https://dl.dropboxusercontent.com/u/30628607/Reimbursement-Policies.pdf', target: '_blank' %><br />
+                <%= link_to 'Reimbursement Form',
+                  'https://docs.google.com/forms/d/1xyeNyEAR6pIcskacU-IxnJCvKtckdeHRoHOqKPJbVaI/viewform?c=0&w=1', target: '_blank' %><br />
+
+                <h5>Historian</h5>
+                <%= link_to 'Family Trees',
+                  'https://www.dropbox.com/sh/n2nbbe6sf6v4l10/AADY9jsy4oJBj6xziJ4Gh9dja?dl=0',
+                  target: '_blank' %><br />
+                <%= link_to 'Photo Challenge',
+                'https://docs.google.com/spreadsheets/d/1hRLipsUL5X-gLDNJz8AhCAg4rykxifl_0MOnF-apNhM/edit#gid=1518940153',
+                target: '_blank' %>
+
+                <h5>Media</h5>
+                <%= link_to 'Videos',
+                'https://docs.google.com/document/d/1Vr-gxyeMj1gqbTQknpoC1Yv6tpbEVI-4d_JIoSHkfAk/edit',
+                target: '_blank' %><br />
+              </div><!--end card-panel-->
+
+              <div id="service-hours-panel" class="card-panel">
+                <h5>Service Hours</h5>
+                <p>Total: </p><br/><div id="bar-total" class="bar"></div>
+                  <span id="hours-total"><%= @hours[:total] %></span>
+
+                <% ["Alpha", "Phi", "Omega", "Rho", "Pi"].each do |fam| %>
+                  <br/>
+                  <p>&<%= fam %>;: </p><br/><div id="bar-<%= fam %>" class="bar"></div>
+                  <span id="hours-<%= fam %>"><%= @hours[fam] %></span>
+              <% end %>
+
+              </div>
+
+	        	</div>
+	        </div>
+        </div>
+        <% end %>
+		</div>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+	<%= javascript_include_tag "page" %>
+<% end %>

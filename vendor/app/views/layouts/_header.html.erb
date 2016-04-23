@@ -1,0 +1,38 @@
+<nav>
+  <div class="nav-wrapper white">
+    <%= link_to root_path, class: "brand-logo" do %>
+      <%= image_tag "logo.png", height: 60 %>
+    <% end %>
+    <a href="/" class="brand-logo center hide-on-med-and-down">Alpha Phi Omega Rho Pi</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><div class="hamburger-icon"></div></a>
+    <ul class="right hide-on-med-and-down">
+      <% if !user_signed_in? %>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><%= link_to "Register", new_user_registration_path %></li>
+      <% else %>
+        <% if current_user.admin %>
+          <li><%= link_to "Admin", admin_path %></li>
+        <% end %>
+        <li><%= link_to "Events", events_path %></li>
+        <li><%= link_to "Calendar", calendar_path %></li>
+        <li><%= link_to "Profile", user_path(current_user.a_username) %></li>
+        <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
+      <% end %>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><%= link_to "Home", root_path %></li>
+      <% if !user_signed_in? %>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><%= link_to "Register", new_user_registration_path %></li>
+      <% else %>
+        <% if current_user.admin %>
+          <li><%= link_to "Admin", admin_path %></li>
+        <% end %>
+        <li><%= link_to "Events", events_path %></li>
+        <li><%= link_to "Calendar", calendar_path %></li>
+        <li><%= link_to "Profile", user_path(current_user.a_username) %></li>
+        <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

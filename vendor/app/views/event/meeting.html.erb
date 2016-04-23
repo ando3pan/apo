@@ -1,0 +1,18 @@
+<div class="container row">
+  <div class="col s12 l6 offset-l3 card-panel text-center">
+    <div class="separate">
+      <%= image_tag "pin.png", height: 70 %>
+    </div>
+    <h4>Sign In For <%= @event.title %></h4>
+    <div class="meeting-input">
+      <input type="text" id="name" autofocus=true placeholder="Name" />
+    </div>
+    <h5>Signed In:</h5>
+    <div id="meeting-roster">
+      <span class="faded">Nobody yet.</span>
+    </div>
+    <div class="gap">
+      <%= link_to "Back to event page", event_path(@event) %>
+    </div>
+  </div>
+</div>
