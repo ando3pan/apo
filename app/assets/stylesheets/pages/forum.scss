@@ -2,9 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $comment-width: 100%;
-@media(max-width: 700px) {
-    $comment-width: 30%;
-}
 
 .comments:nth-child(odd) {background-color: #f2f2f2}
 .forum{
@@ -102,5 +99,12 @@ $comment-width: 100%;
         width: $comment-width;
         white-space: pre-wrap;
         word-wrap: break-word;
+    }
+
+}
+
+@media only screen and (max-device-width:600px){
+    .forum pre {
+        width: initial;
     }
 }
