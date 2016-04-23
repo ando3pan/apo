@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $comment-width: 100%;
 
-.comments:nth-child(odd) {background-color: #f2f2f2}
+.comments:nth-child(odd) {background-color: #0288d1; color: #FFFFFF;}
 .forum{
     &.container{
         margin: 40px auto;
