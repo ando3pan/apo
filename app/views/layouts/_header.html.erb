@@ -5,7 +5,7 @@
     <% end %>
     <a href="/" class="brand-logo center hide-on-med-and-down">Alpha Phi Omega Rho Pi</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><div class="hamburger-icon"></div></a>
-    <ul class="right hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down navi">
       <% if !user_signed_in? %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
         <li><%= link_to "Register", new_user_registration_path %></li>
@@ -15,6 +15,7 @@
         <% end %>
         <li><%= link_to "Events", events_path %></li>
         <li><%= link_to "Calendar", calendar_path %></li>
+        <li><%= link_to 'Forums', forum_path %></li>
         <li><%= link_to "Profile", user_path(current_user.a_username) %></li>
         <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
       <% end %>
@@ -30,6 +31,7 @@
         <% end %>
         <li><%= link_to "Events", events_path %></li>
         <li><%= link_to "Calendar", calendar_path %></li>
+        <li><%= link_to 'Forums', forum_path %></li>
         <li><%= link_to "Profile", user_path(current_user.a_username) %></li>
         <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
       <% end %>
