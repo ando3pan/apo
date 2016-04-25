@@ -213,7 +213,11 @@ body {
 		}
 	}
 }
-
+.navi{
+	li a{
+		font-size: .8em;
+	}
+}
 .welcome {
 	color: #FFF;
 	font-size: 2.5em;
@@ -221,7 +225,6 @@ body {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
-
 .calendar-link {
 	font-size: 2.5rem;
 	font-weight: 300;

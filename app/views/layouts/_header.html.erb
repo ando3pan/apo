@@ -5,7 +5,7 @@
     <% end %>
     <a href="/" class="brand-logo center hide-on-med-and-down">Alpha Phi Omega Rho Pi</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><div class="hamburger-icon"></div></a>
-    <ul class="right hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down navi">
       <% if !user_signed_in? %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
         <li><%= link_to "Register", new_user_registration_path %></li>
