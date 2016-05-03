@@ -132,6 +132,8 @@ class UserController < ApplicationController
         @reqs[:hours] += s.hours
       when "Fellowship"
         @reqs[:fellowships] += s.hours
+      when "Professional"
+        @reqs[:professional] += s.hours
       when "Interchapter"
         @reqs[:ics] += s.hours
       when "Family"

@@ -17,6 +17,7 @@
   <div class="counters">
     <p class="requirement-counter service">Service Hours: <%= @reqs[:hours] %></p>
     <p class="requirement-counter fellowship">Fellowships: <%= @reqs[:fellowships] %></p>
+    <p class="requirement-counter professional">Professional: <%= @reqs[:professional] %></p>
     <p class="requirement-counter fundraising">Fundraising: <%= @reqs[:fundraise] %></p>
     <p class="requirement-counter interchapter">Interchapter: <%= @reqs[:ics] %></p>
     <p class="requirement-counter family">Family: <%= @reqs[:family] %></p>
@@ -42,7 +43,7 @@
       <%= f.simple_fields_for :greensheet_sections, @sections do |form| %>
         <!--Allow event type to be changed to anything if eboard member created the event-->
         <% if form.object.original_event_type == "any" and current_user.admin %>
-          <% @eventtypes = ["#{form.object.event_type}", "Service", "Fellowship", "Fundraising", "Interchapter", "Family", "Rush", "Other"].uniq %>
+          <% @eventtypes = ["#{form.object.event_type}", "Service", "Fellowship", "Professional", "Fundraising", "Interchapter", "Family", "Rush", "Other"].uniq %>
         <!-- if eboard member created the event, only eboard can change the type -->
         <% elsif form.object.original_event_type == "any" %>
           <% @eventtypes = ["#{form.object.event_type}"] %>
@@ -101,7 +102,7 @@
               <%= new_section_field.input :chair , required: false %>
 
               <%= new_section_field.input_field :event_type, label: "Type", collection: 
-                  ["Service", "Fellowship", "Fundraising", "Interchapter", "Family", "Rush", "Other"] %>
+                  ["Service", "Fellowship","Professional", "Fundraising", "Interchapter", "Family", "Rush", "Other"] %>
 
               <%= new_section_field.input :user_id, as: :hidden, input_html:{value: @user.id} %>
               <%= new_section_field.input :original_event_type, as: :hidden, input_html:{value: "any"} %>
