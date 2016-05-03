@@ -239,6 +239,8 @@ class EventController < ApplicationController
 			"rgba(124, 101, 171, #{opacity})"
 		elsif type == "Fundraising"
 			"rgba(96, 163, 99, #{opacity})"
+		elsif type == "Professional"
+			"rgba(207, 83, 0, #{opacity})"
 		elsif type == "Rush"
 			"rgba(199, 140, 66, #{opacity})"
 		elsif type == "Interchapter"
