@@ -146,7 +146,7 @@ class EventController < ApplicationController
 		unless current_user.admin || @event.chair_id == current_user.id
 			redirect_to event_path(@event)
 		end
-		@attendances = @event.attendances.order(:created_at).sort_by { |a| a.flaked ? 1 : 0 }
+		@attendances = @event.attendances.order(:created_at).sort_by { |a| (a.flaked||a.replacement_flaked) ? 1 : 0 }
 	end
 
   def autocomplete_user_displayname
@@ -176,6 +176,7 @@ class EventController < ApplicationController
 			  	#  Update the relation
 			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
+		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked")
 		  		attendee.update_attribute(:chair,    a.has_key?("chair"))
 		  		attendee.update_attribute(:drove,    a.has_key?("drove"))
 		  		if a.has_key?("chair")

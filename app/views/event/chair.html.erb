@@ -72,6 +72,11 @@
   			            <%= a.flaked ? "checked" : "" %> />
   	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
   							</p>
+  							<p>
+                <input type="radio" class="with-gap" id=<%= "refla-#{i}" %> value="replacement_flaked" name=<%= "[u][#{i}]attendance" %>
+                <%= a.replacement_flaked ? "checked" : "" %> />
+                <label for=<%= "refla-#{i}" %>>Replacement Flaked</label>
+              </p>
                 <p>
                   <input type="radio" class="with-gap" id=<%= "wait-#{i}" %> value="waitlist" name=<%= "[u][#{i}]attendance" %>
                   <%= @event.attendance_cap > 0 && i+1 > @event.attendance_cap && !a.attended && !a.flaked ? "checked" : "" %> />
@@ -138,6 +143,10 @@
               <p>
                 <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> />
                 <label for=<%= "fla-#{i}" %>>Flaked</label>
+              </p>
+              <p>
+                <input type="radio" class="with-gap" id=<%= "refla-#{i}" %> value="replacement_flaked" name=<%= "[u][#{i}]attendance" %> />
+                <label for=<%= "refla-#{i}" %>>Replacement Flaked</label>
               </p>
 							<div class="input-field">
 			          <input type="checkbox" id=<%= "dro-#{i}" %> name=<%= "[u][#{i}]drove" %> />
@@ -227,6 +236,10 @@
        '<p>' +
          '<input type="radio" class="with-gap" id="fla-'+index+'" value="flaked" name="[u]['+index+']attendance"  />' +
          '<label for="fla-'+index+'">Flaked</label>' +
+       '</p>' +
+       '<p>' +
+         '<input type="radio" class="with-gap" id="re-fla-'+index+'" value="replacement_flaked" name="[u]['+index+']attendance"  />' +
+         '<label for="refla-'+index+'">Replacement Flaked</label>' +
        '</p>' +
      '<div class="input-field">' +
        '<input type="checkbox" id="dro-'+index+'" name="[u]['+index+']drove" />' +
