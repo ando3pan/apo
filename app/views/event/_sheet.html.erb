@@ -2,7 +2,7 @@
 	<div class="signup-title <%= event.event_type.downcase %>">
 		<h5>Signup Sheet</h5>
 	</div>
-	<% attendances = @event.end_time < Time.now ? event.attendances.where(flaked: false) : event.attendances %>
+	<% attendances = @event.end_time < Time.now ? event.attendances.where("flaked = ? AND replacement_flaked = ?", false, false) : event.attendances %>
   <% if @event.end_time < Time.now && attendances.empty? %>
   	<% if @event.chair_id %>
 	  	<div class="text-center card-panel">

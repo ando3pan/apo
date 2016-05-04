@@ -76,7 +76,7 @@
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
-					<% flaked_events = events.select { |e| e.flaked == true } %>
+					<% flaked_events = events.select { |e| (e.flaked == true || e.replacement_flaked) } %>
 					<% if flaked_events.any? %>
 						<h6>Flaked Events</h6>
 						<% flaked_events.each do |a| %>
