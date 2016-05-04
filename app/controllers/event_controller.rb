@@ -176,7 +176,7 @@ class EventController < ApplicationController
 			  	#  Update the relation
 			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
-		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked")
+		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked") 
 		  		attendee.update_attribute(:chair,    a.has_key?("chair"))
 		  		attendee.update_attribute(:drove,    a.has_key?("drove"))
 		  		if a.has_key?("chair")
