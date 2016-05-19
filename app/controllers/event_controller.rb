@@ -16,7 +16,7 @@ class EventController < ApplicationController
 		# 1 driver: require drive if 9 signups
 		# 2 drivers: require drive if 14 signups
 		@needs_driver = @event.off_campus &&
-			attendances.count - (attendances.where(can_drive: true).count * 5) == 4
+			attendances.count - (attendances.where(can_drive: true).count * 5) >= 4
 		@holiday = matches_holiday(@event.start_time)
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
