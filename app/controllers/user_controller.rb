@@ -184,7 +184,7 @@ class UserController < ApplicationController
 			flash[:alert] = "You do not have permission to access that page."
 			redirect_to root_path
 		end
-		@users = User.order('created_at DESC').where(approved: true)
+		@users = User.order('displayname DESC').where(approved: true)
 	end
 
 	private
