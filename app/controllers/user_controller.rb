@@ -130,6 +130,9 @@ class UserController < ApplicationController
     @sections = @sections.uniq #rid of more duplicate problems
 
     @sections.each do |s|
+      if s.hours == nil
+        s.hours = 0
+      end
       case s.event_type
       when "Service"
         @reqs[:hours] += s.hours
