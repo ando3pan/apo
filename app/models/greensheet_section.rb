@@ -5,6 +5,9 @@ belongs_to :user
     return 0 if !attendance.attended
     hours = event.hours
     unless attendance.flaked || attendance.replacement_flaked
+      if event.driver_hours == Null
+          event.driver_hours = event.hours
+      end
       hours = event.driver_hours if attendance.drove
     end
 
