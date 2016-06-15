@@ -21,13 +21,16 @@ class UserController < ApplicationController
 			event = Event.find(a.event_id)
 			if event.end_time > @quarter_cutoff
 				if event.event_type == "Service"
-					if a.attended?
+					if a.attended
 						@hours += a.drove ? event.driver_hours : event.hours
-					elsif event.flake_penalty? && a.flaked?
+					elsif event.flake_penalty && a.flaked
 						@flakehours += event.hours
+					elsif event.flake_penalty && a.replacement_flaked
+					@flakehours += 0.5*event.hours
 					end
 				elsif event.event_type == "Fellowship"
 					@fellowships += GreensheetSection.calculateHours(a, event)
+				
 				end
 			end
 		end
@@ -90,7 +93,7 @@ class UserController < ApplicationController
 
         dont_add = true if gsheet #already exists
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
-        dont_add = true if a.flaked && !event.flake_penalty #no consequence
+        dont_add = true if (a.replacement_flaked || a.flaked) && !event.flake_penalty #no consequence
           
         unless dont_add
           chair = User.find_by(id: event.chair_id)
@@ -132,6 +135,8 @@ class UserController < ApplicationController
         @reqs[:hours] += s.hours
       when "Fellowship"
         @reqs[:fellowships] += s.hours
+      when "Professional"
+        @reqs[:professional] += s.hours
       when "Interchapter"
         @reqs[:ics] += s.hours
       when "Family"
@@ -179,7 +184,7 @@ class UserController < ApplicationController
 			flash[:alert] = "You do not have permission to access that page."
 			redirect_to root_path
 		end
-		@users = User.order('created_at DESC').where(approved: true)
+		@users = User.order('displayname').where(approved: true)
 	end
 
 	private

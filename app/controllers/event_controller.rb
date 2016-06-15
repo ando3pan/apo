@@ -16,7 +16,7 @@ class EventController < ApplicationController
 		# 1 driver: require drive if 9 signups
 		# 2 drivers: require drive if 14 signups
 		@needs_driver = @event.off_campus &&
-			attendances.count - (attendances.where(can_drive: true).count * 5) == 4
+			attendances.count - (attendances.where(can_drive: true).count * 5) >= 4
 		@holiday = matches_holiday(@event.start_time)
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
@@ -146,7 +146,7 @@ class EventController < ApplicationController
 		unless current_user.admin || @event.chair_id == current_user.id
 			redirect_to event_path(@event)
 		end
-		@attendances = @event.attendances.order(:created_at).sort_by { |a| a.flaked ? 1 : 0 }
+		@attendances = @event.attendances.order(:created_at).sort_by { |a| (a.flaked||a.replacement_flaked) ? 1 : 0 }
 	end
 
   def autocomplete_user_displayname
@@ -176,6 +176,7 @@ class EventController < ApplicationController
 			  	#  Update the relation
 			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
+		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked")
 		  		attendee.update_attribute(:chair,    a.has_key?("chair"))
 		  		attendee.update_attribute(:drove,    a.has_key?("drove"))
 		  		if a.has_key?("chair")
@@ -239,6 +240,8 @@ class EventController < ApplicationController
 			"rgba(124, 101, 171, #{opacity})"
 		elsif type == "Fundraising"
 			"rgba(96, 163, 99, #{opacity})"
+		elsif type == "Professional"
+			"rgba(207, 83, 0, #{opacity})"
 		elsif type == "Rush"
 			"rgba(199, 140, 66, #{opacity})"
 		elsif type == "Interchapter"
