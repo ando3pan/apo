@@ -222,38 +222,38 @@
 	text-transform: uppercase;
 }
 
-.-time {
+.fc-time {
 	font-weight: 400 !important;
 }
 
-.-title {
+.fc-title {
 	font-weight: bold;
 }
 
-.-event-descrip {
+.fc-event-descrip {
 	font-size: 0.9em;
 	font-weight: 400;
 	opacity: 0.65;
 }
 
-.-event-type {
+.fc-event-type {
 	font-size: 0.8em;
 	opacity: 0.65;
 	text-transform: uppercase;
 }
 
-.-day-grid-event > .-content {
+.fc-day-grid-event > .-content {
    white-space: normal !important;
    overflow: visible !important;
    padding: 5px;
 }
 
-.-left h2 {
+.fc-left h2 {
 	font-size: 2.6rem;
 	max-width: 400px;
 }
 
-.-view-container {
+.fc-view-container {
 	overflow: visible !important;
 }
 
