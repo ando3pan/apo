@@ -68,6 +68,11 @@
   	      				<label for=<%= "att-#{i}" %>>Attended</label>
   							</p>
   							<p>
+  			          <input type="radio" class="with-gap" id=<%= "lat-#{i}" %> value="late" name=<%= "[u][#{i}]attendance" %>
+  			          	<%= a.late ? "checked" : "" %> />
+  	      				<label for=<%= "lat-#{i}" %>>Late</label>
+  							</p>
+  							<p>
   			          <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %>
   			            <%= a.flaked ? "checked" : "" %> />
   	      				<label for=<%= "fla-#{i}" %>>Flaked</label>
@@ -140,6 +145,10 @@
 			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %> checked />
 	      				<label for=<%= "att-#{i}" %>>Attended</label>
 							</p>
+							<p>
+  			          <input type="radio" class="with-gap" id=<%= "lat-#{i}" %> value="late" name=<%= "[u][#{i}]attendance" %> />
+  	      				<label for=<%= "lat-#{i}" %>>Late</label>
+  							</p>
               <p>
                 <input type="radio" class="with-gap" id=<%= "fla-#{i}" %> value="flaked" name=<%= "[u][#{i}]attendance" %> />
                 <label for=<%= "fla-#{i}" %>>Flaked</label>
@@ -233,6 +242,10 @@
          '<input type="radio" class="with-gap" id="att-'+index+'" value="attended" name="[u]['+index+']attendance" checked />' +
          '<label for="att-'+index+'">Attended</label>' +
        '</p>' +
+       '<p>'
+  			 '<input type="radio" class="with-gap" id="lat-'+index'" value="late" name="[u]['+index+']attendance" />'+
+  	     '<label for="lat-'+index+'"Late</label>' +
+  		  '</p>' +
        '<p>' +
          '<input type="radio" class="with-gap" id="fla-'+index+'" value="flaked" name="[u]['+index+']attendance"  />' +
          '<label for="fla-'+index+'">Flaked</label>' +
