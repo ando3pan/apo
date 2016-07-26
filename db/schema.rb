@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504032827) do
+ActiveRecord::Schema.define(version: 20160721212428) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160504032827) do
     t.boolean  "past_quarter",       default: false
     t.datetime "quarter_ended"
     t.boolean  "replacement_flaked"
+    t.boolean  "late"
   end
 
   add_index "attendances", ["event_id"], name: "index_attendances_on_event_id"
@@ -94,9 +95,9 @@ ActiveRecord::Schema.define(version: 20160504032827) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.datetime "fall_quarter",   default: '2016-04-10 02:53:25', null: false
-    t.datetime "winter_quarter", default: '2016-04-10 02:53:25', null: false
-    t.datetime "spring_quarter", default: '2016-04-10 02:53:25', null: false
+    t.datetime "fall_quarter",   default: '2016-04-29 00:43:39', null: false
+    t.datetime "winter_quarter", default: '2016-04-29 00:43:39', null: false
+    t.datetime "spring_quarter", default: '2016-04-29 00:43:39', null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
   end

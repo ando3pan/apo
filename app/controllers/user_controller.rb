@@ -23,10 +23,12 @@ class UserController < ApplicationController
 				if event.event_type == "Service"
 					if a.attended
 						@hours += a.drove ? event.driver_hours : event.hours
+					elsif a.late
+					  @hours += a.drove ? 0.5*event.driver_hours : 0.5*event.hours
 					elsif event.flake_penalty && a.flaked
 						@flakehours += event.hours
 					elsif event.flake_penalty && a.replacement_flaked
-					@flakehours += 0.5*event.hours
+					  @flakehours += 0.5*event.hours
 					end
 				elsif event.event_type == "Fellowship"
 					@fellowships += GreensheetSection.calculateHours(a, event)
