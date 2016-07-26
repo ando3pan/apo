@@ -123,7 +123,7 @@
     				<% i = @attendances.size %>
 
             <!--AUTOCOMPLETE-->
-            <div class="user-search input-field col s5 newest-form">
+            <div class="user-search input-field col s4 newest-form">
               <input type="text" id="user-search-txt-<%= "#{i}" %>" class="validate <%= "name-#{i}" %>" name=<%= "[u][#{i}]fullname" %> >
               <label for="user-search-txt-<%= "#{i}" %>" <%# "fullname-#{i}" %>>Name</label>
               <div class="remove-flow">
@@ -143,7 +143,7 @@
             -->
             
 
-		        <div class="input-field col s3 attendance-options">
+		        <div class="input-field col s5 attendance-options">
 		        	<p>
 			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %> checked />
 	      				<label for=<%= "att-#{i}" %>>Attended</label>
@@ -160,6 +160,14 @@
                 <input type="radio" class="with-gap" id=<%= "refla-#{i}" %> value="replacement_flaked" name=<%= "[u][#{i}]attendance" %> />
                 <label for=<%= "refla-#{i}" %>>Replacement Flaked</label>
               </p>
+              <% if @event.event_type === 'ServiceX' %>
+                  <div class="input-field">
+                    <input type="checkbox" class="spontaneous-c" id=<%= "spo-#{i}" %> name=<%= "[u][#{i}]spontaneous" %> />
+                    <label for=<%= "spo-#{i}" %>>Fellowship</label>
+                  </div>
+                <% end %>
+		        </div>
+		        <div class="input-field col s2 attendance-options">
 							<div class="input-field">
 			          <input type="checkbox" id=<%= "dro-#{i}" %> name=<%= "[u][#{i}]drove" %> />
 	      				<label for=<%= "dro-#{i}" %>>Drove</label>
@@ -168,14 +176,7 @@
 			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> name=<%= "[u][#{i}]chair" %> />
 	      				<label for=<%= "cha-#{i}" %>>Chair</label>
 			        </div>
-
-              <% if @event.event_type === 'ServiceX' %>
-                  <div class="input-field">
-                    <input type="checkbox" class="spontaneous-c" id=<%= "spo-#{i}" %> name=<%= "[u][#{i}]spontaneous" %> />
-                    <label for=<%= "spo-#{i}" %>>Fellowship</label>
-                  </div>
-                <% end %>
-		        </div>
+			        </div>
 		      </div>
     		</div>
     		<input type="number" style="display:none;" value=<%= @event.id %> name="id" />
