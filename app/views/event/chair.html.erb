@@ -61,7 +61,7 @@
   		        </div>
               -->
 
-  		        <div class="input-field col s3 attendance-options">
+  		        <div class="input-field col s5 attendance-options">
   		        	<p>
   			          <input type="radio" class="with-gap" id=<%= "att-#{i}" %> value="attended" name=<%= "[u][#{i}]attendance" %>
   			          	checked />
@@ -87,7 +87,16 @@
                   <%= @event.attendance_cap > 0 && i+1 > @event.attendance_cap && !a.attended && !a.flaked ? "checked" : "" %> />
                   <label for=<%= "wait-#{i}" %>>Did Not Attend (Waitlist)</label>
                 </p>
-  							<div class="input-field">
+  							
+                <% if @event.event_type === 'ServiceX' %>
+                  <div class="input-field">
+                    <input type="checkbox" class="spontaneous-c" id=<%= "spo-#{i}" %> name=<%= "[u][#{i}]spontaneous" %> />
+                    <label for=<%= "spo-#{i}" %>>Fellowship</label>
+                  </div>
+                <% end %>
+  		        </div>
+  		        <div class="input-field col s2 attendance-options">
+  		          <div class="input-field">
   			          <input type="checkbox" id=<%= "dro-#{i}" %> <%= a.drove || a.can_drive ? "checked" : "" %> name=<%= "[u][#{i}]drove" %> />
   	      				<label for=<%= "dro-#{i}" %>>Drove</label>
   			        </div>
@@ -95,12 +104,6 @@
   			          <input type="checkbox" class="chair-c" id=<%= "cha-#{i}" %> <%= a.chair ? "checked" : "" %> name=<%= "[u][#{i}]chair" %> />
   	      				<label for=<%= "cha-#{i}" %>>Chaired</label>
   			        </div>
-                <% if @event.event_type === 'ServiceX' %>
-                  <div class="input-field">
-                    <input type="checkbox" class="spontaneous-c" id=<%= "spo-#{i}" %> name=<%= "[u][#{i}]spontaneous" %> />
-                    <label for=<%= "spo-#{i}" %>>Fellowship</label>
-                  </div>
-                <% end %>
   		        </div>
   		      </div>
           <% else %>
