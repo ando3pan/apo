@@ -1,5 +1,5 @@
 class PageController < ApplicationController
-  before_filter :ensure_signed_in, except: [:home, :dancecomp, :fallrally]
+  before_filter :ensure_signed_in, except: [:home, :dancecomp, :fellcon16]
   before_action :ensure_admin, only: [:admin, :approve, :settings]
   before_action :set_quarter_cutoff, only: [:home ]
   skip_before_action :verify_authenticity_token
@@ -103,7 +103,7 @@ class PageController < ApplicationController
   end
   
   #fall rally website from Team Fellowship
-  def fallrally
+  def fellcon16
     render "fallrally", layout: false
   end
 
