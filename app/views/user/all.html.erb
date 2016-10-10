@@ -17,7 +17,7 @@
 		    <div class="col s3"><%= link_to u.displayname, user_path(u.id) %>
             <%= link_to "Green", greensheet_path(u.id), class: "gsheet" %></div>
 		    <div class="col s2 with-select">
-		    	<% options = [u.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate', 'Alumni', 'Pledge'].uniq %>
+		    	<% options = [u.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate','Half Active', 'Tenure', 'Alumni', 'Pledge'].uniq %>
 		    	<select class="status-selector" id=<%= "status-#{u.a_username}" %>>
 		    		<% options.each do |o| %>
 		    			<option value=<%= o %>><%= o %></option>

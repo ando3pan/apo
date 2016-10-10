@@ -49,7 +49,9 @@ Rails.application.routes.draw do
   match '/post/:id/edit',       to: 'forum#edit_post',    via: [:get, :patch],  as: 'edit_post'
   match '/post/:id',            to: 'forum#destroy_post', via: [:delete],       as: 'destroy_post'
 
-  match '/dc',                  to: 'page#dancecomp',     via: [:get]     
+  match '/dc',                  to: 'page#dancecomp',     via: [:get]
+  match '/fellcon16',           to: 'page#fellcon16',     via: [:get]
+  match '/rush',                to: 'page#rush',          via: [:get]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

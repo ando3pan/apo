@@ -6,7 +6,7 @@ belongs_to :user
     hours = event.hours
     unless attendance.flaked || attendance.replacement_flaked
       
-      event.driver_hours = event.hours if event.driver_hours == Null
+      event.driver_hours = event.hours if event.driver_hours.nil?
       hours = event.driver_hours if attendance.drove
       hours *= 0.5 if attendance.late
     end
