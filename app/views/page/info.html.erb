@@ -1,175 +1,112 @@
 <div class="container">
   <div class="card-panel center">
-    <h3>Alpha Psi Pledge Class</h3>
+    <h3>Beta Alpha Pledge Class</h3>
   </div>
 </div>
 
 <div class="pledge-photos">
   <table align="center">
     <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/e2duezo5xpbutf7/1%20-%20Tien%20Nguyen.jpg?dl=0"
-			width="200"/> <br />Viet-Tien Nguyen</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/5q3hpiney717po2/2%20-%20Asshad%20Shah.jpg?dl=0"
-			width="200"/> <br />Ashhad Shah</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/fwy36stszcffu7i/3%20-%20Rateb.jpg?dl=0"
-			width="200"/> <br />Rateb Mir</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/06z0napfjmt32uv/4%20-%20Ramon%20Dioneda.jpg?dl=0"
-			width="200"/> <br />Ramon Dioneda</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/mchlmszqf4ur3vo/5%20-%20Manav%20Kapoor.jpg?dl=0"
-			width="200"/> <br />Manav Kapoor</td>
+      <% count = 0 %>
+      <% arr =['Albert Leung',
+          'Alexandra Keesling',
+          'Alexis  Xu',
+          'Amy Truong',
+          'Angel Guan',
+          'Audrey Komala',
+          'Axl Blanco',
+          'Ben Ku',
+          'Bettina Gerez',
+          'Brittany Wong',
+          'Catherine Cacho',
+          'Charlene Huang',
+          'Christal Vo',
+          'Christian Fernandes',
+          'Christian Pech',
+          'Christine Tu',
+          'Cynthia Huang',
+          'Darin Lee',
+          'Debbie Ferng',
+          'Deisy Rodriguez',
+          'Diana Du',
+          'Diana Gutierrez',
+          'Elaine Le',
+          'Emily Wong',
+          'Erika Morozumi',
+          'Erika Myint',
+          'Evelyn Hsueh',
+          'Felicia Phan',
+          'Frances Villamin',
+          'Geeny Roberts',
+          'Gregory Yip',
+          'Hubert  Lam',
+          'Jack Wang',
+          'Jamie  Chan',
+          'Jennifer Choi',
+          'Jennifer Ho',
+          'Jennifer Tran',
+          'Jessica Han',
+          'jintao zheng',
+          'Jonathan Tin',
+          'Jordan Nguyen',
+          'Joshua Macapagal',
+          'Joshua Robertson',
+          'Joyce Sun',
+          'Judy Au',
+          'Karen Yu',
+          'Karina Castillo',
+          'Kathy Law',
+          'Kathy Tram',
+          'Kenny Ashley',
+          'Kenny Luc',
+          'Keo Jude Sarno',
+          'Kevin Hsiao',
+          'Kevin Jan',
+          'Kevin Yen',
+          'Lacey Thach',
+          'Lawrence Kotovnikov',
+          'Matthew Ho',
+          'Matthew Li',
+          'Michele  Tom',
+          'Miranda Yu',
+          'Nicole Johnson',
+          'Oscar Garcia',
+          'Patrick Oh',
+          'Raghav Chanchani',
+          'Rayelyne Ikona',
+          'Sally Lee',
+          'Samantha Stevens',
+          'Samnovem Macam',
+          'Sarah Chang',
+          'Simoni Dulanto',
+          'Sophia Hoang',
+          'Stella Kim',
+          'Stephanie Pan',
+          'Suhan Lee',
+          'Sylvia O',
+          'Tara Patwardhan',
+          'Tram Nguyen',
+          'Vanna Luu',
+          'Vicky Nguyen',
+          'Vivian Nguyen',
+          'Weldon Chang',
+          'Wendy Do',
+          'Yvette Laguitan']%>
+      <% arr.each do |pledge| %>
+        <% if count % 4 == 0 %>
+          <tr>
+        <% end %>
+        <td><img 
+        src="<%= 'https://dl.dropboxusercontent.com/u/25146178/Beta%20Alpha%20Pledge%20Pictures/'+pledge.gsub(/\s+/, "")+".JPG"%>"
+			  width="200"/> <br /><%= pledge %></td>
+			  
+			  <% if count % 4 == 3 %>
+          </tr>
+        <% end %>
+        <% count = count + 1 %>
+      <% end %>
       
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/qieb0fxhbpzb3z7/45%20-%20Claire%20Jakovac.jpg?dl=0"
-			width="200"/> <br />Claire Jakovac</td><td>
-    <img 
-      src="https://dl.dropboxusercontent.com/s/8i5amphoxstmln4/8%20-%20Svein%20Gonzales.jpg?dl=0"
-			width="200"/> <br />Svein Gonzales</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/g08zavyaljoa5x4/6%20-%20Kenny%20Seng.jpg?dl=0"
-			width="200"/> <br />Kenny Seng</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/8ew0tuhewt0t6vs/9%20-%20Julie%20Saephan.jpg?dl=0"
-			width="200"/> <br />Julie Saephan</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/iv9hqh2cdeu7s7f/10%20-%20Umi%20Mangune.jpg?dl=0"
-			width="200"/> <br />Umi Mangune</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/hma4rpqtfc2zqu5/11%20-%20Jason%20Wang.jpg?dl=0"
-			width="200"/> <br />Jason Wang</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/9prma1pysqw2qsp/12%20-%20Maggie%20Chan.jpg?dl=0"
-			width="200"/> <br />Maggie Chan</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/uvq2fhk9xwzyvgs/13%20-%20Amanda%20Fraistat.jpg?dl=0"
-			width="200"/> <br />Amanda Fraistat</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/2untuhj0rnlz5sz/14%20-%20Kayla%20Larot.jpg?dl=0"
-			width="200"/> <br />Kayla Larot</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/mspsrr34eunluro/15%20-%20Ben%20Yang.jpg?dl=0"
-			width="200"/> <br />Benjamin Yang</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/aoqz9vto0gu335w/16%20-%20Justin%20Shieh.jpg?dl=0"
-			width="200"/> <br />Justin Shieh</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/3f8co2i0dxwmzud/17%20-%20Chau%20Le.jpg?dl=0"
-			width="200"/> <br />Chau Le</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/e2kiwpb8ojk9n2v/18%20-%20Kelsey%20Guo.jpg?dl=0"
-			width="200"/> <br />Kelsey Guo</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/glqyy1soznveikq/19%20-%20Queen%20Caoile.jpg?dl=0"
-			width="200"/> <br />Queen Caoile</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/qpwzm8ge1ua3ds5/20%20-%20Rebekkah%20Ouk.jpg?dl=0"
-			width="200"/> <br />Rebekkah Ouk</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/efiry8xwnthf7nc/21%20-%20Lynda%20Ta.jpg?dl=0"
-			width="200"/> <br />Lynda Ta</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/fq50peri90dax4m/22%20-%20Jasmine%20Lai.jpg?dl=0"
-			width="200"/> <br />Jasmine Lai</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/1pmd919mbyl5k26/23%20-%20Bonny%20Liang.jpg?dl=0"
-			width="200"/> <br />Bonny Liang</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/q0rva9ftymck83l/24%20-%20Sofie%20Azizan.jpg?dl=0"
-			width="200"/> <br />Sofia Azizan</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/fmduc4xduuslu0j/25%20-%20Yeji%20Shin.jpg?dl=0"
-			width="200"/> <br />Yeji Shin</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/gfxsbjnx21u8qks/26%20-%20Maria%20Iwama.jpg?dl=0"
-			width="200"/> <br />Marina Iwama</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/12fgwrorf8swds3/27%20-%20Shawn%20Tan.jpg?dl=0"
-			width="200"/> <br />Shawn Tan</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/e6zmahc5j8h1rmz/28%20-%20Krista%20Kim.jpg?dl=0"
-			width="200"/> <br />Krista Kim</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/155fzyubpbtxiul/29%20-%20Brian%20Ly.jpg?dl=0"
-			width="200"/> <br />Brian Ly</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/uwvxrwkyeebqy85/30%20-%20Alex%20Han.jpg?dl=0"
-			width="200"/> <br />Alexander Han</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/hbaa439ak2mwosw/31%20-%20Kenny%20Law.jpg?dl=0"
-			width="200"/> <br />Kenny Law</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/9v6lk3g3npzwmiq/32%20-%20Jessica%20Lin.jpg?dl=0"
-			width="200"/> <br />Jessica Lin</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/yubzlum33badtbb/33%20-%20Karen%20Ima.jpg?dl=0"
-			width="200"/> <br />Karen Ma</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/v95rlryssdhs9u5/34%20-%20Sarah%20Woo.jpg?dl=0"
-			width="200"/> <br />Sarah Woo</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/8g4c3pvbiv0quzr/35%20-%20Quicky%20Ha.jpg?dl=0"
-			width="200"/> <br />Quicky Ha</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/8obwolxzxfazodn/36%20-%20Rizelle%20Capanzana.jpg?dl=0"
-			width="200"/> <br />Rizelle Capanzana</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/ujix151m2u1r46h/38%20-%20Eliott%20Ham.jpg?dl=0"
-			width="200"/> <br />Eliott Ham</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/m9vl2n2g4jjmbz4/39%20-%20Jessie%20Hao.jpg?dl=0"
-			width="200"/> <br />Jessie Hao</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/81k2kiwsbslx1qm/40%20-%20Caroline%20Le.jpg?dl=0"
-			width="200"/> <br />Carolyn Le</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/gjm8qi3b8fvmtl1/37%20-%20Khelsey%20Gozum.jpg?dl=0"
-			width="200"/> <br />Khelsey Gozum</td>
-    </tr>
-
-    <tr>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/qiat8qd4k93mqw5/41%20-%20Haixin%20Chen.jpg?dl=0"
-			width="200"/> <br />Haixin Chen</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/7w3u59ukbx4p0wa/42%20-%20Jun%20%28Aaron%29%20Liu.jpg?dl=0"
-			width="200"/> <br />Jun (Aaron) Liu</td>
-      <td><img 
-      src="https://dl.dropboxusercontent.com/s/9l1ojff8mxgz75m/43%20-%20David%20le.jpg?dl=0"
-			width="200"/> <br />David Le</td>
-      <td><img
-      src="https://dl.dropboxusercontent.com/s/n68qgxdf1g98qui/44%20-%20Charl%20Guo.jpg?dl=0"
-			width="200"/> <br />Charl Guo</td>
+      
     </tr>
 
     
