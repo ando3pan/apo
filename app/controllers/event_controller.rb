@@ -7,6 +7,9 @@ class EventController < ApplicationController
 	def show
 		@event   = Event.find(params[:id])
 		attendances = @event.attendances
+		# You need a driver if the number of spots in cars (assume 5 per) is less than number of people
+		# this makes sign ups more restrictive, but everyone is *mostly* guarenteed a ride
+		# DISREGARD BELOW COMMENTS
 		# If you're not a driver:
 		# no driver: block if 4 signups
 		# 1 driver: block if 9 signups
