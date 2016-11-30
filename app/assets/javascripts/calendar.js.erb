@@ -4,6 +4,9 @@ $(document).ready(function() {
   var filter = $("#filter").html();
 
   $calendar.fullCalendar({
+    buttonText: {
+      basicDay : 'mobile view'
+    },
   	displayEventEnd: true,
   	eventRender:
     	function(event, element) {
@@ -24,8 +27,12 @@ $(document).ready(function() {
 		allDaySlot: false,
     header: {
       left: 'title',
+      center: 'basicDay month',
       right: 'today prev,next'
-    }
+    },
+    /*dayClick: function(date, allDay, jsEvent, view) { 
+      $calendar.fullCalendar( 'changeView', 'basicDay' ) 
+    }*/
   });
 
   // stupid workaround so events open in new tab
@@ -35,7 +42,7 @@ $(document).ready(function() {
   });
 
   // month navigation
-  $("button").unbind();
+  /*$("button").unbind();
 
   $("button").on('click', function(event) {
     var date = new Date(month);
@@ -64,5 +71,5 @@ $(document).ready(function() {
     event.preventDefault();
     event.stopPropagation();
     window.location.href = '/calendar?load=' + date.toISOString() + "&filter=" + filter;
-  });
+  });*/
 });
