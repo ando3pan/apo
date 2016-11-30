@@ -1,9 +1,13 @@
+//This calendar is built from fullCalendar, a jQuery plugin
 $(document).ready(function() {
 	var $calendar = $('#calendar');
   var month = $("#month").html();
   var filter = $("#filter").html();
 
   $calendar.fullCalendar({
+    buttonText: {
+      basicDay : 'mobile view'
+    },
   	displayEventEnd: true,
   	eventRender:
     	function(event, element) {
@@ -24,8 +28,9 @@ $(document).ready(function() {
 		allDaySlot: false,
     header: {
       left: 'title',
+      center: 'basicDay month',
       right: 'today prev,next'
-    }
+    },
   });
 
   // stupid workaround so events open in new tab
@@ -34,8 +39,11 @@ $(document).ready(function() {
     window.open($(this).attr('href'), '_blank');
   });
 
+  /*I've commented out the month navigation
+  in order to enable default actions for the prev and next buttons.
+  This allows the basicDay view to function properly.*/
   // month navigation
-  $("button").unbind();
+  /*$("button").unbind();
 
   $("button").on('click', function(event) {
     var date = new Date(month);
@@ -64,5 +72,5 @@ $(document).ready(function() {
     event.preventDefault();
     event.stopPropagation();
     window.location.href = '/calendar?load=' + date.toISOString() + "&filter=" + filter;
-  });
+  });*/
 });
