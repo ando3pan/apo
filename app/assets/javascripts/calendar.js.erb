@@ -6,7 +6,8 @@ $(document).ready(function() {
 
   $calendar.fullCalendar({
     buttonText: {
-      basicDay : 'mobile view'
+      listWeek : 'mobile view',
+      month : 'Month'
     },
   	displayEventEnd: true,
   	eventRender:
@@ -28,7 +29,7 @@ $(document).ready(function() {
 		allDaySlot: false,
     header: {
       left: 'title',
-      center: 'basicDay month',
+      center: 'listWeek  month',
       right: 'today prev,next'
     },
   });
