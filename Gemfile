@@ -30,6 +30,7 @@ gem 'devise'
 
 # For calendar
 gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 # Tumblr
 gem 'tumblr_client'

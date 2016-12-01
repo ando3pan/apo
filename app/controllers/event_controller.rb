@@ -22,6 +22,7 @@ class EventController < ApplicationController
 			#attendances.count - (attendances.where(can_drive: true).count * 5) >= 4
 			attendances.count >= (attendances.where(can_drive: true).count * 5)
 		@holiday = matches_holiday(@event.start_time)
+		@num_drivers = attendances.where(can_drive: true).count
 		unless @event.public || current_user.admin
 			redirect_to root_path, notice: "The event is not yet public."
 		end
