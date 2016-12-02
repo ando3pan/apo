@@ -15,7 +15,7 @@ gem 'simple_form'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 2.3.0'
+gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -28,6 +28,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Handles users
 gem 'devise'
 
+#for autocomplete
+#gem 'rails-jquery-autocomplete'
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
+
+
 # For calendar
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
@@ -35,10 +41,6 @@ gem 'momentjs-rails'
 # Tumblr
 gem 'tumblr_client'
 
-#for autocomplete
-#gem 'rails-jquery-autocomplete'
-gem 'rails4-autocomplete'
-gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
