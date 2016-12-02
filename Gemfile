@@ -28,6 +28,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Handles users
 gem 'devise'
 
+#for autocomplete
+#gem 'rails-jquery-autocomplete'
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
+
+
 # For calendar
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
@@ -35,10 +41,6 @@ gem 'momentjs-rails'
 # Tumblr
 gem 'tumblr_client'
 
-#for autocomplete
-#gem 'rails-jquery-autocomplete'
-gem 'rails4-autocomplete'
-gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
