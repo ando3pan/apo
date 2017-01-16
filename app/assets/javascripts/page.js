@@ -1,5 +1,7 @@
 jQuery(document).ready(function($){
 	//set animation timing
+	var lfsImg = ['http://lorempixel.com/1280/720/','http://lorempixel.com/1280/720/', 'http://lorempixel.com/1280/720/'];
+	var lfsIndex = 0;
 	var animationDelay = 2500,
 		//loading bar effect
 		barAnimationDelay = 3800,
@@ -78,6 +80,7 @@ jQuery(document).ready(function($){
 				$word.removeClass('is-visible').addClass('is-hidden').children('i').removeClass('in').addClass('out');
 			}, selectionDuration);
 			setTimeout(function(){ showWord(nextWord, typeLettersDelay) }, typeAnimationDelay);
+			
 		
 		} else if($word.parents('.cd-headline').hasClass('letters')) {
 			var bool = ($word.children('i').length >= nextWord.children('i').length) ? true : false;
