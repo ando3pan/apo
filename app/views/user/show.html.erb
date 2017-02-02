@@ -1,7 +1,13 @@
 <div class="container">
 	<div class="cover">
 		<div class="profile">
-			<div class="pf-pic"><%= image_tag "astro-pf.png" %></div>
+			<div class="pf-pic">
+				<% if @user.firstname == 'Yvette'%>
+					<%= image_tag "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-0/p206x206/10383036_10202590812081861_1938564299277925089_n.jpg?oh=bc5207211df0b761dc965602ac291d8e&oe=5909B45A" %>
+				<% else%>
+					<%= image_tag "astro-pf.png" %>
+				<% end %>
+				</div>
 			<div><%= @user.displayname %></div> <span><%= @user.pledge_class %> <%= "(Eboard)" if @user.admin? %></span>
 		</div>
 	</div>
