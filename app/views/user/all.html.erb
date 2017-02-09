@@ -1,22 +1,27 @@
 <div class="container">
 <% if @users.any? %>
-	<h5>Member List</h5>
+	
+	<h5>Member List </h5><h6>(<%= @users.length %> Members)</h6>
 	<ul class="collection no-overflow">
 		<li class="collection-item row light-blue lighten-5">
-			<div class="col s1">#</div>
-	    <div class="col s3">Name</div>
-	    <div class="col s2">Standing</div>
-	    <div class="col s2">Class</div>
+		
+	    <div class="col s2">Name</div>
+	    <div class="col s1">ID #</div>
+	    <div class="col s1">Standing</div>
+	    <div class="col s1">Class</div>
 	    <div class="col s2">Phone Number</div>
+	    <div class="col s3">Email Address</div>
 	    <div class="col s1">Car</div>
 	    <div class="col s1">Eboard</div>
 	  </li>
 	  <% @users.each_with_index do |u, index| %>
 		  <li class="collection-item shades row" %>
-		  	<div class="col s1"><%= index+1 %></div>
-		    <div class="col s3"><%= link_to u.displayname, user_path(u.id) %>
-            <%= link_to "Green", greensheet_path(u.id), class: "gsheet" %></div>
-		    <div class="col s2 with-select">
+		  	
+		    <div class="col s2"><%= link_to u.displayname, user_path(u.id) %>
+		    <!--%= link_to "Green", greensheet_path(u.id), class: "gsheet" %--></div>
+		    <div class="col s1"><%= u.id %></div>
+            
+		    <div class="col s1 with-select">
 		    	<% options = [u.membership_status, 'Unknown', 'Active', 'Inactive', 'Associate','Half Active', 'Tenure', 'Alumni', 'Pledge'].uniq %>
 		    	<select class="status-selector" id=<%= "status-#{u.a_username}" %>>
 		    		<% options.each do |o| %>
@@ -24,8 +29,9 @@
 		    		<% end %>
 		    	</select>
 		    </div>
-		    <div class="col s2"><%= u.pledge_class.length > 0 ? u.pledge_class : "Not listed" %></div>
+		    <div class="col s1"><%= u.pledge_class.length > 0 ? u.pledge_class : "Not listed" %></div>
 		    <div class="col s2"><%= u.phone.length > 0 ? number_to_phone(u.phone, area_code: true) : "Not listed" %></div>
+		    <div class="col s3"><%= u.email %></div>
 		    <div class="col s1"><% if u.car %>Yes<% else %>No<% end %></div>
 		    <div class="col s1"><%= u.admin ? 'Yes' : '' %></div>
 		  </li>
