@@ -8,6 +8,8 @@ class PageController < ApplicationController
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
       @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 5)["posts"] rescue []
+      @pinned = tumblr.posts('aporhopi.tumblr.com', :tag => 'pinned', :limit => 1)["posts"] rescue []
+      @posts.delete(@pinned[0])
       @gbm = tumblr.posts('aporhopi.tumblr.com', :tag => 'gbm', :limit => 1)["posts"] rescue []
       @gbm = @gbm.any? ? @gbm.first : nil
       events = current_user.attending_events.where('end_time >= ?', Time.now).order(:start_time)
@@ -33,6 +35,10 @@ class PageController < ApplicationController
 
   def announcements
     @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'announcement', :limit => 10)["posts"] rescue []
+  end
+  
+  def pinned
+    @posts = tumblr.posts('aporhopi.tumblr.com', :tag => 'pinned', :limit => 1)["posts"] rescue []
   end
 
   def events
