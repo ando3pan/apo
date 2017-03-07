@@ -240,7 +240,14 @@ class EventController < ApplicationController
 
 	def get_event_color(e)
 		type = e.event_type
+		
 		opacity = 1
+		
+		attendance = Attendance.where(event_id: e.id).count
+		if attendance  >= e.attendance_cap && e.attendance_cap != -1
+			opacity = 0.5
+		end
+			
 		if type == "Service"
 			"rgba(57, 73, 171, #{opacity})"
 		elsif type == "Fellowship"
