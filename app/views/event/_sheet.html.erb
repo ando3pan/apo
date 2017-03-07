@@ -30,7 +30,13 @@
 				  <li class="collection-item row <%= event.chair_id == p.id ? "yellow lighten-2" : "" %>
 				  	<%= waitlist  ? "blue-grey lighten-4" : "" %>">
 				  	<div class="col s1"><%= waitlist ? "-" : index+1 %></div>
-				    <div class="col s4"><%= p.displayname %></div>
+				    <div class="col s4">
+				    	<% if current_user.admin %>
+				    		<%= link_to p.displayname, user_path(p.id) %>
+				    	<% else %>
+				    		<% p.displayname %>
+				    	<% end %>
+				    </div>
 				    <div class="col s3"><%= number_to_phone(p.phone, area_code: true) %></div>
 				    <div class="col s2"><% if p.family.blank? %>-<%else%><%= p.family %><%end%></div>
 				    <div class="col s2"><% if a.can_drive || a.drove %>Yes<% elsif p.car %>No<% end %></div>
