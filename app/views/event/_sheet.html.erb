@@ -34,7 +34,7 @@
 				    	<% if current_user.admin %>
 				    		<%= link_to p.displayname, user_path(p.id) %>
 				    	<% else %>
-				    		<% p.displayname %>
+				    		<p><%= p.displayname %></p>
 				    	<% end %>
 				    </div>
 				    <div class="col s3"><%= number_to_phone(p.phone, area_code: true) %></div>
