@@ -78,7 +78,7 @@
 						No events.
 					</div>
     		<% else %>
-	    		<% events.select { |e| e.attended }.each do |a| %>
+	    		<% events.select { |e| e.attended || e.late }.each do |a| %>
     				<% e = Event.find(a.event_id) %>
 						<%= link_to e.title, event_path(e) %><br />
 					<% end %>
