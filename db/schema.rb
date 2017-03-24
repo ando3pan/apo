@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160721212428) do
     t.datetime "fall_quarter",   default: '2017-03-22 10:11:58', null: false
     t.datetime "winter_quarter", default: '2017-03-22 10:11:58', null: false
     t.datetime "spring_quarter", default: '2017-03-22 10:11:58', null: false
+
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
   end

@@ -11,6 +11,7 @@
         <th>Title</th>
         <th># Topics</th>
         <th>Last post at</th>
+        <th>Created by</th>
         <th>Options</th>
       </tr>
       <% @forums.each do |f| %>
@@ -20,12 +21,11 @@
             <tr class="section <%= c %>">
               <td><h5><%= link_to f.title, topic_path(f) %></h5>
                 <% if f.eboard_only %><i class="material-icons">https</i><% end %>
-                    <p><%= f.description %></p>
-                    <p class="created-by">Created by <%= User.find( f.creator_id ).displayname %></p></td>
-
+                    <p><%= f.description %></p></td>
                 <td><p><%= f.topics.size %></p></td>
                 <td><p><%= f.updated_at.strftime("%m/%d/%y") %><br/>
                        <%= f.updated_at.strftime("%I:%M %p") %></p></td>
+                <td><p><%= User.find( f.creator_id ).displayname %></p></td> 
 
                 <% if f.creator_id == current_user.id or current_user.admin %>
                   <td><%= link_to "Delete", destroy_forum_path(f), method: :delete %>
