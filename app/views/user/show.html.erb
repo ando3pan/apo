@@ -80,8 +80,26 @@
     		<% else %>
 	    		<% events.select { |e| e.attended || e.late }.each do |a| %>
     				<% e = Event.find(a.event_id) %>
+						
+						<% if e.event_type == "Service" %>
+							<div class = "eventbox service"></div>
+						<%elsif e.event_type == "Fellowship" %>
+							<div class = "eventbox fellowship"></div>
+						<%elsif e.event_type == "Professional" %>
+							<div class = "eventbox professional"></div>
+						<%elsif e.event_type == "IC" %>
+							<div class = "eventbox Interchapter"></div>
+						<%elsif e.event_type == "fundraising" %>
+							<div class = "eventbox Fundraising"></div>
+						<%elsif e.event_type == "fam" %>
+							<div class = "eventbox fam"></div>
+						<%else%>
+							<div class = "eventbox other"></div>
+						
+						
+					<% end %>	
 						<%= link_to e.title, event_path(e) %><br />
-					<% end %>
+					
 					<% flaked_events = events.select { |e| (e.flaked == true || e.replacement_flaked) } %>
 					<% if flaked_events.any? %>
 						<h6>Flaked Events</h6>
@@ -103,3 +121,4 @@
 		</div>
 	</div>
 </div>
+<% end %>
