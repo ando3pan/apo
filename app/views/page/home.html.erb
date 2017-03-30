@@ -144,8 +144,11 @@
                 <h5>Service Hours</h5>
                 <p>Total: </p><br/><div id="bar-total" class="bar"></div>
                   <span id="hours-total"><%= @hours[:total] %></span>
-
-                <% ["Alpha", "Phi", "Omega", "Rho", "Pi"].each do |fam| %>
+                  <%fams = ["Alpha", "Phi", "Omega", "Rho", "Pi"].sort_by{|fam| -@hours[fam]}%>
+                  
+                <% fams.each do |fam| %>
+                
+                
                   <br/>
                   <p>&<%= fam %>;: </p><br/><div id="bar-<%= fam %>" class="bar"></div>
                   <span id="hours-<%= fam %>"><%= @hours[fam] %></span>

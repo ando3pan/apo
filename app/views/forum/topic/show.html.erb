@@ -12,16 +12,17 @@
         <th>Title</th>
         <th># Posts</th>
         <th>Last updated</th>
+        <th>Created by</th>
         <th>Options</th>
       </tr>
 
       <% @topics.each do |t| %>
       <tr>
-        <td><h5 class="title"><%= link_to t.title, post_path(t) %></h5>
-          <p class="created-by">Created by <%= User.find( t.creator_id ).displayname %></p></td>
+        <td><h5 class="title"><%= link_to t.title, post_path(t) %></h5></td>
         <td><p class="post-num"><%= t.posts.size %></p></td>
         <td><p><%= t.updated_at.strftime("%m/%d/%y") %><br/>
                <%= t.updated_at.strftime("%I:%M %p") %></p></td>
+        <td><p><%= User.find( t.creator_id ).displayname %></p></td> 
 
         <% if t.creator_id == current_user.id or current_user.admin %>
           <td><%= link_to "Delete", destroy_topic_path(t), method: :delete %>

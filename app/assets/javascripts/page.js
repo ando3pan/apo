@@ -1,3 +1,11 @@
+class Fam
+	def initialize(famHours, famName)
+		@famHours = famHours
+		@famName = famName
+	end
+
+end 
+
 jQuery(document).ready(function($){
 	//set animation timing
 	var lfsImg = ['http://lorempixel.com/1280/720/','http://lorempixel.com/1280/720/', 'http://lorempixel.com/1280/720/'];
@@ -166,21 +174,50 @@ jQuery(document).ready(function($){
         var piHours = parseInt($('#hours-Pi').text());
         var maxBarSize = $('#service-hours-panel').width() * 3/4;
 
+	/* var famHours = [alphaHours.to_f, omegaHours.to_f, phiHours.to_f, rhoHours.to_f, piHours.to_f];
+	famHours.sort(); */
+	
         $('#bar-total').css("width", maxBarSize );
-        var hours = alphaHours/totalHours * maxBarSize;
-        if( hours == 0 ) hours = 1;
+        
+	var hours1 = alphaHours/totalHours * maxBarSize;
+        if( hours1 == 0 ) hours = 1;
         $('#bar-Alpha').css("width", hours);
-        var hours = phiHours/totalHours * maxBarSize;
-        if( hours == 0 ) hours = 1;
+        var hours2 = phiHours/totalHours * maxBarSize;
+        if( hours2 == 0 ) hours = 1;
         $('#bar-Phi').css("width", hours );
-        var hours = omegaHours/totalHours * maxBarSize;
-        if( hours == 0 ) hours = 1;
+        var hours3 = omegaHours/totalHours * maxBarSize;
+        if( hours3 == 0 ) hours = 1; 
         $('#bar-Omega').css("width", hours );
-        var hours = rhoHours/totalHours * maxBarSize;
-        if( hours == 0 ) hours = 1;
+        var hours4 = rhoHours/totalHours * maxBarSize;
+        if( hours4 == 0 ) hours = 1;
         $('#bar-Rho').css("width", hours );
-        var hours = piHours/totalHours * maxBarSize;
-        if( hours == 0 ) hours = 1;
+        var hours5 = piHours/totalHours * maxBarSize;
+        if( hours5 == 0 ) hours = 1;
         $('#bar-Pi').css("width", hours );
+/*
+	fam1 = Fam.new('AlphaFam', hours1);
+	fam2 = Fam.new('PhiFam', hours2);
+	fam3 = Fam.new('OmegaFam', hours3);
+	fam4 = Fam.new('RhoFam', hours4);
+	fam5 = Fam.new('PiFam', hours5);
+	
+	var famHours = [hours1, hours2, hours3, hours4, hours5];
+	
+	famHours.sort do |a, b|
+		case
+		when a.famHours < b.famHours
+			-1
+		when a.famHours > b.famHours
+			1
+		else
+			a.famName <=> b.famName
+		end
+	end
+
+	
+
+	
+*/	
+
     }
 });

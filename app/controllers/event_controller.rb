@@ -180,7 +180,7 @@ class EventController < ApplicationController
 		  		attendee = @event.attendances.find_by_user_id(user.id)
 
 			  	#  Update the relation
-			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced")
+			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced" || a["attendance"] == "late")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
 		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked")
 		  		attendee.update_attribute(:late, a["attendance"] == "late")

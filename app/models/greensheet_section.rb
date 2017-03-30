@@ -3,12 +3,12 @@ belongs_to :user
 
   def self.calculateHours(attendance, event)
     return 0 if !attendance.attended
-    hours = event.hours
+    hours = attendance.drove ? event.driver_hours : event.hours
     unless attendance.flaked || attendance.replacement_flaked
       
       event.driver_hours = event.hours if event.driver_hours.nil?
       hours = event.driver_hours if attendance.drove
-      hours *= 0.5 if attendance.late
+      hours = attendance.drove ? (event.driver_hours-event.hours) + 0.5 * event.hours : 0.5*event.hours if attendance.late
     end
 
     if attendance.flaked && event.flake_penalty
