@@ -92,6 +92,7 @@ class UserController < ApplicationController
 
     if request.get?
       #@user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
+      @flake_count = 0
       @user.attendances.sort_by {|attend| Event.find(attend.event_id).start_time}.each do |a|
         event = Event.find(a.event_id)
         
