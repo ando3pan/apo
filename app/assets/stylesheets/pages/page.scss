@@ -400,3 +400,42 @@ div.appreciations{
 		vertical-align: middle;
 	}
 }
+
+.eventbox {
+	float: left;
+	width: 10px;
+	height: 10px;
+	margin: 5px 10px 5px 5px;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: 5px;
+	display: block;
+}
+
+.IC {
+	background: rgba(216,27,96,1);
+}
+
+.professional {
+	background: rgba(207,83,0,1);
+}
+
+.fellowship {
+	background: rgba(124,101,171,1)
+}
+
+.service {
+	background: rgba(57,73,171,1);
+}
+
+.fam {
+	background: rgba(85,85,85,1);
+}
+
+.fundraising {
+	background: rgba(96,163,99,1);
+}
+
+.other {
+	background: rgba(85,85,85,1);
+}
+
