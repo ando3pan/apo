@@ -22,9 +22,9 @@ class UserController < ApplicationController
 			if event.end_time > @quarter_cutoff
 				if event.event_type == "Service"
 					if a.attended
-						@hours += a.drove ? event.driver_hours : event.hours
+						@hours += GreensheetSection.calculateHours(a, event)#a.drove ? event.driver_hours : event.hours
 					elsif a.late
-					  @hours += a.drove ? (event.driver_hours-event.hours) + 0.5 * event.hours : 0.5*event.hours
+					  @hours += GreensheetSection.calculateHours(a, event)#a.drove ? (event.driver_hours-event.hours) + 0.5 * event.hours : 0.5*event.hours
 					elsif event.flake_penalty && a.flaked
 						@flakehours += event.hours
 					elsif event.flake_penalty && a.replacement_flaked
@@ -92,15 +92,17 @@ class UserController < ApplicationController
 
         gsheet = GreensheetSection.find_by(event_id: a.event_id, 
                                            user_id: @user.id) 
-
+        #commented code is hard reset on greensheet sections. prob awful idea to use in production, very db intensive. good for testing calculations tho.
+        #GreensheetSection.where(event_id: a.event_id, 
+        #                                   user_id: @user.id).destroy_all
         dont_add = true if gsheet #already exists
         dont_add = true if !a.attended && !a.flaked #no show but no consequence
         dont_add = true if (a.replacement_flaked || a.flaked) && !event.flake_penalty #no consequence
-          
+        p "a"
         unless dont_add
           chair = User.find_by(id: event.chair_id)
           chair = chair ? chair.displayname : "No Chair"
-
+          p "b"
           #accounts for flaking and all
           hours = GreensheetSection.calculateHours(a, event)
 
