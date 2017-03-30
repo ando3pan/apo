@@ -1,10 +1,3 @@
-class Fam
-	def initialize(famHours, famName)
-		@famHours = famHours
-		@famName = famName
-	end
-
-end 
 
 jQuery(document).ready(function($){
 	//set animation timing
