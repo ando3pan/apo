@@ -42,7 +42,7 @@ class UserController < ApplicationController
             end
         end
         # zero out if three strikes and not super negative
-        @hours = 0 if @hours > @flakehours && flake_count >= 3
+        @hours = 0 if @hours > @flakehours && @flake_count >= 3
     end
 
     def greensheet
@@ -168,7 +168,7 @@ class UserController < ApplicationController
         @reqs[:chalkboarding] += 1 if s.title.include? "Chalkboard"
       end
     end
-    @reqs[:hours] = 0 if @reqs[:hours] > 0 && flake_count >= 3
+    @reqs[:hours] = 0 if @reqs[:hours] > 0 && @flake_count >= 3
     @sections = @sections.order(:event_type, :start_time )
     @new_section = GreensheetSection.new #for eboard to add new events
     end
