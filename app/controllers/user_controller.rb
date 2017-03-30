@@ -18,7 +18,7 @@ class UserController < ApplicationController
         @flakehours = 0
         @fellowships = 0
         @flake_count = 0
-        @user.attendances.reverse.each do |a|
+        @user.attendances.sort_by {|attend| Event.find(attend.event_id).start_time}.each do |a|
             event = Event.find(a.event_id)
             if event.end_time > @quarter_cutoff
                 if event.event_type == "Service"
@@ -92,7 +92,7 @@ class UserController < ApplicationController
 
     if request.get?
       #@user.attendances.where("created_at > ?", @quarter_cutoff).each do |a|
-      @user.attendances.reverse.each do |a|
+      @user.attendances.sort_by {|attend| Event.find(attend.event_id).start_time}.each do |a|
         event = Event.find(a.event_id)
         
         dont_add = false 
