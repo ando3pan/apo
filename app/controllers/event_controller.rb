@@ -178,8 +178,9 @@ class EventController < ApplicationController
 		  		# add the user
 		  		@event.participants << user
 		  		attendee = @event.attendances.find_by_user_id(user.id)
-
+				
 			  	#  Update the relation
+			  	GreensheetSection.where(user_id: user.id).destroy_all
 			  	attendee.update_attribute(:attended, a["attendance"] == "attended" || a["attendance"] == "replaced" || a["attendance"] == "late")
 		  		attendee.update_attribute(:flaked,   a["attendance"] == "flaked")
 		  		attendee.update_attribute(:replacement_flaked,   a["attendance"] == "replacement_flaked")
