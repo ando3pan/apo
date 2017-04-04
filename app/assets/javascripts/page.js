@@ -173,20 +173,20 @@ jQuery(document).ready(function($){
         $('#bar-total').css("width", maxBarSize );
         
 	var hours1 = alphaHours/totalHours * maxBarSize;
-        if( hours1 == 0 ) hours = 1;
-        $('#bar-Alpha').css("width", hours);
+        if( hours1 == 0 ) hours1 = 1;
+        $('#bar-Alpha').css("width", hours1);
         var hours2 = phiHours/totalHours * maxBarSize;
-        if( hours2 == 0 ) hours = 1;
-        $('#bar-Phi').css("width", hours );
+        if( hours2 == 0 ) hours2 = 1;
+        $('#bar-Phi').css("width", hours2 );
         var hours3 = omegaHours/totalHours * maxBarSize;
-        if( hours3 == 0 ) hours = 1; 
-        $('#bar-Omega').css("width", hours );
+        if( hours3 == 0 ) hours3 = 1; 
+        $('#bar-Omega').css("width", hours3 );
         var hours4 = rhoHours/totalHours * maxBarSize;
-        if( hours4 == 0 ) hours = 1;
-        $('#bar-Rho').css("width", hours );
+        if( hours4 == 0 ) hours4 = 1;
+        $('#bar-Rho').css("width", hours4 );
         var hours5 = piHours/totalHours * maxBarSize;
-        if( hours5 == 0 ) hours = 1;
-        $('#bar-Pi').css("width", hours );
+        if( hours5 == 0 ) hours5 = 1;
+        $('#bar-Pi').css("width", hours5 );
 /*
 	fam1 = Fam.new('AlphaFam', hours1);
 	fam2 = Fam.new('PhiFam', hours2);
