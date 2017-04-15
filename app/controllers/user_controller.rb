@@ -9,8 +9,8 @@ class UserController < ApplicationController
     end
         attendances = Attendance.where(user_id: @user.id)
 
-        @attendances = attendances.where("created_at >  ?", @quarter_cutoff )
-        @attendances.select do |atten|
+        #@attendances = attendances.where("created_at >  ?", @quarter_cutoff )
+        @attendances = attendances.select do |atten|
             Event.find(atten.event_id).start_time > @quarter_cutoff
         end
         @attended_events = @attendances.map{|x| Event.find(x.event_id)}
