@@ -10,7 +10,11 @@ class UserController < ApplicationController
         attendances = Attendance.where(user_id: @user.id)
 
         @attendances = attendances.where("created_at >  ?", @quarter_cutoff )
+        @attendances.select do |atten|
+            Event.find(atten.event_id).start_time > @quarter_cutoff
+        end
         @attended_events = @attendances.map{|x| Event.find(x.event_id)}
+       
     @events = @attended_events.any? ? @attended_events.group_by{|x| x.start_time.strftime("%m/%d (%A)")} : nil
     @events = @events.sort_by { |date, evt| date } if @events #events isnt null
         # how can I make this prettier
