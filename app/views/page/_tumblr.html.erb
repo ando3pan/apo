@@ -1,3 +1,4 @@
+<% if defined? pinned %>
 <% if pinned.any? %>
   <% pinned.each do |p| %>
   	<% if p["type"] == "text" %>
@@ -26,7 +27,7 @@
   	<% end %>
   <% end %>
 <% end %>
-
+<%end%>
 
 <% if posts.any? %>
   <% posts.each do |p| %>

@@ -3,7 +3,6 @@ class PageController < ApplicationController
   before_action :ensure_admin, only: [:admin, :approve, :settings]
   before_action :set_quarter_cutoff, only: [:home ]
   skip_before_action :verify_authenticity_token
-
   def home
     # WOW! UNSAFE! THESE KEYS ARE PRIVATE! LUCKY WE USE A PRIVATE REPO!
     if user_signed_in?
