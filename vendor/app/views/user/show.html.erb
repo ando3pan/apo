@@ -1,0 +1,99 @@
+<div class="container">
+	<div class="cover">
+		<div class="profile">
+			<div class="pf-pic"><%= image_tag "astro-pf.png" %></div>
+			<div><%= @user.displayname %></div> <span><%= @user.pledge_class %> <%= "(Eboard)" if @user.admin? %></span>
+		</div>
+	</div>
+	<div class="card-panel undercover">
+		<span>
+			<% if @user.membership_status.length > 0 %>
+				Membership: <%= @user.membership_status %>.
+			<% end %>
+			Joined <%= @user.created_at.strftime("%b %d, %Y") %>.
+		</span>
+
+    <% if current_user.admin %>
+      <%= link_to user_path(@user, toggle_admin: true) do %>
+        <div class="btn yellow darken-2 toggle-admin-btn">
+          <% if @user.admin %>
+            Remove as Admin
+          <% else %>
+            Make Admin
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+		<%= link_to update_user_path(@user) do %>
+			<div class="btn yellow darken-2">
+				Edit Profile
+			</div>
+		<% end %>
+	</div>
+	<div class="row">
+		<div class="col l4">
+			<div class="card-panel">
+				<h5>Requirements</h5>
+				<%= @hours %> service hours completed.<br />
+				<%= @flakehours %> hours flaked.<br />
+				<%= pluralize @fellowships, "fellowship" %> attended.
+				<div class="faded small-link">
+					<strong>These numbers are not necessarily accurate!</strong><br />
+					You must still track your own requirements.
+				</div>
+        <div class="btn-container">
+          <%= link_to greensheet_path(@user, :display => "current") do %>
+            <div class="btn green darken-1">
+              My Greensheet
+            </div>
+          <% end %>
+        </div>
+			</div>
+		</div>
+		<div class="col l4">
+			<div class="card-panel">
+    		<h5>My Events</h5>
+    		<% if !@events || @events.empty? %>
+					<div class="no-participants">
+						No events.
+					</div>
+    		<% else %>
+    			<%= render 'event/events_by_time', events: @events %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col l4">
+			<div class="card-panel">
+    		<h5>Attended Events</h5>
+    		<% events = @attendances %>
+    		<% if events.empty? %>
+					<div class="no-participants">
+						No events.
+					</div>
+    		<% else %>
+	    		<% events.select { |e| e.attended }.each do |a| %>
+    				<% e = Event.find(a.event_id) %>
+						<%= link_to e.title, event_path(e) %><br />
+					<% end %>
+					<% flaked_events = events.select { |e| e.flaked == true } %>
+					<% if flaked_events.any? %>
+						<h6>Flaked Events</h6>
+						<% flaked_events.each do |a| %>
+							<% e = Event.find(a.event_id) %>
+							<%= link_to e.title, event_path(e) %><br />
+						<% end %>
+					<% end %>
+					<% unchaired = events.select { |e| e.attended == nil } %>
+					<% if unchaired.any? %>
+						<h6>Waiting For Chairsheet</h6>
+						<% unchaired.each do |a| %>
+							<% e = Event.find(a.event_id) %>
+							<%= link_to e.title, event_path(e) %><br />
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

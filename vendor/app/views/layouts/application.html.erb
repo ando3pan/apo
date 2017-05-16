@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alpha Phi Omega Rho Pi</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <!-- Turbolinks needs to go in head -->
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+</head>
+<body>
+	<%= render 'layouts/header' %>
+	<% if flash.any? %>
+		<% flash.each do |name, msg| %>
+			<!-- render messages except the ones that have problems -->
+	    <%= content_tag :div, msg, class: "flash-wrapper", :id => "flash_#{name}" if msg.is_a?(String) && !msg.start_with?('translation') %>
+	  <% end %>
+	  <% flash.clear %> 
+	<% end %>
+
+	<%= yield %>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= yield :javascript %>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".button-collapse").sideNav();
+			$('select').material_select();
+		});
+	</script>
+</body>
+</html>

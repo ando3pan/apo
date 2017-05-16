@@ -1,0 +1,399 @@
+// Place all the styles related to the Page controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image: image-url("back.png");
+}
+
+.container {
+	margin-top: 40px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.separate {
+	margin: 20px 0;
+}
+
+.gap {
+	margin-bottom: 20px;
+}
+
+.gap-top {
+	margin-top: 20px;
+}
+
+.faded {
+	color: #999;
+}
+
+.small-link {
+	font-size: 0.8em;
+}
+
+.pledge-photos {
+	margin-top: 40px;
+
+	td {
+		background-color: white;
+		padding: 20px;
+		text-align: center;
+	}
+}
+
+/* Flash */
+.flash-wrapper {
+	font-size: 1.15em;
+	padding: 12px 0;
+	text-align: center;
+}
+
+#flash_alert {
+	background-color: #ef9a9a;
+}
+
+#flash_success {
+	background-color: #c8e6c9;
+}
+
+.hamburger-icon:before { content:'\2630'; }
+.hamburger-icon {
+	font-size: 2.5em;
+	margin-left: 20px;
+}
+
+.splash-back {
+	background-image: image-url("geisel.png");
+	background-size: cover;
+	height: 92vh;
+	padding-top: 20px;
+}
+
+.splash-back.stardust {
+	background-image: image-url("stardust.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.giftly {
+	background-image: image-url("giftly.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.sativa {
+	background-image: image-url("sativa.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.swirls {
+	background-image: image-url("swirls.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.paper {
+	background-image: image-url("handmadepaper.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.splash-back.blue-tile {
+	background-image: image-url("blueb.png");
+	background-repeat: repeat;
+	background-size: auto;
+	height: 100%;
+}
+
+.banner img {
+	box-shadow: 0px 4px 8px #999;
+	width: 100%;
+}
+
+.hero-text {
+	color: #FFE033;
+	font-size: 4em;
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin-top: 120px;
+	text-transform: uppercase;
+
+	p {
+		//color: #2855A3;
+		margin: 0;
+		margin-bottom: -30px;
+	}
+
+	span {
+		color: #FFF;
+		font-size: 0.35em;
+		font-weight: 400;
+		letter-spacing: 2px;
+	}
+}
+
+.cd-words-wrapper {
+	display: inline-block;
+	position: relative;
+	text-align: left;
+
+	b {
+		display: inline-block;
+		position: absolute;
+		white-space: nowrap;
+		left: 0;
+		top: 0;
+
+		&.is-visible {
+			position: relative;
+		}
+	}
+
+	.no-js & b {
+		opacity: 0;
+
+		&.is-visible {
+			opacity: 1;
+		}
+
+	}
+}
+
+.cd-headline {
+	color: #FFF;
+	font-size: 1.43em;
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+
+	span {
+		display: inline-block;
+		padding: .2em 0;
+	}
+
+	.cd-words-wrapper {
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		overflow: hidden;
+		vertical-align: top;
+
+		&::after {
+			/* line */
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 2px;
+			height: 100%;
+			background-color: #FFF;
+		}
+	}
+
+	b {
+		opacity: 0;
+		top: .2em;
+
+		&.is-visible {
+			top: 0;
+			opacity: 1;
+		}
+	}
+}
+
+.welcome {
+	color: #FFF;
+	font-size: 2.5em;
+	font-weight: 400;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.calendar-link {
+	font-size: 2.5rem;
+	font-weight: 300;
+	height: 70px;
+	padding: 8px;
+	width: 100%;
+
+	a {
+		color: #FFF;
+	}
+
+	img {
+		position: relative;
+		top: 6px;
+	}
+}
+
+.calendar-container {
+	margin: 24px;
+}
+
+/* Admin panel */
+.action-link {
+	font-size: 0.9rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.admin-card {
+	img {
+		height: 120px;
+		margin-bottom: 20px;
+	}
+	min-height: 220px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+.centered-title {
+	color: #FFF;
+	font-size: 2.85em;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+/* Admin Settings */
+input.date-setting {
+    width: 200px;
+    margin-left: 10px;
+}
+
+.setting-title {
+    margin-left: 20px;
+}
+
+.row.setting {
+    margin-bottom: -20px;
+}
+
+/* Approve page */
+.unapproved-users {
+	padding: 12px;
+}
+
+.unapproved-user {
+	margin: 8px 0;
+	padding: 8px 4px;
+
+	label {
+		font-size: 0.9rem;
+	}
+
+	&:nth-child(even) {
+		background-color: #F7F7F7;
+	}
+}
+
+/* Event Page */
+.event-date {
+	color: #9E9E9E;
+	font-size: 0.9em;
+	margin-top: 12px;
+	text-transform: uppercase;
+}
+
+/* Tumblr */
+.announcement-time {
+	color: #AAA;
+	font-size: 0.8rem;
+	margin-right: 14px;
+	margin-bottom: 12px;
+	text-align: right;
+}
+
+.announcement-image {
+	max-height: 300px;
+	overflow: hidden;
+}
+
+/* Home page */
+.gbm {
+	.card-title {
+		font-size: 2.8em;
+	}
+
+	.card-content {
+		color: #333;
+		line-height: 1em;
+		padding: 0 18px;
+	}
+}
+
+/** Appreciations page */
+div.appreciations{
+  h3 {
+    color: #ededed;
+  }
+
+  .announcement-image{
+      max-height: initial;
+  }
+}
+
+/** Service hour graph */
+#service-hours-panel {
+    p, .bar {
+        display: inline-block;
+    }
+
+    span {
+        float: right;
+    }
+
+    p {
+        margin: 5px 0px;
+    }
+
+    .bar{
+
+        height: 10px;
+        background-color: black;
+    }
+
+    #bar-Alpha {
+        background-color: #fbc02d;
+    }
+    #bar-Omega{
+        background-color: #0d47a1;
+    }
+    #bar-Phi {
+        background-color: #7B1FA2;
+    }
+    #bar-Rho {
+        background-color: #c62828;
+    }
+    #bar-Pi {
+        background-color: #388e3c;
+    }
+}
+
+/* Media queries */
+
+@media only screen and (max-width: 601px) {
+	.container {
+		padding: 0 8px;
+		width: 100%;
+	}
+
+	.brand-logo img {
+		height: 40px;
+		width: 40px;
+		vertical-align: middle;
+	}
+}

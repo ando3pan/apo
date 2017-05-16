@@ -1,0 +1,111 @@
+<div class="container row">
+  <div class="col s12 l6 offset-l3 card-panel">
+    <div class="text-center separate">
+      <%= image_tag "calendar.png" %>
+    </div>
+    <% if @action == "Create" %>
+      <div class="form-title">
+        New Event
+      </div>
+      <div class="form-descrip gap">
+        Create a new event.
+      </div>
+    <% else %>
+      <div class="form-title">
+        Update Event
+      </div>
+      <div class="form-descrip gap">
+        Editing: <%= @event.title %>
+      </div>
+    <% end %>
+    <%= form_for(@event, url: new_event_path, method: :post) do |f| %>
+    <div class="input-field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title, class: "validate", placeholder: "Playing With Puppies" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :start_time %><br />
+      <%= f.datetime_local_field :start_time, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :end_time %><br />
+      <%= f.datetime_local_field :end_time, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :location, "Location" %>
+      <%= f.text_field :location, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :address, "Address (for Google Maps, optional)" %>
+      <%= f.text_field :address, class: "validate" %>
+    </div>
+    <div class="input-field event-selector">
+      <% if @copy %>
+        <% options = [@copy.event_type, "Fellowship", "Service", "Fundraising", "Interchapter",
+          "Alumni", "Meeting", "Rush", "Alpha", "Phi", "Omega", "Rho", "Pi", "Other"].uniq %>
+      <% else %>
+        <% options = ["Fellowship", "Service", "Fundraising", "Interchapter",
+          "Alumni", "Meeting", "Rush", "Alpha", "Phi", "Omega", "Rho", "Pi", "Other"] %>
+      <% end %>
+      <%= f.select(:event_type, options_for_select(options))%>
+      <%= f.label :event_type, "Event Type" %>
+    </div>
+
+    <div id="for-service">
+      <div class="input-field">
+        <%= f.label :hours, "Hours/Credits" %>
+        <%= f.number_field :hours, class: "validate", step: 'any', min: '0'  %>
+      </div>
+      <div class="input-field">
+        <%= f.label :driver_hours, "Driver's Hours" %>
+        <%= f.number_field :driver_hours, class: "validate", step: 'any', min: '0'  %>
+      </div>
+      <div class="input-field">
+        <%= f.label :distance, "Event's Distance in Miles (from SGL, for gas calculation)" %>
+        <%= f.text_field :distance, class: "validate" %>
+      </div>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :info, "Information" %>
+      <%= f.text_area :info, class: "materialize-textarea validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :contact, "Contact Information" %>
+      <%= f.text_field :contact, class: "validate" %>
+    </div>
+    <div class="input-field">
+      <%= f.label :attendance_cap, "Attendance Cap (-1 for unlimited)" %><br />
+      <%= f.number_field :attendance_cap, class: "validate", placeholder: 0  %>
+    </div>
+    <div class="input-field">
+      <%= f.check_box :off_campus %>
+      <%= f.label :off_campus, "Needs Driver (For off campus events)" %>
+    </div><br />
+    <div class="input-field">
+      <%= f.check_box :flake_penalty %>
+      <%= f.label :flake_penalty %>
+    </div><br />
+    <div class="input-field">
+      <%= f.check_box :public %>
+      <%= f.label :public %>
+    </div><br /><br />
+    <% if @copy == nil %>
+      <div class="input-field">
+         <label for="disabled">Creator</label>
+         <input disabled value=<%= current_user.username %> id="disabled" type="text" class="validate">
+      </div>
+    <% end %>
+    <div style="display: none;">
+      <% if @copy == nil %>
+        <%= f.number_field :user_id, value: current_user.id  %>
+      <% end %>
+      <%= f.text_field :action, value: @action %>
+      <%= f.number_field :id, value: @event.id %>
+    </div>
+
+    <div class="text-center gap">
+      <%= f.submit @action, class: "btn yellow darken-2 center" %>
+    <% end %>
+  </div>
+</div>

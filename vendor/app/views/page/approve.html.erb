@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="row">
+		<div class="col s12 m8 offset-m2">
+			<div class="card-panel">
+				<div class="text-center separate">
+		      <%= image_tag "pin.png" %>
+		    </div>
+		    <div class="form-title">
+		      Approve New Users
+		    </div>
+		    <div class="unapproved-users">
+		    	<% if @users.any? %>
+		    	  <div class="form-card">
+    					<form action="/admin/approve" method="POST">
+				    		<% @users.each_with_index do |u, i| %>
+				    			<div class="row unapproved-user">
+				    				<div class="col s6">
+				    					<%= "#{u.firstname} #{u.lastname}" %>
+				    				</div>
+				    				
+				    				<div class="col s3">
+						          <input type="checkbox" class="<%= "c-app c-id-#{i}" %>" id=<%= "app-#{i}" %> name=<%= "[u][#{u.id}]approved" %> />
+				      				<label for=<%= "app-#{i}" %>>Approve</label>
+						        </div>
+						        <div class="col s3">
+						          <input type="checkbox" class="<%= "c-app c-id-#{i}" %>" id=<%= "rej-#{i}" %> name=<%= "[u][#{u.id}]rejected" %> />
+				      				<label for=<%= "rej-#{i}" %>>Reject</label>
+						        </div>
+				    			</div>
+			    			<% end %>
+			    			<div class="text-center separate">
+					    		<button type="submit" class="waves-effect waves-light btn yellow darken-2" id="submit">
+							  		Approve
+							  	</button>
+							  </div>
+			    		</form>
+			    	</div>
+		    	<% else %>
+		    		<h5 class="faded text-center">No pending users.</h5>
+		    	<% end %>
+		    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+	// prevent selecting multiple chairs
+	$('input.c-app').on('change', function() {
+		var num = $(this).attr('id').split("-")[1]
+	  $('input.c-id-'+num).not(this).prop('checked', false);  
+	});
+</script>
+<% end %>

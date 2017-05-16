@@ -1,0 +1,92 @@
+// Place all the styles related to the Forum controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$comment-width: 500px;
+
+.forum{
+    &.container{
+        margin: 40px auto;
+    }
+
+    h1 {
+        margin: 0;
+        text-align: center;
+    }
+
+    td {
+        padding: 5px;
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+
+    td,tr,table {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    th {
+        background-color: #0288d1;
+        color: white;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .forum-table{
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    //posts that should be locked to normal ppl
+    .eboard-only{
+        background-color: #f0f0f0;
+    }
+
+    .created-by{
+        font-size: 12px;
+    }
+
+    .button{
+        text-align: center;
+        display: inline-block;
+    }
+
+    .top-margin{
+        margin-top: 10px;
+    }
+
+    .right-button{
+        float: right;
+    }
+        
+    .inline{
+        display: inline-block;
+    }
+
+    .comment{
+        width: $comment-width;
+    }
+
+    //put them on the same line
+    h5, .material-icons{
+        display: inline-block;
+    }
+
+    //for the forum comments
+    pre{
+        font-family: "Robot", sans-serif;
+        width: $comment-width;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+}
+
+@media only screen and (max-device-width:600px){
+    .forum pre {
+        width: initial;
+    }
+}

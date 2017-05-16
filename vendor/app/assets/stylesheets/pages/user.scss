@@ -1,0 +1,197 @@
+// Place all the styles related to the User controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.form-card {
+	padding: 0 12%;
+}
+
+/* Profile pages */
+.cover {
+	background-image: image-url("palms.png");
+	background-size: cover;
+	background-position: 0 80%;
+	height: 300px;
+}
+
+.profile {
+	color: #FFF;
+	position: relative;
+	left: 20px;
+	top: 130px;
+
+	div {
+		display: inline-block;
+		font-size: 3em;
+		margin: 0 12px;
+	}
+
+	span {
+		text-transform: uppercase;
+	}
+}
+
+.pf-pic {
+	border: 4px solid #FFF;
+	height: 150px;
+	width: 150px;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	top: 60px;
+
+	img {
+		width: 100%;
+	}
+}
+
+.card-panel.undercover {
+	margin-top: 0;
+	padding-left: 210px;
+
+	span {
+		color: #888;
+		font-size: 0.9em;
+		font-style: italic;
+	}
+
+	.btn {
+		margin-top: -8px;
+		font-size: 0.9em;
+		float: right;
+	}
+}
+
+.no-overflow {
+	overflow: visible;
+}
+
+.with-select {
+	.select-wrapper {
+		margin-top: -10px;
+		margin-bottom: -10px;
+	}
+}
+
+.btn-container {
+	margin: 10px;
+	text-align: center;
+}
+
+/* greensheet */
+.card-panel .reqs {
+
+    div:nth-child(3) { //hours
+        width: 40px;
+    }
+
+    div:nth-child(2) { //date
+        width: 140px;
+    }
+
+    div:nth-child(1) { //title
+        width: 150px;
+    }
+
+    div {
+        display: inline-block;
+        //if disabled input
+        input.disabled {
+            color: #555555;
+        }
+    }
+
+}
+
+.last-updated{
+    font-style: italic;
+}
+
+.gsheet {
+    background-color: green;
+    color: green;
+    float: right;
+}
+
+.counters {
+    cursor: default;
+}
+
+.requirement-counter {
+    display: inline-block;
+    color: white;
+    padding: 5px 10px;
+}
+
+//dropdown for misc rush events
+.hover-rush {
+    margin: 0px;
+    padding: 0px;
+
+    ul {
+        position: absolute;
+
+        .extra {
+            display: none;
+            position: relative;
+            top: -25px;
+            z-index: 1;
+            width: 150px;
+            font-size: 15px;
+            margin: 0;
+            border: 1px solid black;
+        }
+    }
+
+    &:hover {
+        p {
+            background-color: #ffffcc;
+            color: #ff884d;
+        }
+    
+        ul .extra{
+            display: block;
+        }
+    }
+}
+
+//no color for generic family in event.css
+.family {
+    background-color: #ff5a5a
+}
+
+.card-panel.comment {
+    * {
+        display: inline-block;
+        margin: 0px auto;
+    }
+
+    h5 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}
+
+input.self-chaired {
+    background-color: #ffff99;
+}
+
+.submit-btn {
+    margin: 0 auto 40px auto;
+    width: 200px;
+    height: 50px;
+    font-weight: bold;
+    display: block;
+    color: white;
+    background-color: #43A047;
+    border: 1px solid black;
+    font-size: 30px;
+}
+
+.toggle-admin-btn{
+    margin-left: 10px;
+}

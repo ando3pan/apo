@@ -1,0 +1,300 @@
+// Place all the styles related to the Event controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.event-title {
+	color: #FFF;
+	text-align: center;
+
+	p {
+		font-size: 0.9rem;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+}
+
+.splash {
+	background-color: #555;
+}
+
+/* Event Types */
+
+.service {
+	background-color: #3949AB;
+
+	&.splash {
+		background-image: image-url("blue.png");
+		background-size: cover;
+		background-position: 50%;
+		//background-attachment: fixed;
+		p {
+			color: #D0D5F2;
+		}
+	}
+}
+
+.fellowship {
+	background-color: #5E35B1;
+
+	&.splash {
+		background-image: image-url("purple.png");
+		background-attachment: fixed;
+		background-position: 0 -120%;
+		p {
+			color: #D0C0F0;
+		}
+	}
+}
+
+.fundraising {
+	background-color: #388E3C;
+	p {
+		color: #C5E8C7;
+	}
+}
+
+.interchapter {
+	background-color: #65A8B8;
+
+	&.splash {
+		background-color: #65A8B8;
+	}
+}
+
+.rush {
+	background-color: #C78C42;
+
+	&.splash {
+		background-color: #C78C42;
+	}
+}
+
+.alpha {
+	background-color: #fbc02d;
+
+	&.splash {
+		background-color: #fbc02d;
+	}
+}
+
+.phi {
+	background-color: #7B1FA2;
+
+	&.splash {
+		background-color: #7B1FA2;
+	}
+}
+
+.omega {
+	background-color: #0d47a1;
+
+	&.splash {
+		background-color: #0d47a1;
+	}
+}
+
+.rho {
+	background-color: #c62828;
+
+	&.splash {
+		background-color: #c62828;
+	}
+}
+
+.pi {
+	background-color: #388e3c;
+
+	&.splash {
+		background-color: #388e3c;
+	}
+}
+
+#map-canvas {
+	height: 220px;
+}
+
+.card-action {
+	text-transform: uppercase;
+
+	span {
+		color: #777;
+	}
+}
+
+.border-bottom {
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.event-descrip {
+	color: #777;
+	text-transform: uppercase;
+
+	span {
+		color: #333;
+		font-weight: 600;
+	}
+}
+
+.e-time-offset {
+	margin-left: 17px;
+}
+
+.event-signup {
+	font-size: 1.1em;
+	width: 100%;
+}
+
+.signup-title {
+	color: #FFF;
+	padding: 4px;
+	text-align: center;
+}
+
+.border-top {
+	padding-top: 20px;
+	border-top: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.signup-sheet {
+	padding: 15px;
+
+	h4 {
+		color: #FFF;
+	}
+}
+
+.no-participants {
+	color: #AAA;
+	font-size: 1.5em;
+}
+
+/* Chairsheet stuff */
+.aside-counter {
+	color: #888;
+	display: inline-block;
+	font-size: 0.9em;
+	position: relative;
+	top: 28px;
+}
+
+.attendance-options {
+	label {
+		font-size: 0.9em !important;
+	}
+	position: relative;
+	top: -45px;
+	margin-bottom: -35px;
+}
+
+.attendee:nth-child(even) {
+	background-color: #F7F7F7;
+	padding: 12px 0;
+}
+
+.extra-descrip {
+	color: #888;
+	font-style: italic;
+}
+
+.chairsheet-updated {
+	color: #888;
+	font-size: 0.8em;
+	font-style: italic;
+}
+
+.callout {
+	color: #333;
+	display: inline-block;
+	margin: 0 auto;
+	margin-top: 8px;
+	padding: 12px;
+}
+
+/* Calendar */
+.calendar-filters {
+	display: inline-block;
+	text-transform: uppercase;
+}
+
+.fc-time {
+	font-weight: 400 !important;
+}
+
+.fc-title {
+	font-weight: bold;
+}
+
+.fc-event-descrip {
+	font-size: 0.9em;
+	font-weight: 400;
+	opacity: 0.65;
+}
+
+.fc-event-type {
+	font-size: 0.8em;
+	opacity: 0.65;
+	text-transform: uppercase;
+}
+
+.fc-day-grid-event > .fc-content {
+   white-space: normal !important;
+   overflow: visible !important;
+   padding: 5px;
+}
+
+.fc-left h2 {
+	font-size: 2.6rem;
+	max-width: 400px;
+}
+
+.fc-view-container {
+	overflow: visible !important;
+}
+
+/* Meeting */
+.meeting-input {
+	display: inline-block;
+	margin-bottom: 20px;
+	width: 80%;
+}
+
+#meeting-roster {
+	margin-bottom: 40px;
+}
+
+/* AUTOCOMPLETE */
+span.ui-helper-hidden-accessible {
+    display: none;
+}
+
+.user-search .results .ui-widget-content {
+    background: #fdfdfd;
+    border-color: #ddd;
+    box-shadow: 0 .1em .2em rgba(187, 187, 187, 0.64);
+    max-height: 20em;
+    overflow: hidden;
+    overflow-y: auto;
+    top: 10px;
+}
+
+//to take out results from page flow
+.remove-flow{
+    position: absolute;
+}
+
+.user-search .results .ui-menu-item {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    padding: 10px 0px;
+    //position: absolute;
+    position: relative;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover{
+        background-color: #dddddd;
+    }
+}
