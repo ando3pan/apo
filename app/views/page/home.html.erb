@@ -97,9 +97,6 @@
 
                 <h5>Service</h5>
                 <%= link_to "Appreciations", appreciations_path %><br />
-                
-                
-                
                 <%= link_to 'Going to / Chairing a  Service Event',
                   'https://docs.google.com/document/d/1uetgRmhscqQaCPGOkjxKFrKz7Tj4LvBSU5d-vXMYcjw/edit?usp=sharing', target: '_blank' %><br />
                 <%= link_to 'Service Situations / Policies',
@@ -109,10 +106,8 @@
                 <%= link_to 'Service Suggestions' ,
                   'https://goo.gl/forms/waOfGxlrAJtCuO6H3',
                   target: '_blank' %><br />
-                  
-                  <%= link_to 'Outside Service Hours Form' ,
+                <%= link_to 'Outside Service Hours Form' ,
                   'https://docs.google.com/forms/d/e/1FAIpQLScUYvLgVtA9fyVF16JqqRETC56KD6bBwpcBQ0L4hG2pk33LQA/viewform?c=0&w=1', target: '_blank' %><br />
-                  
                 
                 <h5>Finance</h5>
                 <%= link_to 'Reimbursement Policies',
@@ -149,7 +144,6 @@
                   <%fams = ["Alpha", "Phi", "Omega", "Rho", "Pi"].sort_by{|fam| -@hours[fam]}%>
                   
                 <% fams.each do |fam| %>
-                
                 
                   <br/>
                   <p>&<%= fam %>;: </p><br/><div id="bar-<%= fam %>" class="bar"></div>
