@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card-panel center">
-    <h3>Beta Beta Pledge Class</h3>
+    <h3>Beta Gamma Pledge Class</h3>
   </div>
 </div>
 
@@ -8,83 +8,72 @@
   <table align="center">
     <tr>
       <% count = 0 %>
-      <% arr =['Aaron Lok',
-'Adeline Chiang',
-'Andy Hoang',
-'Angel Gao',
-'Annie Chen',
-'Ashlyn Youn',
-'Branden Teguh',
-'Brandon Hong',
-'Bruce Wong',
-'Carmen Tin',
-'Chanel Tonnu',
-'Charles Lo',
-'Danielle Kim',
-'Donald Truong',
-'Elizabeth Ortiz',
-'Elizabeth Tang',
-'Eric Perez',
-'Eva Hu',
-'Evelyn Ngo',
-'Ferdinand Creencia',
-'Glendy Yeung',
-'Gloria Zhang',
-'Hannah Bodeau',
-'Irene Sun',
-'Iris Chan',
-'Jennifer Gunardi',
-'Jennifer Koong',
-'Jiaqi Wu',
-'Joanne Sun',
-'John Lieu',
-'Johnny Ha',
-'Karrin Huang',
-'Kevin Moyung',
-'Kevin Nocum',
-'Kevin Tsai',
-'Lancelot Huang',
-'Lucien Hsu',
-'Marissa Vito',
-'Mary Liang',
-'Mason Zhu',
-'Monica Leung',
-'Nichakarn Ratanaphaithun',
-'Perry Liu',
-'Quinn Truong',
-'Tim Lee',
-'Sharon Tu',
-'Shiv Dattani',
-'Shorwei Gong',
-'Thomas Lee',
-'Thu Quynh Nguyen',
-'Tiffany Wang',
-'Timothy Phuong',
-'Vincent Nguyen',
-'Vy Ngo',
-'Will Xu',
-'Yilong Mo',
-'Young JinYun',
-'Yuhong Zhang',
-'Yulim Lee']%>
+      <% arr = ['Alice Ghai',
+                'Alonzo Escalante',
+                'Andrew Kim',
+                'Angela Qian',
+                'Ashley Tu',
+                'Ashlyn Youn',
+                'Brandon Garcia',
+                'Brett Valdeabella',
+                'Camryn Cezar',
+                'Charles Chang',
+                'Charley Bi',
+                'Clair Ng',
+                'Diego Valverde',
+                'Elizabeth Harrington',
+                'Evelyn Ngo',
+                'Grace Lee',
+                'Isabella Lee',
+                'Jacob Hohn',
+                'Jared Suasimn',
+                'Jason He',
+                'Jennie Nguyen',
+                'Jennifer Dinh',
+                'Jidanus Jelatianranat',
+                'Jon Ngo',
+                'Jonathan Tao',
+                'Josh Kuang',
+                'Joshua Kim',
+                'Joshua Paz',
+                'Joy Guo',
+                'Justin Dingeman',
+                'Ken Truong',
+                'Kevin Yu',
+                'Kim Le',
+                'Leilah Clark',
+                'Marjorie Tolentino',
+                'Mary Chung',
+                'Matthew Lum',
+                'Michelle Lee',
+                'Reggie Wu',
+                'Richard Tang',
+                'Sally U',
+                'Sang Hyun Lee',
+                'Stefan Vo',
+                'Stepahnie Kim',
+                'Tammy Chen',
+                'Thang Hoang',
+                'Vicky Mak',
+                'Victor Wu',
+                'Weicong Chen',
+                'Yaelin Choi',
+                'Yana Reyes',
+                'Yiyun Kong',
+                'Zac Meng']%>
       <% arr.each do |pledge| %>
         <% if count % 4 == 0 %>
           <tr>
         <% end %>
         <td><img 
-        src="<%= 'https://dl.dropboxusercontent.com/u/25146178/Pledge%20Pictures/'+pledge.gsub(/\s+/, "")+".JPG"%>"
-			  width="200"/> <br /><%= pledge %></td>
+        src="<%= '/rhopi/app/assets/images/Pledge/'+pledge+".JPG"%>" 
+        width="200"/> <br /><%= pledge %></td>
 			  
 			  <% if count % 4 == 3 %>
           </tr>
         <% end %>
         <% count = count + 1 %>
       <% end %>
-      
-      
     </tr>
-
-    
-
     </table>
 </div>
