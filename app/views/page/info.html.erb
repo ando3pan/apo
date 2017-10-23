@@ -19,8 +19,7 @@
                 'Camryn Cezar',
                 'Charles Chang',
                 'Charley Bi',
-                'Clair Ng',
-                'Diego Valverde',
+                'Claire Ng',
                 'Elizabeth Harrington',
                 'Evelyn Ngo',
                 'Grace Lee',
@@ -30,7 +29,7 @@
                 'Jason He',
                 'Jennie Nguyen',
                 'Jennifer Dinh',
-                'Jidanus Jelatianranat',
+                'Mook Jelatianranat',
                 'Jon Ngo',
                 'Jonathan Tao',
                 'Josh Kuang',
@@ -51,7 +50,7 @@
                 'Sally U',
                 'Sang Hyun Lee',
                 'Stefan Vo',
-                'Stepahnie Kim',
+                'Stephanie Kim',
                 'Tammy Chen',
                 'Thang Hoang',
                 'Vicky Mak',
@@ -60,14 +59,12 @@
                 'Yaelin Choi',
                 'Yana Reyes',
                 'Yiyun Kong',
-                'Zac Meng']%>
+                'Zachary Meng']%>
       <% arr.each do |pledge| %>
         <% if count % 4 == 0 %>
           <tr>
         <% end %>
-        <td><img 
-        src="<%= '../../assets/images/Pledge/'+pledge+".jpg"%>"
-        width="200"/> <br /><%= pledge %></td>
+        <td> <% image_tag('../../assets/images/Pledge/'+pledge+'.jpg', width="200" )%> <br /><%= pledge %></td>
 			  
 			  <% if count % 4 == 3 %>
           </tr>
