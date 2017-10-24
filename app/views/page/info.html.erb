@@ -15,76 +15,244 @@
 <div class="container">
   <div class="card-panel center">
     <div class="pledge-photos">
-      <!-- Pledge Hashmap -->
-      <% pledge = {
-        "Alice Ghai": "https://i.imgur.com/TgWPo0Z.jpg",
-        "Alonzo Escalante": "https://i.imgur.com/vHjdjr7.jpg",
-        "Angela Qian": "https://i.imgur.com/2sC5mTl.jpg",
-        "Ashley Tu": "https://i.imgur.com/eNRDiPx.jpg",
-        "Ashlyn Youn": "https://i.imgur.com/NRmE7t5.jpg",
-        "Brandon Garcia": "https://i.imgur.com/7mIRudR.jpg",
-        "Brett Valdeabella": "https://i.imgur.com/RhHPfsP.jpg",
-        "Camryn Cezar": "https://i.imgur.com/EVsrIDc.jpg",
-        "Charles Chang": "https://i.imgur.com/afUcuOy.jpg",
-        "Charley Bi": "https://i.imgur.com/IimTgED.jpg",
-        "Claire Ng": "https://i.imgur.com/8gTx9Ku.jpg",
-        "Elizabeth Harrington": "https://i.imgur.com/7wWpqn2.jpg",
-        "Evelyn Ngo": "https://i.imgur.com/9yHE3Ed.jpg",
-        "Grace Lee": "https://i.imgur.com/8yfzLFH.jpg",
-        "Isabella Lee": "https://i.imgur.com/wGOFkii.jpg",
-        "Jacob Hohn": "https://i.imgur.com/aHmqlnr.jpg",
-        "Jared Suasin": "https://i.imgur.com/Y42wSoY.jpg",
-        "Jason He": "https://i.imgur.com/GGVBqWc.jpg",
-        "Jennie Nguyen": "https://i.imgur.com/U9TzkJG.jpg",
-        "Jennifer Dinh": "https://i.imgur.com/UceHhUE.jpg",
-        "Jidanus Jelatianranat": "https://i.imgur.com/Wyb06re.jpg",
-        "Jon Ngo": "https://i.imgur.com/Ss5MGO3.jpg",
-        "Jonathan Tao": "https://i.imgur.com/7TF78O2.jpg",
-        "Josh Kuang": "https://i.imgur.com/1x2OLCr.jpg",
-        "Joshua Kim": "https://i.imgur.com/jsMvMoW.jpg",
-        "Joshua Paz": "https://i.imgur.com/y3JoudT.jpg",
-        "Joy Guo": "https://i.imgur.com/qcZXY93.jpg",
-        "Justin Dingeman": "https://i.imgur.com/AmJmHPx.jpg",
-        "Ken Truong": "https://i.imgur.com/Ub2QFI1.jpg",
-        "Kevin Yu": "https://i.imgur.com/PGWAq5M.jpg",
-        "Kim Le": "https://i.imgur.com/DqT4rBi.jpg",
-        "Leilah Clark": "https://i.imgur.com/EqDxW8X.jpg",
-        "Marjorie Tolentino": "https://i.imgur.com/HcJPmaW.jpg",
-        "Mary Chung": "https://i.imgur.com/XggN44Y.jpg",
-        "Matthew Lum": "https://i.imgur.com/uWVxF2a.jpg",
-        "Michelle Lee": "https://i.imgur.com/MWzPsuS.jpg",
-        "Reggie Wu": "https://i.imgur.com/bfytV8R.jpg",
-        "Richard Tang": "https://i.imgur.com/316rKes.jpg",
-        "Sally U": "https://i.imgur.com/rSVlJHb.jpg",
-        "Sang Hyun Lee": "https://i.imgur.com/jinxl8C.jpg",
-        "Stephanie Kim": "https://i.imgur.com/XkEb6GM.jpg",
-        "Tammy Chen": "https://i.imgur.com/zyT5zcP.jpg",
-        "Thang Hoang": "https://i.imgur.com/GZKr3Rb.jpg",
-        "Vicky Mak": "https://i.imgur.com/fTcchEX.jpg",
-        "Victor Wu": "https://i.imgur.com/Fa31CTa.jpg",
-        "Weicong Chen": "https://i.imgur.com/43yGs5P.jpg",
-        "Yaelin Choi": "https://i.imgur.com/FXMSS6a.jpg",
-        "Yana Reyes": "https://i.imgur.com/be4ikcN.jpg",
-        "Yiyun Kong": "https://i.imgur.com/1TTtjRD.jpg",
-        "Zachary Meng": "https://i.imgur.com/Y13omFW.jpg"} %>
-      
-      <% count = 0 %>
-      <% pledge.each do |name, link| %>
-        <% if count % 4 == 0 %>
-          <div class="row">
-        <% end %>
-        
+      <div class="row">
         <div class="col s3">
-          <img class="responsive-img" src="<% link %>"/>
-          <h6 style="text-align: center"><% name %></h6>
+          <img class="responsive-img" src="https://i.imgur.com/TgWPo0Z.jpg">
+          <h6 style="text-align: center">Alice Ghai</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/vHjdjr7.jpg">
+          <h6 style="text-align: center">Alonzo Escalante</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/2sC5mTl.jpg">
+          <h6 style="text-align: center">Angela Qian</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/eNRDiPx.jpg">
+          <h6 style="text-align: center">Ashley Tu</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/NRmE7t5.jpg">
+          <h6 style="text-align: center">Ashlyn Youn</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/7mIRudR.jpg">
+          <h6 style="text-align: center">Brandon Garcia</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/RhHPfsP.jpg">
+          <h6 style="text-align: center">Brett Valdeabella</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/EVsrIDc.jpg">
+          <h6 style="text-align: center">Camryn Cezar</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/afUcuOy.jpg">
+          <h6 style="text-align: center">Charles Chang</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/IimTgED.jpg">
+          <h6 style="text-align: center">Charley Bi</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/8gTx9Ku.jpg">
+          <h6 style="text-align: center">Claire Ng</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/7wWpqn2.jpg">
+          <h6 style="text-align: center">Elizabeth Harrington</h6>
         </div>
         
-        <% if count % 4 == 3 %>
-          </div>
-        <% end %>
-        
-        <% count = count + 1 %>
-      <% end %>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/9yHE3Ed.jpg">
+          <h6 style="text-align: center">Evelyn Ngo</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/8yfzLFH.jpg">
+          <h6 style="text-align: center">Grace Lee</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/wGOFkii.jpg">
+          <h6 style="text-align: center">Isabelle Lee</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/aHmqlnr.jpg">
+          <h6 style="text-align: center">Jacob Hohn</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Y42wSoY.jpg">
+          <h6 style="text-align: center">Jared Suasin</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/GGVBqWc.jpg">
+          <h6 style="text-align: center">Jason He</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/U9TzkJG.jpg">
+          <h6 style="text-align: center">Jennie Nguyen</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/UceHhUE.jpg">
+          <h6 style="text-align: center">Jennifer Dinh</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Wyb06re.jpg">
+          <h6 style="text-align: center">Jidanus Jelatianranat</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Ss5MGO3.jpg">
+          <h6 style="text-align: center">Jon Ngo</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/7TF78O2.jpg">
+          <h6 style="text-align: center">Jonathan Tao</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/1x2OLCr.jpg">
+          <h6 style="text-align: center">Josh Kuang</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/jsMvMoW.jpg">
+          <h6 style="text-align: center">Joshua Kim</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/y3JoudT.jpg">
+          <h6 style="text-align: center">Joshua Paz</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/qcZXY93.jpg">
+          <h6 style="text-align: center">Joy Guo</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/AmJmHPx.jpg">
+          <h6 style="text-align: center">Justin Dingeman</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Ub2QFI1.jpg">
+          <h6 style="text-align: center">Ken Truong</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/PGWAq5M.jpg">
+          <h6 style="text-align: center">Kevin Yu</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/DqT4rBi.jpg">
+          <h6 style="text-align: center">Kim Le</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/EqDxW8X.jpg">
+          <h6 style="text-align: center">Leilah Clark</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/HcJPmaW.jpg">
+          <h6 style="text-align: center">Marjorie Tolentino</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/XggN44Y.jpg">
+          <h6 style="text-align: center">Mary Chung</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/uWVxF2a.jpg">
+          <h6 style="text-align: center">Matthew Lum</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/MWzPsuS.jpg">
+          <h6 style="text-align: center">Michelle Lee</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/bfytV8R.jpg">
+          <h6 style="text-align: center">Reggie Wu</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/316rKes.jpg">
+          <h6 style="text-align: center">Richard Tang</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/rSVlJHb.jpg">
+          <h6 style="text-align: center">Sally U</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/jinxl8C.jpg">
+          <h6 style="text-align: center">Sang Hyun Lee</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/XkEb6GM.jpg">
+          <h6 style="text-align: center">Stephanie Kim</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/zyT5zcP.jpg">
+          <h6 style="text-align: center">Tammy Chen</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/GZKr3Rb.jpg">
+          <h6 style="text-align: center">Thang Hoang</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/fTcchEX.jpg">
+          <h6 style="text-align: center">Vicky Mak</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Fa31CTa.jpg">
+          <h6 style="text-align: center">Victor Wu</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/43yGs5P.jpg">
+          <h6 style="text-align: center">Weicong Chen</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/FXMSS6a.jpg">
+          <h6 style="text-align: center">Yaelin Choi</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/be4ikcN.jpg">
+          <h6 style="text-align: center">Yana Reyes</h6>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/1TTtjRD.jpg">
+          <h6 style="text-align: center">Yiyun Kong</h6>
+        </div>
+        <div class="col s3">
+          <img class="responsive-img" src="https://i.imgur.com/Y13omFW.jpg">
+          <h6 style="text-align: center">Zachary Meng</h6>
+        </div>
+      </div>
     </div>
   </div>
 </div>
