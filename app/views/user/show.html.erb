@@ -6,7 +6,9 @@
 					<%= image_tag "https://i.imgur.com/6GZIO7X.png" %> 
 				<% elsif @user.firstname == 'Ashlyn' %>
 					<%= image_tag "https://i.imgur.com/w9MQpHz.png" %>
-				<% else%>
+				<% elsif @user.admin %>
+					<%= image_tag "https://i.imgur.com/E0moGBZ.png" %>
+				<% else %>
 					<%= image_tag "astro-pf.png" %>
 				<% end %>
 				</div>
