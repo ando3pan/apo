@@ -8,6 +8,10 @@
 					<%= image_tag "https://i.imgur.com/w9MQpHz.png" %>
 				<% elsif @user.admin %>
 					<%= image_tag "https://i.imgur.com/E0moGBZ.png" %>
+				<% elsif @user.firstname == 'Matt' && @user.lastname == 'Li' %>
+					<%= image_tag "https://i.imgur.com/iR1fA6c.png" %>
+				<% elsif @user.firstname == 'Joanne' && @user.lastname == 'Son' %>
+					<%= image_tag "https://i.imgur.com/iR1fA6c.png" %>
 				<% else %>
 					<%= image_tag "astro-pf.png" %>
 				<% end %>
