@@ -66,7 +66,7 @@
             <% if count % 4 == 0 %>
               <tr>
             <% end %>
-            <td><img src="<% 'https://raw.githubusercontent.com/aporhopi/pledge_photos/master/beta_gamma/' + pledge.gsub(/\s+/,"") + '.jpg' %>" width="200"/><br/><% pledge %></td>
+            <td><img src="<% 'https://raw.githubusercontent.com/aporhopi/pledge_photos/master/beta_gamma/' + pledge.gsub(/\s/,%20) + '.jpg' %>" width="200"/><br/><% pledge %></td>
             <% if count % 4 == 3 %>
               </tr>
             <% end %>
