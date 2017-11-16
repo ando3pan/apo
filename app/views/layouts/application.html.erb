@@ -20,7 +20,12 @@
 	<% end %>
 
 	<%= yield %>
-
+	
+	<!-- Added this -->
+	<% if !user_signed_in? %>
+  	<%= render 'layouts/footer' %> 
+	<% end %>
+	
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= yield :javascript %>
 	<script type="text/javascript">
