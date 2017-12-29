@@ -37,7 +37,7 @@
     <% count = 0 %>
     <% arr = [
         ["Rateb Mir", "President", "president@aporhopi.org"],
-        ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
+        ["Bruce Wong", "Sergeant at Arms"],
         ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
         ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
         ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
@@ -53,7 +53,7 @@
         ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
         ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
         ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
-        ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
+        ["Evan Kwong", "Media Chair"],
         ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
         ["John Lieu", "Historian", "historian@aporhopi.org"],
         ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]] %>
@@ -71,7 +71,11 @@
           </div>
           <div class="card-content" style="padding-top: 0">
             <p><%= eboard[1] %></p>
-            <a href=<%= eboard[2] %>><%= eboard[2] %></a>
+            
+            <% if eboard.length == 3 %>
+              <a href=<%= eboard[2] %>><%= eboard[2] %></a>
+            <% end %>
+            
           </div>
         </div>
       </div>
