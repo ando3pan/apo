@@ -18,36 +18,20 @@
     <div class="pledge-photos">
       
     <% count = 0 %>
-    <% hash = {
-        0   => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        1   => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        2   => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        3   => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        4   => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        5   => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        6   => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        7   => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        8   => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        9   => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        10  => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        11  => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        12  => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        13  => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        14  => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        15  => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        16  => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        17  => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],
-        18  => ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        19  => ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"],} %>
     
-    <% while count < hash.length %>
+    <!--Format for this: id => ["pledge_name", "image_link"]-->
+    <% arr = [
+        ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
+        ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"]} %>
+    
+    <% arr.each do |pledge| %>
       <% if count % 4 == 0 %>
         <div class="row">
       <% end %>
     
       <div class="col s3">
-        <img class="responsive-img" src=<%= hash[count].at(1) %>>
-        <h6><%= hash[count].at(0) %></h6>
+        <img class="responsive-img" src=<%= pledge[1] %>>
+        <h6><%= pledge[0] %></h6>
       </div>
     
       <% if count % 4 == 3 %>

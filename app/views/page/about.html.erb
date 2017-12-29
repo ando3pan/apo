@@ -1,5 +1,3 @@
-<!--TODO: Remake it to use Ruby command and modify column length-->
-
 <div class="splash-back stardust">
 <div class="container" style="margin: 0 auto; max-width: 1280px; width: 85%; padding-bottom: 1rem">
   <div class="card-panel center">
@@ -37,30 +35,30 @@
     <h3>Our Executive Board Members</h3>
     
     <% count = 0 %>
-    <% hash = {
-        0   => ["Rateb Mir", "President", "president@aporhopi.org"],
-        1   => ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
-        2   => ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
-        3   => ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
-        4   => ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
-        5   => ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
-        6   => ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
-        7   => ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
-        8   => ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
-        9   => ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
-        10  => ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
-        11  => ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
-        12  => ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
-        13  => ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
-        14  => ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
-        15  => ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
-        16  => ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
-        17  => ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
-        18  => ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
-        19  => ["John Lieu", "Historian", "historian@aporhopi.org"],
-        20  => ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]} %> 
-    
-    <% while count < hash.length %>
+    <% arr = [
+        ["Rateb Mir", "President", "president@aporhopi.org"],
+        ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
+        ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
+        ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
+        ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
+        ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
+        ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
+        ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
+        ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
+        ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
+        ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
+        ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
+        ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
+        ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
+        ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
+        ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
+        ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
+        ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
+        ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
+        ["John Lieu", "Historian", "historian@aporhopi.org"],
+        ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]] %>
+
+    <% arr.each do |eboard| %>
       <% if count % 3 == 0 %>
         <div class="row left-align">
       <% end %>
@@ -69,11 +67,11 @@
         <div class="card">
           <div class="card-image">
             <%= image_tag "palms.png" %> <!--Change to reflect photos-->
-            <span class="card-title white-text"><%= hash[count].at(0) %></span>
+            <span class="card-title white-text"><%= eboard[0] %></span>
           </div>
           <div class="card-content" style="padding-top: 0">
-            <p><%= hash[count].at(1) %></p>
-            <a href=<%= hash[count].at(2) %>><%= hash[count].at(2) %></a>
+            <p><%= eboard[1] %></p>
+            <a href=<%= eboard[2] %>><%= eboard[2] %></a>
           </div>
         </div>
       </div>
