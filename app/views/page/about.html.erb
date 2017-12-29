@@ -37,54 +37,30 @@
     <h3>Our Executive Board Members</h3>
     
     <% count = 0 %>
-    
-    <% arr = [
-        "president",
-        "sata",
-        "servicevp",
-        "servicesec",
-        "membershipvp",
-        "membershipsec",
-        "financevp",
-        "financesec",
-        "fellowshipvp",
-        "icvp",
-        "icsec",
-        "pt",
-        "ptsec",
-        "pg",
-        "pdc",
-        "alumnisec",
-        "publicity",
-        "media",
-        "webmaster",
-        "historian",
-        "adminsec"] %>
-        
     <% hash = {
-        "president"     => ["Rateb Mir", "President", "president@aporhopi.org"],
-        "sata"          => ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
-        "servicevp"     => ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
-        "servicesec"    => ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
-        "membershipvp"  => ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
-        "membershipsec" => ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
-        "financevp"     => ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
-        "financesec"    => ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
-        "fellowshipvp"  => ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
-        "icvp"          => ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
-        "icsec"         => ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
-        "pt"            => ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
-        "ptsec"         => ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
-        "pg"            => ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
-        "pdc"           => ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
-        "alumnisec"     => ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
-        "publicity"     => ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
-        "media"         => ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
-        "webmaster"     => ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
-        "historian"     => ["John Lieu", "Historian", "historian@aporhopi.org"],
-        "adminsec"      => ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]} %> 
+        0   => ["Rateb Mir", "President", "president@aporhopi.org"],
+        1   => ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
+        2   => ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
+        3   => ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
+        4   => ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
+        5   => ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
+        6   => ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
+        7   => ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
+        8   => ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
+        9   => ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
+        10  => ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
+        11  => ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
+        12  => ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
+        13  => ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
+        14  => ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
+        15  => ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
+        16  => ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
+        17  => ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
+        18  => ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
+        19  => ["John Lieu", "Historian", "historian@aporhopi.org"],
+        20  => ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]} %> 
     
-    <% arr.each do |eboard| %>
+    <% while count < hash.length %>
       <% if count % 3 == 0 %>
         <div class="row left-align">
       <% end %>
@@ -93,11 +69,11 @@
         <div class="card">
           <div class="card-image">
             <%= image_tag "palms.png" %> <!--Change to reflect photos-->
-            <span class="card-title white-text"><%= hash[eboard].at(0) %></span>
+            <span class="card-title white-text"><%= hash[count].at(0) %></span>
           </div>
           <div class="card-content" style="padding-top: 0">
-            <p><%= hash[eboard].at(1) %></p>
-            <a href=<%= hash[eboard].at(2) %>><%= hash[eboard].at(2) %></a>
+            <p><%= hash[count].at(1) %></p>
+            <a href=<%= hash[count].at(2) %>><%= hash[count].at(2) %></a>
           </div>
         </div>
       </div>
