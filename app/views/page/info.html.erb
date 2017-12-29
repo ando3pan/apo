@@ -19,10 +19,10 @@
       
     <% count = 0 %>
     
-    <!--Format for this: id => ["pledge_name", "image_link"]-->
+    <!--Format for this: ["pledge_name", "image_link"]-->
     <% arr = [
         ["Alice Ghai", "https://i.imgur.com/TgWPo0Z.jpg"],
-        ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"]} %>
+        ["Alonzo Escalante", "https://i.imgur.com/vHjdjr7.jpg"]] %>
     
     <% arr.each do |pledge| %>
       <% if count % 4 == 0 %>
@@ -34,7 +34,7 @@
         <h6><%= pledge[0] %></h6>
       </div>
     
-      <% if count % 4 == 3 %>
+      <% if count % 4 == 3 || count == arr.length - 1 %>
         </div>
       <% end %>
     
