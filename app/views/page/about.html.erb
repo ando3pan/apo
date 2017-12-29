@@ -35,285 +35,80 @@
   </div>
   <div id="contact" class="card-panel center">
     <h3>Our Executive Board Members</h3>
-    <!--Row 1-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Rateb Mir</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>President</p>
-            <a href="mailto:president@aporhopi.org">president@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Bruce Wong</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Sergeant at Arms</p>
-            <!--<a href="mailto:president@aporhopi.org">president@aporhopi.org</a>-->
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Svein Gonzalez</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>President</p>
-            <a href="mailto:service@aporhopi.org">service@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
     
-    <!--Row 2-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Yvette Laguitan</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Service Secretary</p>
-            <a href="mailto:service@aporhopi.org">service@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Aldrich Quijano</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Membership Vice President</p>
-            <a href="mailto:membership@aporhopi.org">membership@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Sarah Chang</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Membership Secretary</p>
-            <a href="mailto:membership@aporhopi.org">membership@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% count = 0 %>
     
-    <!--Row 3-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Darin Lee</span></span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Finance Vice President</p>
-            <a href="mailto:finance@aporhopi.org">finance@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Sharon Tu</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Finance Secretary</p>
-            <a href="mailto:membership@aporhopi.org">finance@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Sylvia O</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Fellowship Vice President</p>
-            <a href="mailto:fellowship@aporhopi.org">fellowship@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% arr = [
+        "president",
+        "sata",
+        "servicevp",
+        "servicesec",
+        "membershipvp",
+        "membershipsec",
+        "financevp",
+        "financesec",
+        "fellowshipvp",
+        "icvp",
+        "icsec",
+        "pt",
+        "ptsec",
+        "pg",
+        "pdc",
+        "alumnisec",
+        "publicity",
+        "media",
+        "webmaster",
+        "historian",
+        "adminsec"] %>
+        
+    <% hash = {
+        "president"     => ["Rateb Mir", "President", "president@aporhopi.org"],
+        "sata"          => ["Bruce Wong", "Sergeant at Arms", "sata@aporhopi.org"],
+        "servicevp"     => ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
+        "servicesec"    => ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
+        "membershipvp"  => ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
+        "membershipsec" => ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
+        "financevp"     => ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
+        "financesec"    => ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
+        "fellowshipvp"  => ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
+        "icvp"          => ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
+        "icsec"         => ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
+        "pt"            => ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
+        "ptsec"         => ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
+        "pg"            => ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
+        "pdc"           => ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
+        "alumnisec"     => ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
+        "publicity"     => ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
+        "media"         => ["Evan Kwong", "Media Chair", "media@aporhopi.org"],
+        "webmaster"     => ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
+        "historian"     => ["John Lieu", "Historian", "historian@aporhopi.org"],
+        "adminsec"      => ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]} %> 
     
-    <!--Row 4-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Tram Nguyen</span></span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Interchapter Vice President</p>
-            <a href="mailto:interchapter@aporhopi.org">interchapter@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Matthew Ho</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Interchapter Secretary</p>
-            <a href="mailto:interchapter@aporhopi.org">interchapter@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Kenny Seng</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Pledge Trainer</p>
-            <a href="mailto:pta@aporhopi.org">pta@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% arr.each do |eboard| %>
+      <% if count % 3 == 0 %>
+        <div class="row left-align">
+      <% end %>
     
-    <!--Row 5-->
-    <div class="row left-align">
       <div class="col m4 s12">
         <div class="card">
           <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Ashlyn Youn</span></span>
+            <%= image_tag "palms.png" %> <!--Change to reflect photos-->
+            <span class="card-title white-text"><%= hash[eboard].at(0) %></span>
           </div>
           <div class="card-content" style="padding-top: 0">
-            <p>Pledge Trainer Secretary</p>
-            <a href="mailto:pta@aporhopi.org">pta@aporhopi.org</a>
+            <p><%= hash[eboard].at(1) %></p>
+            <a href=<%= hash[eboard].at(2) %>><%= hash[eboard].at(2) %></a>
           </div>
         </div>
       </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Karen Ma</span></span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Pledge Guardian Chair</p>
-            <a href="mailto:pta@aporhopi.org">pta@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Diana Wong</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Professional Development Chair</p>
-            <a href="mailto:interchapter@aporhopi.org">interchapter@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
     
-    <!--Row 6-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Kelsey Guo</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Alumni Secretary</p>
-            <a href="mailto:alumnisec@aporhopi.org">alumnisec@aporhopi.org</a>
-          </div>
+      <% if count % 3 == 2 %>
         </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Chanel Tonnu</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Publicity Chair</p>
-            <a href="mailto:publicity@aporhopi.org">publicity@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Evan Kwong</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Media Chair</p>
-            <!--<a href="mailto:webmaster@aporhopi.org">webmaster@aporhopi.org</a>-->
-          </div>
-        </div>
-      </div>
-    </div>
+      <% end %>
     
-    <!--Row 7-->
-    <div class="row left-align">
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Kevin Lim</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Webmaster</p>
-            <a href="mailto:webmaster@aporhopi.org">webmaster@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">John Lieu</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Historian</p>
-            <a href="mailto:historian@aporhopi.org">historian@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-      <div class="col m4 s12">
-        <div class="card">
-          <div class="card-image">
-            <%= image_tag "palms.png" %>
-            <span class="card-title white-text">Adeline Chiang</span>
-          </div>
-          <div class="card-content" style="padding-top: 0">
-            <p>Administrative Secretary</p>
-            <a href="mailto:admin@aporhopi.org">admin@aporhopi.org</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      <% count = count + 1 %>
+    <% end %>
+    
   </div>
 </div>
 </div>
