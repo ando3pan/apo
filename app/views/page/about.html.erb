@@ -36,27 +36,27 @@
     
     <% count = 0 %>
     <% arr = [
-        ["Rateb Mir", "President", "president@aporhopi.org"],
-        ["Bruce Wong", "Sergeant at Arms"],
-        ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org"],
-        ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org"],
-        ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org"],
-        ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org"],
-        ["Darin Lee", "Finance Vice President", "finance@aporhopi.org"],
-        ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org"],
-        ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org"],
-        ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org"],
-        ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org"],
-        ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org"],
-        ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org"],
-        ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org"],
-        ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org"],
-        ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org"],
-        ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org"],
-        ["Evan Kwong", "Media Chair"],
-        ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org"],
-        ["John Lieu", "Historian", "historian@aporhopi.org"],
-        ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org"]] %>
+        ["Rateb Mir", "President", "president@aporhopi.org", "https://i.imgur.com/e2HpgdM.png"],
+        ["Bruce Wong", "Sergeant at Arms", "", ""],
+        ["Svein Gonzalez", "Service Vice President", "service@aporhopi.org", "https://i.imgur.com/tHJDYqO.png"],
+        ["Yvette Laguitan", "Service Secretary", "service@aporhopi.org", "https://i.imgur.com/64SXvIo.png"],
+        ["Aldrich Quijano", "Membership Vice President", "membership@aporhopi.org", "https://i.imgur.com/nP9ctuz.png"],
+        ["Sarah Chang", "Membership Secretary", "membership@aporhopi.org", "https://i.imgur.com/7DoMrm2.png"],
+        ["Darin Lee", "Finance Vice President", "finance@aporhopi.org", "https://i.imgur.com/AdW58KE.png"],
+        ["Sharon Tu", "Finance Secretary", "finance@aporhopi.org", "https://i.imgur.com/E2LSPPr.png"],
+        ["Sylvia O", "Fellowship Vice President", "fellowship@aporhopi.org", "https://i.imgur.com/mUQk1Uv.png"],
+        ["Tram Nguyen", "Interchapter Vice President", "interchapter@aporhopi.org", "https://i.imgur.com/TNQZ7Lr.png"],
+        ["Matthew Ho", "Interchapter Secretary", "interchapter@aporhopi.org", "https://i.imgur.com/YaM4LAw.png"],
+        ["Kenny Seng", "Pledge Trainer", "pta@aporhopi.org", "https://i.imgur.com/K53huIM.png"],
+        ["Ashlyn Youn", "Pledge Trainer Secretary", "pta@aporhopi.org", ""],
+        ["Karen Ma", "Pledge Guardian Chair", "pta@aporhopi.org", "https://i.imgur.com/eD1e290.png"],
+        ["Diana Wong", "Professional Development Chair", "pdc@aporhopi.org", "https://i.imgur.com/26bp0nt.png"],
+        ["Kelsey Guo", "Alumni Secretary", "alumnisec@aporhopi.org", "https://i.imgur.com/MdSoKVy.png"],
+        ["Chanel Tonnu", "Publicity Chair", "publicity@aporhopi.org", "https://i.imgur.com/fhn61gr.png"],
+        ["Evan Kwong", "Media Chair", "", "https://i.imgur.com/v6tfXsf.png"],
+        ["Kevin Lim", "Webmaster", "webmaster@aporhopi.org", "https://i.imgur.com/qQmQLtX.png"],
+        ["John Lieu", "Historian", "historian@aporhopi.org", "https://i.imgur.com/J7L4NLY.png"],
+        ["Adeline Chiang", "Administrative Secretary", "admin@aporhopi.org", "https://i.imgur.com/CtrwAFq.png"]] %>
 
     <% arr.each do |eboard| %>
       <% if count % 3 == 0 %>
@@ -66,13 +66,19 @@
       <div class="col m4 s12">
         <div class="card">
           <div class="card-image">
-            <%= image_tag "palms.png" %> <!--Change to reflect photos-->
+            
+            <% if eboard[3] == "" %>
+              <%= image_tag "palms.png" %>
+            <% else %>
+              <img class="responsive-img" src=<%= eboard[3] %>>
+            <% end %>
+            
             <span class="card-title white-text"><%= eboard[0] %></span>
           </div>
           <div class="card-content" style="padding-top: 0">
             <p><%= eboard[1] %></p>
             
-            <% if eboard.length == 3 %>
+            <% if eboard[2] != "" %>
               <a href=<%= eboard[2] %>><%= eboard[2] %></a>
             <% end %>
             
