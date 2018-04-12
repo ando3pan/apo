@@ -20,9 +20,7 @@
 	<%= yield %>
 	
 	<!-- Footer -->
-	<% if !user_signed_in? %>
-  	<%= render 'layouts/footer' %> 
-	<% end %>
+	<%= render 'layouts/footer' %>
 	
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= yield :javascript %>

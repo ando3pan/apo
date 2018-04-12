@@ -1,18 +1,20 @@
 <footer class="page-footer white" style="margin-top: 0">
-  <div class="container" style="margin: 0 auto; max-width: 1280px; width: 85%">
-    <div class="row" style="margin-left: -0.75rem; margin-right: -0.75rem">
-      <div class="col l6 s12" style="padding-bottom: 1rem">
-        <h5 class="black-text">About Us</h5>
-        <p class="black-text">Alpha Phi Omega is the nation's largest co-educational community service fraternity.<br>Rho Pi is Alpha Phi Omega's chapter in University of California, San Diego and is the largest professional fraternity on campus.</p>
-        <a class="waves-effect waves-light btn yellow darken-2" href="/about">Learn More</a>
-      </div>
-      <div class="col l4 offset-l2 s12" style="padding-bottom: 1rem">
-        <h5 class="black-text">Rush</h5>
-        <p class="black-text">Interested in joining our chapter?<br>Come join us during the Fall and Winter Quarters!</p>
-        <a class="waves-effect waves-light btn yellow darken-2" href="/rush">Rush APO</a>
+  <% if !user_signed_in? %>
+    <div class="container" style="margin: 0 auto; max-width: 1280px; width: 85%">
+      <div class="row" style="margin-left: -0.75rem; margin-right: -0.75rem">
+        <div class="col l6 s12" style="padding-bottom: 1rem">
+          <h5 class="black-text">About Us</h5>
+          <p class="black-text">Alpha Phi Omega is the nation's largest co-educational community service fraternity.<br>Rho Pi is Alpha Phi Omega's chapter in University of California, San Diego and is the largest professional fraternity on campus.</p>
+          <a class="waves-effect waves-light btn yellow darken-2" href="/about">Learn More</a>
+        </div>
+        <div class="col l4 offset-l2 s12" style="padding-bottom: 1rem">
+          <h5 class="black-text">Rush</h5>
+          <p class="black-text">Interested in joining our chapter?<br>Come join us during the Fall and Winter Quarters!</p>
+          <a class="waves-effect waves-light btn yellow darken-2" href="/rush">Rush APO</a>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <div class="footer-copyright grey lighten-5">
     <div class="container" style="margin: 0 auto; max-width: 1280px; width: 90%">
       <a class="black-text right" href="/about#contact">Contact Us</a>
