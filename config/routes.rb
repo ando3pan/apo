@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   match '/fellcon16',           to: 'page#fellcon16',     via: [:get]
   match '/rush',                to: 'page#rush',          via: [:get]
   
+  # ADD NEW PAGES BELOW
   match '/about',               to: 'page#about',         via: [:get]
   match '/media',               to: 'page#media',         via: [:get]
 
