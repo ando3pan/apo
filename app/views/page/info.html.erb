@@ -16,9 +16,9 @@
 <div class="container">
   <div class="card-panel center">
     <div class="pledge-photos">
-      
+
     <% count = 0 %>
-    
+
     <!--Format for this: ["pledge_name", "image_link"]-->
     <% arr = [
         ['Alan Lui', 'https://i.imgur.com/Ij4Rat6.jpg'],
@@ -29,7 +29,7 @@
         ['Candice Lee', 'https://i.imgur.com/hQCozO7.jpg'],
         ['Daniel Joung', 'https://i.imgur.com/88ntoMX.jpg'],
         ['David Kim', 'https://i.imgur.com/FzCLyPQ.jpg'],
-        ['Dylan Kim', 'https://i.imgur.com/JPqLXP6.jpg'],
+        ['Dylan Dohyun Kim', 'https://i.imgur.com/JPqLXP6.jpg'],
         ['Edmond Choi', 'https://i.imgur.com/acTLZHe.jpg'],
         ['Grace Kouch', 'https://i.imgur.com/8CX29ZL.jpg'],
         ['Grace Zang', 'https://i.imgur.com/DM6IOVf.jpg'],
@@ -42,7 +42,7 @@
         ['Kaylee Lee', 'https://i.imgur.com/J49EcFA.jpg'],
         ['Keith Ho', 'https://i.imgur.com/J2tKR7k.jpg'],
         ['Laura Jian', 'https://i.imgur.com/IJcHY6o.jpg'],
-        ['Melanie Nieman', 'https://i.imgur.com/stPPdaC.jpg'], 
+        ['Melanie Nieman', 'https://i.imgur.com/stPPdaC.jpg'],
         ['Michelle Tran', 'https://i.imgur.com/2bDi0eK.jpg'],
         ['Nathan Tsai', 'https://i.imgur.com/rnAm39T.jpg'],
         ['Serena Pang', 'https://i.imgur.com/AHtX4El.jpg'],
@@ -53,25 +53,25 @@
         ['Valerie Le', 'https://i.imgur.com/GKCjmWN.jpg'],
         ['Vicki Chen', 'https://i.imgur.com/8C8qlEU.jpg'],
         ['Zachary Chang', 'https://i.imgur.com/ccSlNHc.jpg']] %>
-    
+
     <% arr.each do |pledge| %>
       <% if count % 4 == 0 %>
         <div class="row">
       <% end %>
-    
+
       <div class="col s3">
         <img class="responsive-img" src=<%= pledge[1] %>>
         <h6><%= pledge[0] %></h6>
       </div>
-    
+
       <% if count % 4 == 3 || count == arr.length - 1 %>
         </div>
       <% end %>
-    
+
       <% count = count + 1 %>
     <% end %>
-      
+
     </div>
   </div>
-</div>  
+</div>
 </div>
